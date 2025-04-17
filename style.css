@@ -42,11 +42,11 @@ body {
   display: grid;
   grid-template-columns: repeat(2, minmax(50px, 1fr));
   align-items: center;
-  text-align: center;
 }
 
 .body-intro-container {
   grid-column: span 1;
+  text-align: center;
 }
 
 .body-toc-container {
@@ -54,6 +54,7 @@ body {
   display: grid;
   grid-template-rows: repeat(8, minmax(50px, 1fr));
   height: 100%;
+  text-align: center;
 }
 
 .toc-title {
@@ -76,6 +77,7 @@ body {
   background-color: #f1f1f1;
   border: 1px solid #cccccc;
   border-radius: 15px;
+  align-content: center;
 }
 
 /* FOOTER SECTION */
