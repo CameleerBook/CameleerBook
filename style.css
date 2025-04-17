@@ -26,7 +26,7 @@ body {
   display: flex;
   font-size: xx-large;
   font-weight: bold;
-  margin: 10px
+  margin-left: 10px
 }
 
 .header-item-container {
@@ -62,20 +62,26 @@ body {
 }
 
 .toc-body {
-  grid-row: span 6;
+  grid-row: span 7;
   display: grid;
   grid-template-columns: repeat(3, minmax(50px, 1fr));
   grid-template-rows: repeat(3, minmax(50px, 1fr));
-  align-items: center;
+  /*align-items: center;*/
 }
 
 .toc-item {
   grid-row: span 1;
   grid-column: span 1;
+  margin: 15px;
+  background-color: #f1f1f1;
+  border: 1px solid #cccccc;
+  border-radius: 15px;
 }
 
 /* FOOTER SECTION */
 
 .footer-container {
   grid-row: span 1;
+  align-self: center;
+  margin-left: 10px;
 }
