@@ -1,6 +1,4 @@
 import { IconType } from "../../utils/types";
-import "./index.css"
-
 
 function Icon(props: { icon: IconType }) {
   return (

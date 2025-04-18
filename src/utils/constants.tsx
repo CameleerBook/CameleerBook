@@ -1,6 +1,6 @@
 import { Chapter, IntroMessage } from "./types";
 
-export const INTRO_MSG_CONTEXT: IntroMessage = {
+const INTRO_MSG_CONTEXT: IntroMessage = {
   title: "Context",
   text: `Apprendre la vérification avec Cameleer is a textbook for learning 
   Formal Verification of software through the use of automated deductive tools, 
@@ -10,7 +10,7 @@ export const INTRO_MSG_CONTEXT: IntroMessage = {
   and mathematical properties.`
 }
 
-export const INTRO_MSG_MOTIVATION: IntroMessage = {
+const INTRO_MSG_MOTIVATION: IntroMessage = {
   title: "Motivation",
   text: `In various contexts software failure can lead to undesired and serious 
   consequences, for instance endangering human lives. Verifying of software 
@@ -21,7 +21,7 @@ export const INTRO_MSG_MOTIVATION: IntroMessage = {
   tools.`
 }
 
-export const INTRO_MSG_OVERVIEW: IntroMessage = {
+const INTRO_MSG_OVERVIEW: IntroMessage = {
   title: "Overview",
   text: `"Apprendre la vérification avec Cameleer" uses classical algorithms and 
   data structures as a vehicle to teach about Formal Verification. By using 
@@ -31,6 +31,10 @@ export const INTRO_MSG_OVERVIEW: IntroMessage = {
   solvers as our primary tools, as we want to provide the next generation of
   Verification Engineer with both practical and theoretical knowledge.`
 }
+
+export const INTRO_MSG_LIST: IntroMessage[] = [
+  INTRO_MSG_CONTEXT, INTRO_MSG_MOTIVATION, INTRO_MSG_OVERVIEW
+]
 
 const CHAPTER_1: Chapter = {
   name: "I. Installation Procedures",
