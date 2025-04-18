@@ -32,6 +32,13 @@ body {
   grid-column: span 1;
   text-align: center;
   font-size: larger;
+  height: 100%;
+  align-content: center;
+}
+
+.header-item-container:hover {
+  text-decoration: none;
+  background-color: #ed853b;
 }
 
 /* BODY SECTION */
