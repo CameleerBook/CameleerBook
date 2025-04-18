@@ -5,8 +5,7 @@ body {
 
 .outer-container {
   display: grid;
-  height: 100vh;
-  max-height: 100vh;
+  min-height: 100vh;
   grid-template-rows: repeat(16, minmax(50px, 1fr));
 }
 
@@ -40,13 +39,43 @@ body {
 .body-container {
   grid-row: span 13;
   display: grid;
-  grid-template-columns: repeat(2, minmax(50px, 1fr));
+  grid-template-columns: 3fr 2fr;
   align-items: center;
-  text-align: center;
 }
 
 .body-intro-container {
   grid-column: span 1;
+  margin: 50px;
+  display: grid;
+  grid-template-rows: repeat(8, minmax(50px, 1fr));
+  height: 100%;
+}
+
+.body-intro-empty {
+  grid-row: span 1;
+  height: 100%;
+  width: 100%;
+}
+
+.body-intro-item-container {
+  grid-row: span 7;
+  display: grid;
+  grid-template-rows: repeat(3, minmax(50px, 1fr));
+}
+
+.body-intro-item {
+  grid-row: span 1;
+}
+
+.body-intro-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.body-intro-text {
+  font-size: 18px;
+  text-align: justify;
+  text-justify: distribute;
 }
 
 .body-toc-container {
@@ -54,6 +83,7 @@ body {
   display: grid;
   grid-template-rows: repeat(8, minmax(50px, 1fr));
   height: 100%;
+  text-align: center;
 }
 
 .toc-title {
@@ -74,10 +104,18 @@ body {
   grid-row: span 1;
   grid-column: span 1;
   margin: 15px;
-  background-color: #f1f1f1;
-  border: 1px solid #cccccc;
+  /*background-color: #f1f1f1;
+  border: 1px solid #cccccc;*/
+  background:
+    linear-gradient(#f6f6f6, #f6f6f6) padding-box,
+    linear-gradient(to Right, #F18B02, #EC6A0E) border-box;
+  border: 1px solid transparent;
   border-radius: 15px;
   align-content: center;
+}
+
+.toc-item i {
+  font-size: 36px;
 }
 
 .toc-item:hover {
