@@ -1,0 +1,10 @@
+.footerBar-container {
+  height: 100%;
+  grid-row: span 1;
+  align-self: center;
+  border-top: 1px solid #cccccc;
+}
+
+.footerBar-container p {
+  margin-left: 15px;
+}

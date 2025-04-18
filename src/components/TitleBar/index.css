@@ -1,0 +1,30 @@
+.titleBar-container {
+  grid-row: 1 / 3;
+  background-image: linear-gradient(to Right, #F18B02, #EC6A0E);
+  display: grid;
+  grid-template-columns: repeat(8, minmax(50px, 1fr));
+  color: white;
+  align-items: center;
+  height: 100%;
+}
+
+.titleBar-title {
+  grid-column: 1 / 7;
+  display: flex;
+  font-size: xx-large;
+  font-weight: bold;
+  margin-left: 15px
+}
+
+.titleBar-item-container {
+  grid-column: span 1;
+  text-align: center;
+  font-size: larger;
+  height: 100%;
+  align-content: center;
+}
+
+.titleBar-item-container:hover {
+  text-decoration: none;
+  background-color: #ed853b;
+}
