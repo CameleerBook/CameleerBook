@@ -81,6 +81,7 @@ body {
   grid-row: span 1;
   font-weight: bold;
   border-bottom: 1px solid #cccccc;
+  box-sizing: border-box;
   align-content: center;
   height: 100%;
 }
@@ -91,9 +92,23 @@ body {
 
 .toc-item {
   grid-row: span 1;
-  margin-left: 15px;
   align-content: center;
+  background-color: #f6f6f6;
 }
+
+.toc-item p {
+  margin-left: 15px;
+}
+
+.toc-item:hover {
+  background-color: #cccccc;
+}
+
+.examples-card:active {
+  text-decoration: none;
+  color: black;
+}
+
 
 /* EXAMPLES SECTION */
 
