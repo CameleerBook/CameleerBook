@@ -18,6 +18,7 @@ body {
   grid-template-columns: repeat(8, minmax(50px, 1fr));
   color: white;
   align-items: center;
+  height: 100%;
 }
 
 .title-container {
@@ -25,7 +26,7 @@ body {
   display: flex;
   font-size: xx-large;
   font-weight: bold;
-  margin-left: 10px
+  margin-left: 15px
 }
 
 .header-item-container {
@@ -62,108 +63,107 @@ body {
 .body-container {
   grid-row: span 13;
   display: grid;
-  grid-template-rows: repeat(8, minmax(50px, 1fr));
+  grid-template-columns: 1.5fr 8.5fr;
   height: 100%;
 }
 
-.body-title-container {
-  grid-row: span 1;
-  height: 100%;
-  align-items: center;
-}
+/* TOC SECTION */
 
-.body-title-container p {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.body-examples-container {
-  grid-row: span 6;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 2fr 8fr;
-}
-
-.body-toc {
+.toc-container {
   grid-column: span 1;
   display: grid;
   grid-template-rows: repeat(10, minmax(50px, 1fr));
-}
-
-.body-toc-title {
-  grid-row: span 1;
-}
-
-.body-toc-item {
-  grid-row: span 1;
-}
-
-.body-examples {
-  grid-column: span 1;
-  background-color: chocolate;
-}
-
-.body-links-container {
-  grid-row: span 1;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(10, minmax(50px, 1fr));
-}
-
-.body-links-item {
-  grid-column: span 2;
-  text-align: center;
+  border-right: 1px solid #cccccc;
   align-content: center;
+}
+
+.toc-title {
+  grid-row: span 1;
+  font-weight: bold;
+  border-bottom: 1px solid #cccccc;
+  align-content: center;
+  height: 100%;
+}
+
+.toc-title p {
+  margin-left: 15px;
+}
+
+.toc-item {
+  grid-row: span 1;
+  margin-left: 15px;
+  align-content: center;
+}
+
+/* EXAMPLES SECTION */
+
+.examples-container {
+  grid-column: span 1;
+  display: grid;
+  grid-template-rows: repeat(10, minmax(50px, 1fr));
+  align-items: center;
+}
+
+.examples-title {
+  grid-row: span 1;
+  align-content: center;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  height: 100%;
+}
+
+.examples-body {
+  grid-row: span 9;
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(5, minmax(50px, 1fr));
+  grid-template-rows: repeat(5, minmax(50px, 1fr));
+}
+
+.examples-card {
+  grid-column: span 1;
+  grid-row: span 1;
   margin: 15px;
   background:
     linear-gradient(#f6f6f6, #f6f6f6) padding-box,
     linear-gradient(to Right, #F18B02, #EC6A0E) border-box;
   border: 1px solid transparent;
   border-radius: 15px;
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
-}
-
-.body-links-arrow {
-  grid-column: span 1;
   align-content: center;
+  text-align: center;
 }
 
-.body-links-text {
-  grid-column: span 2;
-}
-
-.body-links-item:link {
+.examples-card:link {
   text-decoration: none;
   color: black;
 }
 
-.body-links-item:visited {
+.examples-card:visited {
   text-decoration: none;
   color: black;
 }
 
-.body-links-item:hover {
+.examples-card:hover {
   box-shadow: 0px 5px 15px 2px #cccccc;
   text-decoration: none;
   color: black;
 }
 
-.body-links-item:active {
+.examples-card:active {
   text-decoration: none;
   color: black;
-}
-
-.body-links-empty {
-  grid-column: span 6;
-  height: 100%;
 }
 
 /* FOOTER SECTION */
 
 .footer-container {
+  height: 100%;
   grid-row: span 1;
   align-self: center;
-  margin-left: 10px;
+  border-top: 1px solid #cccccc;
+}
+
+.footer-container p {
+  margin-left: 15px;
 }
