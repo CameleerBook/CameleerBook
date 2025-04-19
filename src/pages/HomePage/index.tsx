@@ -6,13 +6,12 @@ import "./index.css"
 
 function HomeBody() {
   return (
-    <div className="body-intro-item-container">
-      <div className="body-intro-item">
+    <div className="homePage-container">
+      <div className="homePage-intro">
+        <div className="homePage-intro-empty" />
         <Introduction msglist={INTRO_MSG_LIST} />
       </div>
-      <div className="body-intro-item">
-        <GraphicalTableOfContents />
-      </div>
+      <GraphicalTableOfContents />
     </div>
   )
 }
