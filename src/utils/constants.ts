@@ -1,4 +1,4 @@
-import { Chapter, IntroMessage, Proof } from "./types";
+import { Chapter, IntroMessage } from "./types";
 
 const INTRO_MSG_CONTEXT: IntroMessage = {
   title: "Context",

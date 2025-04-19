@@ -82,7 +82,36 @@
     "icon": {
       "name": "sort"
     },
-    "proofs": []
+    "proofs": [
+      {
+        "name": "Insertion Sort (Functional)",
+        "link": ""
+      },
+      {
+        "name": "Insertion Sort (Tail Recursive)",
+        "link": ""
+      },
+      {
+        "name": "Merge Sort (Functional)",
+        "link": ""
+      },
+      {
+        "name": "Quick Sort (Functional)",
+        "link": ""
+      },
+      {
+        "name": "Quick Sort (Tail Recursive)",
+        "link": ""
+      },
+      {
+        "name": "Selection Sort (Functional)",
+        "link": ""
+      },
+      {
+        "name": "Selection Sort (Tail Recursive)",
+        "link": ""
+      }
+    ]
   },
   {
     "name": "VI. Searching Algorithms",
@@ -90,7 +119,20 @@
     "icon": {
       "name": "search"
     },
-    "proofs": []
+    "proofs": [
+      {
+        "name": "Linear Search",
+        "link": ""
+      },
+      {
+        "name": "Binary Search",
+        "link": ""
+      },
+      {
+        "name": "Ternary Search",
+        "link": ""
+      }
+    ]
   },
   {
     "name": "VII. Data Structures",
