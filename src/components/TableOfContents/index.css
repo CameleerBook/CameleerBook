@@ -1,0 +1,20 @@
+.toc-container {
+  grid-column: span 1;
+  display: grid;
+  grid-template-rows: repeat(10, minmax(50px, 1fr));
+  border-right: 1px solid #cccccc;
+  align-content: center;
+}
+
+.toc-title {
+  grid-row: span 1;
+  font-weight: bold;
+  border-bottom: 1px solid #cccccc;
+  box-sizing: border-box;
+  align-content: center;
+  height: 100%;
+}
+
+.toc-title p {
+  margin-left: 15px;
+}

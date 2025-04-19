@@ -1,9 +1,19 @@
 import PageLayout from "../../components/PageLayout";
+import TableOfContents from "../../components/TableOfContents";
+
+function ChapterBody() {
+  return (
+    <div className="chapterBody-container">
+      <TableOfContents />
+      <></>
+    </div>
+  )
+}
 
 function ChapterPage() {
   return (
     <>
-      <PageLayout body={<p>Hello world</p>} />
+      <PageLayout body={<ChapterBody />} />
     </>
   );
 }
