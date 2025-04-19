@@ -16,11 +16,6 @@ function ChapterBody() {
   )
 }
 
-/*
-      <TableOfContents />
-      <ChapterListing chapter={state.chapter} />
-*/
-
 function ChapterPage() {
   return (
     <>
