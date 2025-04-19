@@ -8,9 +8,15 @@
   height: 100%;
 }
 
-.titleBar-title {
+.titleBar-title-container {
   grid-column: 1 / 7;
-  display: flex;
+}
+
+.titleBar-smallTitle-container {
+  grid-column: 1 / 6;
+}
+
+.titleBar-title {
   font-size: xx-large;
   font-weight: bold;
   margin-left: 15px
