@@ -12,7 +12,7 @@ function TitleBar() {
   }
 
   const title = "Apprendre la vérification avec Cameleer"
-  const titleStyle = pathname == "/" ? "titleBar-title-container" :
+  const titleStyle = pathname === "/" ? "titleBar-title-container" :
     "titleBar-smallTitle-container"
 
   return (
@@ -21,7 +21,7 @@ function TitleBar() {
         <p className="titleBar-title">{title}</p>
       </div>
       <>{
-        pathname == "/" ?
+        pathname === "/" ?
           <></> :
           <div className="titleBar-item-container" onClick={navigateHome}>Home</div>
       }</>

@@ -1,19 +1,19 @@
 export interface IconType {
-  name: String
+  name: string
 }
 
 export interface IntroMessage {
-  title: String;
-  text: String;
+  title: string;
+  text: string;
 }
 
 export interface Proof {
-  name: String;
-  link: String;
+  name: string;
+  link: string;
 }
 
 export interface Chapter {
-  name: String;
+  name: string;
   number: number;
   icon: IconType;
   proofs: Proof[]

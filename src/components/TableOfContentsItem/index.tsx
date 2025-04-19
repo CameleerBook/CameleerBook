@@ -12,7 +12,7 @@ function TableOfContentsItem(props: { chapter: Chapter }) {
   function getStyle(pathname: string, n: number) {
     const aux = pathname.split("/")
     const prefix = "toc-item"
-    if (aux[aux.length - 1] == n.toString()) {
+    if (aux[aux.length - 1] === n.toString()) {
       return prefix + " toc-selected"
     }
 

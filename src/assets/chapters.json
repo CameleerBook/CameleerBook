@@ -85,7 +85,7 @@
     "proofs": [
       {
         "name": "Insertion Sort (Functional)",
-        "link": ""
+        "link": "insertion_sort.html"
       },
       {
         "name": "Insertion Sort (Tail Recursive)",
