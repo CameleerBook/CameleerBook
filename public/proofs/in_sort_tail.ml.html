@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Sorting/InsertionSort/in_sort_tail.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> occ (v: <span class="logical">int</span>) (l: <span class="logical">int</span> <span class="logical">list</span>) : <span class="logical">int</span> =
+	<span class="logical">match</span> l <span class="logical">with</span>
+	| [] -> 0
+	| x::ls -> (<span class="logical">if</span> x = v <span class="logical">then</span> 1 <span class="logical">else</span> 0) + (occ v ls) *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> occ_nonneg: <span class="logical">forall</span> x l.
+	occ x l >= 0 *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> occ_mem: <span class="logical">forall</span> x l.
+	occ x l > 0 &lt;-> <span class="logical">List</span>.mem x l *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> occ_append: <span class="logical">forall</span> x l1 l2.
+      occ x (l1 @ l2) = occ x l1 + occ x l2 *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> permut (l1 l2: <span class="logical">int</span> <span class="logical">list</span>) =
+	<span class="logical">forall</span> x. occ x l1 = occ x l2 *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> permut_len:
+	<span class="logical">forall</span> l1, l2: <span class="logical">int</span> <span class="logical">list</span>.
+	permut l1 l2 -> (<span class="logical">List</span>.length l1 = <span class="logical">List</span>.length l2) *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> <span class="logical">rec</span> sorted (l: <span class="logical">int</span> <span class="logical">list</span>) =
+	<span class="logical">match</span> l <span class="logical">with</span>
+	| [] -> <span class="logical">true</span>
+	| _::[] -> <span class="logical">true</span>
+	| x::(y::ls) -> x &lt;= y &amp;&amp; sorted (y::ls) *)</span>
+<span class="contract">(*@ <span class="logical">variant</span> l *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> sorted_append :
+	<span class="logical">forall</span> l1, l2: <span class="logical">int</span> <span class="logical">list</span>.
+	(sorted l1 /\ sorted l2 /\
+	(<span class="logical">forall</span> x y. <span class="logical">List</span>.mem x l1 -> <span class="logical">List</span>.mem y l2 -> x &lt;= y)) &lt;->
+	sorted (l1 @ l2) *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> sorted_cons :
+	<span class="logical">forall</span> x:<span class="logical">int</span>, l: <span class="logical">int</span> <span class="logical">list</span>.
+	(sorted l /\
+	(<span class="logical">forall</span> e. <span class="logical">List</span>.mem e l -> x &lt;= e)) &lt;->
+	sorted (x::l) *)</span>
+
+<span class="keyword">let</span> <span class="keyword">rec</span> insert x acc l =
+	<span class="keyword">match</span> l <span class="keyword">with</span>
+	| [] -> acc @ [x]
+	| y::ls -> 
+		<span class="keyword">if</span> x &lt;= y <span class="keyword">then</span> acc @ x::l
+		<span class="keyword">else</span> insert x (acc @ [y]) ls
+<span class="contract">(*@ r = insert x acc l
+	<span class="logical">requires</span> sorted acc
+	<span class="logical">requires</span> <span class="logical">forall</span> k. <span class="logical">List</span>.mem k acc -> k &lt;= x
+	<span class="logical">requires</span> <span class="logical">forall</span> k y. <span class="logical">List</span>.mem k acc -> <span class="logical">List</span>.mem y l -> k &lt;= y
+	<span class="logical">requires</span> sorted l
+	<span class="logical">ensures</span> sorted r
+	<span class="logical">ensures</span> permut r (acc ++ (x::l))
+	<span class="logical">variant</span> l *)</span>
+
+<span class="keyword">let</span> <span class="keyword">rec</span> insertion_sort l acc =
+	<span class="keyword">match</span> l <span class="keyword">with</span>
+	| [] -> acc 
+	| x::ls -> insertion_sort ls (insert x [] acc)
+<span class="contract">(*@ r = insertion_sort l acc
+	<span class="logical">requires</span> sorted acc
+	<span class="logical">ensures</span> sorted r
+	<span class="logical">ensures</span> permut r (l @ acc)
+	<span class="logical">variant</span> l *)</span>
+
+</pre>
+</body></html>

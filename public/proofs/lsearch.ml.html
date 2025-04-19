@@ -1,0 +1,21 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Searching/LinearSearch/lsearch.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<span class="keyword">let</span> linear_search a v =
+	<span class="keyword">let</span> i = ref 0 <span class="keyword">in</span>
+	<span class="keyword">let</span> res = ref (-1) <span class="keyword">in</span>
+  	<span class="keyword">while</span> !res &lt; 0 &amp;&amp; !i &lt; <span class="keyword">Array</span>.length a <span class="keyword">do</span>
+    	<span class="contract">(*@ <span class="logical">invariant</span> !i >= 0
+			<span class="logical">invariant</span> -1 &lt;= !res &lt; <span class="logical">Array</span>.length a
+			<span class="logical">invariant</span> !res >= 0 -> a.(!res) = v
+			<span class="logical">invariant</span> !res = -1 -> <span class="logical">forall</span> k. 0 &lt;= k &lt; !i -> a.(k) &lt;> v
+			<span class="logical">variant</span> (<span class="logical">Array</span>.length a) - !i*)</span>
+    	<span class="keyword">let</span> t = a.(!i) <span class="keyword">in</span>
+    	<span class="keyword">if</span> t = v <span class="keyword">then</span> res := !i;
+    	i := !i + 1
+  	<span class="keyword">done</span>;
+  	!res
+<span class="contract">(*@	r = linear_search a v 
+	<span class="logical">ensures</span>  -1 &lt;= r &lt; <span class="logical">Array</span>.length a
+    <span class="logical">ensures</span>  r >= 0 -> a.(r) = v
+    <span class="logical">ensures</span>  r = -1 -> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v*)</span>
+</pre>
+</body></html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematic/EuclideanDivision/eudiv.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<span class="keyword">let</span> euclidean_div x y =
+	<span class="keyword">let</span> r = ref x <span class="keyword">in</span>
+	<span class="keyword">let</span> q = ref 0 <span class="keyword">in</span>
+	<span class="keyword">while</span> !r >= y <span class="keyword">do</span>
+	<span class="contract">(*@	<span class="logical">invariant</span> x = y * !q + !r
+	  	<span class="logical">invariant</span> 0 &lt;= !r
+	  	<span class="logical">variant</span> !r - y *)</span>
+		r := !r - y;
+		q := !q + 1;
+	<span class="keyword">done</span>;
+	(!q, !r)
+<span class="contract">(*@	(q, r) = euclidean_div x y
+	<span class="logical">requires</span> x >= 0
+	<span class="logical">requires</span> y > 0
+  	<span class="logical">ensures</span> x = y * q + r
+  	<span class="logical">ensures</span> 0 &lt;= r &lt; y *)</span>
+</pre>
+</body></html>

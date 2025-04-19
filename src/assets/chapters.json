@@ -32,47 +32,47 @@
     "proofs": [
       {
         "name": "McCarthy's 91 function",
-        "link": ""
+        "link": "mccarthy"
       },
       {
         "name": "Bézout Coefficients (Functional)",
-        "link": ""
+        "link": "bezout"
       },
       {
         "name": "Bézout Coefficients (Imperative)",
-        "link": ""
+        "link": "ext_gcd"
       },
       {
         "name": "Fast Exponentiation (Functional)",
-        "link": ""
+        "link": "func_fastexp"
       },
       {
         "name": "Fast Exponentiation (Imperative)",
-        "link": ""
+        "link": "fastexp"
       },
       {
         "name": "Fermat's Little Theorem",
-        "link": ""
+        "link": "fermat"
       },
       {
         "name": "Euclidean Division (Functional)",
-        "link": ""
+        "link": "eudiv_fun"
       },
       {
         "name": "Euclidean Division (Imperativa)",
-        "link": ""
+        "link": "eudiv"
       },
       {
         "name": "Modular Division",
-        "link": ""
+        "link": "modArith"
       },
       {
         "name": "Tribonacci",
-        "link": ""
+        "link": "tribonacci"
       },
       {
         "name": "Sieve of Erastosthenes",
-        "link": ""
+        "link": "sieve"
       }
     ]
   },
@@ -85,31 +85,31 @@
     "proofs": [
       {
         "name": "Insertion Sort (Functional)",
-        "link": "insertion_sort.html"
+        "link": "in_sort_poly"
       },
       {
         "name": "Insertion Sort (Tail Recursive)",
-        "link": ""
+        "link": "in_sort_tail"
       },
       {
         "name": "Merge Sort (Functional)",
-        "link": ""
+        "link": "merge_sort_poly"
       },
       {
         "name": "Quick Sort (Functional)",
-        "link": ""
+        "link": "quick_sort_poly"
       },
       {
         "name": "Quick Sort (Tail Recursive)",
-        "link": ""
+        "link": "quick_sort_tail"
       },
       {
         "name": "Selection Sort (Functional)",
-        "link": ""
+        "link": "sel_sort_poly"
       },
       {
         "name": "Selection Sort (Tail Recursive)",
-        "link": ""
+        "link": "sel_sort_tail"
       }
     ]
   },
@@ -121,16 +121,24 @@
     },
     "proofs": [
       {
-        "name": "Linear Search",
-        "link": ""
+        "name": "Linear Search (While)",
+        "link": "lsearch"
+      },
+      {
+        "name": "Linear Search (For)",
+        "link": "lsearch_for"
       },
       {
         "name": "Binary Search",
-        "link": ""
+        "link": "bsearch"
+      },
+      {
+        "name": "Binary Search (Exceptions)",
+        "link": "bsearch_excp"
       },
       {
         "name": "Ternary Search",
-        "link": ""
+        "link": "ternary_search"
       }
     ]
   },

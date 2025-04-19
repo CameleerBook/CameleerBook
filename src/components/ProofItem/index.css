@@ -2,9 +2,8 @@
   grid-column: span 1;
   grid-row: span 1;
   margin: 15px;
-  /*#f6f6f6, #f6f6f6*/
   background:
-    linear-gradient(#ff0000, #00ff00) padding-box,
+    linear-gradient(#f6f6f6, #f6f6f6) padding-box,
     linear-gradient(to Right, #F18B02, #EC6A0E) border-box;
   border: 1px solid transparent;
   border-radius: 15px;

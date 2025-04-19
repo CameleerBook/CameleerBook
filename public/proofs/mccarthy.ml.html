@@ -1,0 +1,10 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematic/McCarthy91/mccarthy.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<span class="keyword">let</span> <span class="keyword">rec</span> f91 n = 
+<span class="keyword">if</span> n &lt;= 100 <span class="keyword">then</span> f91(f91 (n + 11))
+<span class="keyword">else</span> n - 10
+<span class="contract">(*@ r = f91 n
+	<span class="logical">variant</span> 100 - n
+	<span class="logical">ensures</span> n &lt;= 100 -> r = 91
+	<span class="logical">ensures</span> n > 100 -> r = n - 10*)</span>
+</pre>
+</body></html>

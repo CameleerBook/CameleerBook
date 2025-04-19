@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematic/EuclideanDivision/eudiv_fun.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<span class="keyword">let</span> <span class="keyword">rec</span> eudiv_aux (x: <span class="keyword">int</span>) y q r =
+  <span class="keyword">if</span> r &lt; y <span class="keyword">then</span>
+    (q, r)
+  <span class="keyword">else</span>
+    eudiv_aux x y (q+1) (r-y)
+<span class="contract">(*@	(qf, rf) = eudiv_aux x y qi ri
+    <span class="logical">requires</span> y > 0
+    <span class="logical">requires</span> ri >= 0
+    <span class="logical">requires</span> x = y * qi + ri
+    <span class="logical">ensures</span> rf >= 0 
+    <span class="logical">ensures</span> x = y * qf + rf
+    <span class="logical">ensures</span> rf &lt; y
+    <span class="logical">variant</span> ri - y *)</span>
+
+<span class="keyword">let</span> eudiv x y =
+  eudiv_aux x y 0 x
+<span class="contract">(*@ (q, r) = eudiv x y
+    <span class="logical">requires</span> x >= 0
+    <span class="logical">requires</span> y > 0
+    <span class="logical">ensures</span> x = y * q + r
+    <span class="logical">ensures</span> 0 &lt;= r &lt; y *)</span></pre>
+</body></html>
