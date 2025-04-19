@@ -1,7 +1,14 @@
 .toc-item {
   grid-row: span 1;
   align-content: center;
+}
+
+.toc-notselected {
   background-color: #f6f6f6;
+}
+
+.toc-selected {
+  background-color: #dddddd;
 }
 
 .toc-item p {
