@@ -1,0 +1,119 @@
+[
+  {
+    "name": "I. Installation Procedures",
+    "number": 1,
+    "icon": {
+      "name": "download"
+    },
+    "proofs": []
+  },
+  {
+    "name": "II. Programming with OCaml",
+    "number": 2,
+    "icon": {
+      "name": "terminal"
+    },
+    "proofs": []
+  },
+  {
+    "name": "III. Introduction to Cameleer",
+    "number": 3,
+    "icon": {
+      "name": "verified_user"
+    },
+    "proofs": []
+  },
+  {
+    "name": "IV. Mathematical Problems",
+    "number": 4,
+    "icon": {
+      "name": "functions"
+    },
+    "proofs": [
+      {
+        "name": "McCarthy's 91 function",
+        "link": ""
+      },
+      {
+        "name": "Bézout Coefficients (Functional)",
+        "link": ""
+      },
+      {
+        "name": "Bézout Coefficients (Imperative)",
+        "link": ""
+      },
+      {
+        "name": "Fast Exponentiation (Functional)",
+        "link": ""
+      },
+      {
+        "name": "Fast Exponentiation (Imperative)",
+        "link": ""
+      },
+      {
+        "name": "Fermat's Little Theorem",
+        "link": ""
+      },
+      {
+        "name": "Euclidean Division (Functional)",
+        "link": ""
+      },
+      {
+        "name": "Euclidean Division (Imperativa)",
+        "link": ""
+      },
+      {
+        "name": "Modular Division",
+        "link": ""
+      },
+      {
+        "name": "Tribonacci",
+        "link": ""
+      },
+      {
+        "name": "Sieve of Erastosthenes",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "V. Sorting Algorithms",
+    "number": 5,
+    "icon": {
+      "name": "sort"
+    },
+    "proofs": []
+  },
+  {
+    "name": "VI. Searching Algorithms",
+    "number": 6,
+    "icon": {
+      "name": "search"
+    },
+    "proofs": []
+  },
+  {
+    "name": "VII. Data Structures",
+    "number": 7,
+    "icon": {
+      "name": "data_array"
+    },
+    "proofs": []
+  },
+  {
+    "name": "VIII. Graph Algorithms",
+    "number": 8,
+    "icon": {
+      "name": "hub"
+    },
+    "proofs": []
+  },
+  {
+    "name": "IX. Selected Topics",
+    "number": 9,
+    "icon": {
+      "name": "extension"
+    },
+    "proofs": []
+  }
+]

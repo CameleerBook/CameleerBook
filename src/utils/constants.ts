@@ -1,4 +1,4 @@
-import { Chapter, IntroMessage } from "./types";
+import { Chapter, IntroMessage, Proof } from "./types";
 
 const INTRO_MSG_CONTEXT: IntroMessage = {
   title: "Context",
@@ -36,63 +36,4 @@ export const INTRO_MSG_LIST: IntroMessage[] = [
   INTRO_MSG_CONTEXT, INTRO_MSG_MOTIVATION, INTRO_MSG_OVERVIEW
 ]
 
-const CHAPTER_1: Chapter = {
-  name: "I. Installation Procedures",
-  number: 1,
-  icon: { name: "download" },
-  proofs: []
-}
-const CHAPTER_2: Chapter = {
-  name: "II. Programming with OCaml",
-  number: 2,
-  icon: { name: "terminal" },
-  proofs: []
-}
-const CHAPTER_3: Chapter = {
-  name: "III. Introduction to Cameleer",
-  number: 3,
-  icon: { name: "verified_user" },
-  proofs: []
-}
-const CHAPTER_4: Chapter = {
-  name: "IV. Mathematical Problems",
-  number: 4,
-  icon: { name: "functions" },
-  proofs: []
-}
-const CHAPTER_5: Chapter = {
-  name: "V. Sorting Algorithms",
-  number: 5,
-  icon: { name: "sort" },
-  proofs: []
-}
-const CHAPTER_6: Chapter = {
-  name: "VI. Searching Algorithms",
-  number: 6,
-  icon: { name: "search" },
-  proofs: []
-}
-const CHAPTER_7: Chapter = {
-  name: "VII. Data Structures",
-  number: 7,
-  icon: { name: "data_array" },
-  proofs: []
-}
-const CHAPTER_8: Chapter = {
-  name: "VIII. Graph Algorithms",
-  number: 8,
-  icon: { name: "hub" },
-  proofs: []
-}
-const CHAPTER_9: Chapter = {
-  name: "IX. Selected Topics",
-  number: 9,
-  icon: { name: "extension" },
-  proofs: []
-}
-
-export const CHAPTERS: Chapter[] = [
-  CHAPTER_1, CHAPTER_2, CHAPTER_3,
-  CHAPTER_4, CHAPTER_5, CHAPTER_6,
-  CHAPTER_7, CHAPTER_8, CHAPTER_9,
-]
+export const CHAPTERS: Chapter[] = require('../assets/chapters.json');
