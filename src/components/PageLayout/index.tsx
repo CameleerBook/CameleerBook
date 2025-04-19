@@ -7,10 +7,11 @@ function PageLayout(props: { body: ReactNode }) {
   return (
     <div className="outer-container">
       <TitleBar />
-      <>{props.body}</>
-      <FooterBar />
     </div>
   );
 }
+
+/*       <>{props.body}</>
+      <FooterBar /> */
 
 export default PageLayout;
