@@ -9,5 +9,6 @@ export interface IntroMessage {
 
 export interface Chapter {
   name: String;
+  number: number;
   icon: IconType
 }

@@ -1,8 +1,13 @@
+import { Route, Routes } from 'react-router';
 import HomePage from './pages/HomePage';
+import ChapterPage from './pages/ChapterPage';
 
 function App() {
   return (
-    <HomePage />
+    <Routes>
+      <Route path='/' element={<HomePage />} />
+      <Route path='/chapter/:id' element={<ChapterPage />} />
+    </Routes>
   );
 }
 
