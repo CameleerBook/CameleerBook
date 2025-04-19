@@ -1,4 +1,5 @@
 import { Chapter } from "../../utils/types";
+import "./index.css"
 
 function TableOfContentsItem(props: { chapter: Chapter }) {
   return (

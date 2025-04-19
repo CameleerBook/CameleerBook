@@ -3,5 +3,4 @@
   display: grid;
   grid-template-columns: 1.5fr 8.5fr;
   height: 100%;
-  align-items: center;
 }

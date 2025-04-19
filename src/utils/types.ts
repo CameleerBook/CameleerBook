@@ -7,8 +7,14 @@ export interface IntroMessage {
   text: String;
 }
 
+export interface Proof {
+  name: String;
+  link: String;
+}
+
 export interface Chapter {
   name: String;
   number: number;
-  icon: IconType
+  icon: IconType;
+  proofs: Proof[]
 }
