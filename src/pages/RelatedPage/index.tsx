@@ -1,21 +1,14 @@
 import BookItem from "../../components/BookItem";
 import PageLayout from "../../components/PageLayout";
+import { BOOKS } from "../../utils/constants";
 import "./index.css"
 
 function RelatedBody() {
   return (
     <div className="relatedPage-container">
-      <BookItem />
-      <BookItem />
-      <BookItem />
-
-      <BookItem />
-      <BookItem />
-      <BookItem />
-
-      <BookItem />
-      <BookItem />
-      <BookItem />
+      <>{
+        BOOKS.map(e => <BookItem />)
+      }</>
     </div>
   )
 }
