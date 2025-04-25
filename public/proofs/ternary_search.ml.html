@@ -1,4 +1,7 @@
-<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Searching/TernarySearch/ternary_search.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Searching/TernarySearch/ternary_search.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<span class="comment">(* Implementation adapted from https://www.geeksforgeeks.org/ternary-search/ *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
 <span class="contract">(*@ <span class="logical">predicate</span> sorted (a: <span class="logical">int</span> <span class="logical">array</span>) =
   		<span class="logical">forall</span> i j:<span class="logical">int</span>. 0 &lt;= i &lt;= j &lt; <span class="logical">Array</span>.length a -> a.(i) &lt;= a.(j)*)</span>
 
@@ -28,4 +31,7 @@
   	<span class="logical">ensures</span> r >= 0 -> a.(r) = v
   	<span class="logical">ensures</span> r = -1 -> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v *)</span>
 </pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
 </body></html>

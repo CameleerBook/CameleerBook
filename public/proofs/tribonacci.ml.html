@@ -1,4 +1,7 @@
-<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematic/Fibonacci/tribonacci.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematics/Fibonacci/tribonacci.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<span class="comment">(* Implementation from Learn Programming with OCaml *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
 <span class="keyword">let</span>[@ghost][@logic] <span class="keyword">rec</span> trib n =
   <span class="keyword">if</span> n = 0 <span class="keyword">then</span> 0
   <span class="keyword">else</span> <span class="keyword">if</span> n &lt;= 2 <span class="keyword">then</span> 1
@@ -24,4 +27,7 @@
 <span class="contract">(*@ res = tribonacci n
     <span class="logical">requires</span> n >= 0
     <span class="logical">ensures</span> res = trib n *)</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
 </body></html>

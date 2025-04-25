@@ -1,4 +1,7 @@
-<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematic/FastExponentiation/fastexp.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematics/FastExponentiation/fastexp.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<span class="comment">(* Implementation adapted from MPRI Course 2-36-1: Proof of Program *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
 <span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> power (x n: <span class="logical">int</span>) : <span class="logical">int</span> =
 	<span class="logical">if</span> n > 0 <span class="logical">then</span> x * power x (n-1)
 	<span class="logical">else</span> 1 *)</span>	
@@ -38,4 +41,7 @@
 	<span class="logical">requires</span> n >= 0
     <span class="logical">ensures</span> r = power x n *)</span>
 </pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
 </body></html>

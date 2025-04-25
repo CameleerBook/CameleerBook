@@ -1,103 +1,81 @@
-<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematic/ModularArithmetic/modArith.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematics/ModularArithmetic/modArith.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
 <span class="comment">(* Implementation adapted from Learn Programming with OCaml *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
 
 <span class="keyword">module</span> ModularArithmetic (M: <span class="keyword">sig</span> <span class="keyword">val</span> m:<span class="keyword">int</span> <span class="keyword">end</span>) = <span class="keyword">struct</span>
 
 	<span class="contract">(*@ <span class="logical">lemma</span> modular_overflow: <span class="logical">forall</span> a b m.
-			0 &lt;= a &lt; m &amp;&amp; 0 &lt;= b &lt; m -> 
-			m &lt;= a+b &lt; 2*m -> 
-			0 &lt;= a+b-m &lt; m -> 
-			<span class="logical">mod</span> (a+b) m = a+b-m *)</span>
+		0 &lt;= a &lt; m &amp;&amp; 0 &lt;= b &lt; m -> 
+		m &lt;= a+b &lt; 2*m -> 
+		0 &lt;= a+b-m &lt; m -> 
+		<span class="logical">mod</span> (a+b) m = a+b-m *)</span>
 
 	<span class="contract">(*@ <span class="logical">lemma</span> modular_underflow: <span class="logical">forall</span> a b m.
-			0 &lt;= a &lt; m &amp;&amp; 0 &lt;= b &lt; m &amp;&amp; a &lt; b -> 
-			-m &lt; a-b &lt; 0 -> 
-			0 &lt; a-b+m &lt; m -> 
-			<span class="logical">mod</span> (a-b) m = a-b+m *)</span>
+		0 &lt;= a &lt; m &amp;&amp; 0 &lt;= b &lt; m &amp;&amp; a &lt; b -> 
+		-m &lt; a-b &lt; 0 -> 
+		0 &lt; a-b+m &lt; m -> 
+		<span class="logical">mod</span> (a-b) m = a-b+m *)</span>
 
-	<span class="contract">(*@ <span class="logical">lemma</span> modular_mult_overflow: <span class="logical">forall</span> a b m.
-			0 &lt;= a &lt; m &amp;&amp; 0 &lt;= b &lt; m -> 
-			0 &lt;= a*b &lt; m*m -> 
-			0 &lt;= div (a*b) m &lt; m -> 
-			<span class="logical">mod</span> (a*b) m = div (a*b) m *)</span>
+	<span class="comment">(* lemma modular_mult_overflow: forall a b m.
+		0 &lt;= a &lt; m &amp;&amp; 0 &lt;= b &lt; m -> 
+		0 &lt;= a*b &lt; m*m -> 
+		0 &lt;= div (a*b) m &lt; m -> 
+		mod (a*b) m = div (a*b) m *)</span>
 
-	<span class="contract">(*@ <span class="logical">lemma</span> mult_interval: <span class="logical">forall</span> a b m.
-			0 &lt;= a &lt; m &amp;&amp; 0 &lt;= b &lt; m -> 0 &lt;= a*b &lt; m*m *)</span>
+	<span class="comment">(* lemma mult_interval: forall a b m.
+		0 &lt;= a &lt; m &amp;&amp; 0 &lt;= b &lt; m -> 0 &lt;= a*b &lt; m*m *)</span>
 
-	<span class="contract">(*@ <span class="logical">lemma</span> modular_division: <span class="logical">forall</span> a b m.
-			0 &lt;= a &lt; m &amp;&amp; 0 &lt; b &lt; m -> 
-			0 &lt;= div a b &lt; m -> 
-			<span class="logical">mod</span> (div a b) m = div a b *)</span>
+	<span class="comment">(* lemma modular_division: forall a b m.
+		0 &lt;= a &lt; m &amp;&amp; 0 &lt; b &lt; m -> 
+		0 &lt;= div a b &lt; m -> 
+		mod (div a b) m = div a b *)</span>
 
-	<span class="keyword">let</span>[@logic] modulo (x: <span class="keyword">int</span>) (m: <span class="keyword">int</span>) : <span class="keyword">int</span> =
-		<span class="keyword">let</span> r = x <span class="keyword">mod</span> m <span class="keyword">in</span> <span class="keyword">if</span> r &lt; 0 <span class="keyword">then</span> r + m <span class="keyword">else</span> r
-	<span class="contract">(*@ r = modulo x m
-			<span class="logical">requires</span> m > 0
-			<span class="logical">ensures</span> 0 &lt;= r &lt; m
-			<span class="logical">ensures</span> <span class="logical">mod</span> x m &lt; 0 -> r = m + <span class="logical">mod</span> x m
-			<span class="logical">ensures</span> <span class="logical">mod</span> x m >= 0 -> r = <span class="logical">mod</span> x m *)</span>
+	<span class="keyword">let</span> modulo (x: <span class="keyword">int</span>) : <span class="keyword">int</span> =
+		<span class="keyword">let</span> r = x <span class="keyword">mod</span> M.m <span class="keyword">in</span> <span class="keyword">if</span> r &lt; 0 <span class="keyword">then</span> r + M.m <span class="keyword">else</span> r
+	<span class="contract">(*@ r = modulo x
+		<span class="logical">requires</span> M.m > 0
+		<span class="logical">ensures</span> 0 &lt;= r &lt; M.m
+		<span class="logical">ensures</span> <span class="logical">mod</span> x M.m &lt; 0 -> r = M.m + <span class="logical">mod</span> x M.m
+		<span class="logical">ensures</span> <span class="logical">mod</span> x M.m >= 0 -> r = <span class="logical">mod</span> x M.m *)</span>
 
 	<span class="keyword">let</span> add (a: <span class="keyword">int</span>) (b: <span class="keyword">int</span>) : <span class="keyword">int</span> =
 		<span class="keyword">let</span> res = a + b <span class="keyword">in</span> <span class="keyword">if</span> res >= M.m <span class="keyword">then</span> res - M.m <span class="keyword">else</span> res	
 	<span class="contract">(*@ r = add a b
-			<span class="logical">requires</span> 0 &lt;= a &lt; M.m
-			<span class="logical">requires</span> 0 &lt;= b &lt; M.m
-			<span class="logical">requires</span> M.m > 0
-			<span class="logical">ensures</span> 0 &lt;= r &lt; M.m 
-			<span class="logical">ensures</span> r = <span class="logical">mod</span> (a+b) M.m *)</span>
+		<span class="logical">requires</span> 0 &lt;= a &lt; M.m
+		<span class="logical">requires</span> 0 &lt;= b &lt; M.m
+		<span class="logical">requires</span> M.m > 0
+		<span class="logical">ensures</span> 0 &lt;= r &lt; M.m 
+		<span class="logical">ensures</span> r = <span class="logical">mod</span> (a+b) M.m *)</span>
 
 	<span class="keyword">let</span> sub (a: <span class="keyword">int</span>) (b: <span class="keyword">int</span>) : <span class="keyword">int</span> =
 		<span class="keyword">let</span> res = a - b <span class="keyword">in</span> <span class="keyword">if</span> res &lt; 0 <span class="keyword">then</span> res + M.m <span class="keyword">else</span> res	
 	<span class="contract">(*@ r = sub a b
-			<span class="logical">requires</span> 0 &lt;= a &lt; M.m
-			<span class="logical">requires</span> 0 &lt;= b &lt; M.m
-			<span class="logical">requires</span> M.m > 0
-			<span class="logical">ensures</span> 0 &lt;= r &lt; M.m 
-			<span class="logical">ensures</span> r = <span class="logical">mod</span> (a-b) M.m *)</span>
+		<span class="logical">requires</span> 0 &lt;= a &lt; M.m
+		<span class="logical">requires</span> 0 &lt;= b &lt; M.m
+		<span class="logical">requires</span> M.m > 0
+		<span class="logical">ensures</span> 0 &lt;= r &lt; M.m 
+		<span class="logical">ensures</span> r = <span class="logical">mod</span> (a-b) M.m *)</span>
 
 	<span class="keyword">let</span> mul (a: <span class="keyword">int</span>) (b: <span class="keyword">int</span>) : <span class="keyword">int</span> =
-		<span class="keyword">let</span> res = a * b <span class="keyword">in</span> <span class="keyword">if</span> res >= M.m <span class="keyword">then</span> res / M.m <span class="keyword">else</span> res
+		<span class="keyword">let</span> res = a * b <span class="keyword">in</span> <span class="keyword">if</span> res >= M.m <span class="keyword">then</span> res - M.m * (res/M.m) <span class="keyword">else</span> res
 	<span class="contract">(*@ r = mul a b
-			<span class="logical">requires</span> 0 &lt;= a &lt; M.m
-			<span class="logical">requires</span> 0 &lt;= b &lt; M.m
-			<span class="logical">requires</span> M.m > 0
-			<span class="logical">ensures</span> 0 &lt;= r &lt; M.m 
-			<span class="logical">ensures</span> r = <span class="logical">mod</span> (a*b) M.m *)</span>
+		<span class="logical">requires</span> 0 &lt;= a &lt; M.m
+		<span class="logical">requires</span> 0 &lt;= b &lt; M.m
+		<span class="logical">requires</span> M.m > 0
+		<span class="logical">ensures</span> 0 &lt;= r &lt; M.m 
+		<span class="logical">ensures</span> r = <span class="logical">mod</span> (a*b) M.m *)</span>
 
 	<span class="keyword">let</span> division (a: <span class="keyword">int</span>) (b: <span class="keyword">int</span>) : <span class="keyword">int</span> = a/b
 	<span class="contract">(*@ r = division a b
-			<span class="logical">requires</span> 0 &lt;= a &lt; M.m
-			<span class="logical">requires</span> 0 &lt; b &lt; M.m
-			<span class="logical">requires</span> M.m > 0
-			<span class="logical">ensures</span> 0 &lt;= r &lt; M.m 
-			<span class="logical">ensures</span> r = <span class="logical">mod</span> (div a b) M.m *)</span>
-
-	<span class="comment">(***********************************************************************)</span>
-
-	<span class="comment">(*let add (a: int) (b: int) : int = 
-		let am = modulo a M.m in
-		let bm = modulo b M.m in
-		let res = am + bm in if res >= M.m then res - M.m else res	*)</span>
-	<span class="comment">(* r = add a b
-			requires M.m > 0
-			ensures 0 &lt;= r &lt; M.m
-			ensures a + b >= 0 -> r = mod (a+b) M.m
-			ensures a + b &lt; 0 -> r = (mod (a+b) M.m) + M.m *)</span>
-
-	<span class="comment">(*		ensures mod (a+b) M.m &lt; 0 -> r = M.m + mod (a+b) M.m
-			ensures mod (a+b) M.m >= 0 -> r = mod (a+b) M.m *)</span>
-
-	<span class="comment">(*		ensures a + b >= 0 -> r = mod (a+b) M.m 
-			ensures a + b &lt; 0 -> r = (mod (a+b) M.m) + M.m *)</span>
-	<span class="comment">(*let mul (a: int) (b: int) : int =
-		let am = modulo a in
-		let bm = modulo b in
-		let res = am * bm in modulo res*)</span>
-	<span class="contract">(*@ r = mul a b
-			<span class="logical">requires</span> M.m > 0
-			<span class="logical">ensures</span> 0 &lt;= r &lt; M.m *)</span>	
-
+		<span class="logical">requires</span> 0 &lt;= a &lt; M.m
+		<span class="logical">requires</span> 0 &lt; b &lt; M.m
+		<span class="logical">requires</span> M.m > 0
+		<span class="logical">ensures</span> 0 &lt;= r &lt; M.m 
+		<span class="logical">ensures</span> r = <span class="logical">mod</span> (div a b) M.m *)</span>
 
 <span class="keyword">end</span>
 </pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
 </body></html>

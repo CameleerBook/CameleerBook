@@ -1,5 +1,6 @@
-<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematic/Bezout/ext_gcd.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematics/Bezout/ext_gcd.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
 <span class="comment">(* Implementation from Learn Programming with OCaml *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
 
 <span class="keyword">let</span> <span class="keyword">rec</span> extended_gcd x y =
 	<span class="keyword">if</span> y = 0 <span class="keyword">then</span> (1, 0, x)
@@ -13,4 +14,7 @@
 		<span class="logical">variant</span> y
   	<span class="logical">ensures</span> r = a*x+b*y *)</span>
 </pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
 </body></html>

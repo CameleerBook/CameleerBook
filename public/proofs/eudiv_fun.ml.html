@@ -1,4 +1,7 @@
-<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematic/EuclideanDivision/eudiv_fun.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }</style></head><body><pre>
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematics/EuclideanDivision/eudiv_fun.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<span class="comment">(* Implementation and specification by Pedro Gasparinho, advised by Mário 
+   Pereira *)</span>
+
 <span class="keyword">let</span> <span class="keyword">rec</span> eudiv_aux (x: <span class="keyword">int</span>) y q r =
   <span class="keyword">if</span> r &lt; y <span class="keyword">then</span>
     (q, r)
@@ -20,4 +23,7 @@
     <span class="logical">requires</span> y > 0
     <span class="logical">ensures</span> x = y * q + r
     <span class="logical">ensures</span> 0 &lt;= r &lt; y *)</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
 </body></html>
