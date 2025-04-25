@@ -18,3 +18,15 @@ export interface Chapter {
   icon: IconType;
   proofs: Proof[]
 }
+
+export interface Link {
+  name: string;
+  link: string;
+}
+
+export interface Book {
+  title: string;
+  description: string;
+  authors: string[];
+  links: Link[]
+}

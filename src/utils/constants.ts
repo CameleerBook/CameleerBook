@@ -1,4 +1,4 @@
-import { Chapter, IntroMessage } from "./types";
+import { Book, Chapter, IntroMessage } from "./types";
 
 const INTRO_MSG_CONTEXT: IntroMessage = {
   title: "Context",
@@ -37,3 +37,5 @@ export const INTRO_MSG_LIST: IntroMessage[] = [
 ]
 
 export const CHAPTERS: Chapter[] = require('../assets/chapters.json');
+
+export const BOOKS: Book[] = require('../assets/books.json')
