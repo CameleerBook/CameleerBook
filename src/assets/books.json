@@ -2,19 +2,13 @@
   {
     "title": "Master Dissertation",
     "description": "My dissertation",
-    "authors": [
-      "Pedro Gasparinho",
-      "Mário Pereira"
-    ],
+    "authors": "Pedro Gasparinho, Mário Pereira",
     "links": []
   },
   {
     "title": "Learn Programming with OCaml",
     "description": "Introductory book about OCaml",
-    "authors": [
-      "Sylvain Conchon",
-      "Jean-Christophe Filliâtre"
-    ],
+    "authors": "Sylvain Conchon, Jean-Christophe Filliâtre",
     "links": [
       {
         "name": "English Version",
@@ -29,12 +23,7 @@
   {
     "title": "Introduction to Algorithms",
     "description": "One of the great works",
-    "authors": [
-      "Thomas H. Cormen",
-      "Charles E. Leiserson",
-      "Ronald L. Rivest",
-      "Clifford Stein"
-    ],
+    "authors": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein",
     "links": [
       {
         "name": "Fourth Edition",
@@ -45,9 +34,7 @@
   {
     "title": "The Art Of Computer Programming",
     "description": "One of the great works",
-    "authors": [
-      "Donald E. Knuth"
-    ],
+    "authors": "Donald E. Knuth",
     "links": [
       {
         "name": "Website",
@@ -58,9 +45,7 @@
   {
     "title": "The Algorithm Design Manual",
     "description": "One of the great works",
-    "authors": [
-      "Steven S. Skiena"
-    ],
+    "authors": "Steven S. Skiena",
     "links": [
       {
         "name": "Algorithm Course",
@@ -71,10 +56,7 @@
   {
     "title": "Algorithms",
     "description": "One of the great works",
-    "authors": [
-      "Robert Sedgewick",
-      "Kevin Wayne"
-    ],
+    "authors": "Robert Sedgewick, Kevin Wayne",
     "links": [
       {
         "name": "Website",
@@ -85,9 +67,7 @@
   {
     "title": "Purely Functional Data Structures",
     "description": "One of the great works",
-    "authors": [
-      "Chris Okasaki"
-    ],
+    "authors": "Chris Okasaki",
     "links": [
       {
         "name": "Website",
@@ -98,9 +78,7 @@
   {
     "title": "Software Foundations",
     "description": "One of the great works",
-    "authors": [
-      "Various Distinguished Authors"
-    ],
+    "authors": "Various Distinguished Authors",
     "links": [
       {
         "name": "Website",
@@ -111,9 +89,7 @@
   {
     "title": "Functional Data Structures and Algorithms",
     "description": "One of the great works",
-    "authors": [
-      "Tobias Nipkow et. all"
-    ],
+    "authors": "Tobias Nipkow et. al.",
     "links": [
       {
         "name": "Website",

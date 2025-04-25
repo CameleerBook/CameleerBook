@@ -27,6 +27,6 @@ export interface Link {
 export interface Book {
   title: string;
   description: string;
-  authors: string[];
+  authors: string;
   links: Link[]
 }

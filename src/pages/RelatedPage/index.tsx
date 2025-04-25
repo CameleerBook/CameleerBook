@@ -7,7 +7,7 @@ function RelatedBody() {
   return (
     <div className="relatedPage-container">
       <>{
-        BOOKS.map(e => <BookItem />)
+        BOOKS.map(e => <BookItem book={e} />)
       }</>
     </div>
   )
