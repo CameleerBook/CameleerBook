@@ -5,9 +5,13 @@ function TitleBar() {
   const { pathname } = useLocation()
   const navigate = useNavigate();
 
-
   function navigateHome() {
     const url = "/"
+    navigate(url)
+  }
+
+  function navigateRelated() {
+    const url = "/relatedwork"
     navigate(url)
   }
 
@@ -25,7 +29,7 @@ function TitleBar() {
           <></> :
           <div className="titleBar-item-container" onClick={navigateHome}>Home</div>
       }</>
-      <div className="titleBar-item-container">Related Work</div>
+      <div className="titleBar-item-container" onClick={navigateRelated}>Related Work</div>
       <div className="titleBar-item-container">About Us</div>
     </div>
   );

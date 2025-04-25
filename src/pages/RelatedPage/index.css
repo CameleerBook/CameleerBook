@@ -1,0 +1,7 @@
+.relatedPage-container {
+  grid-row: span 13;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}

@@ -1,0 +1,5 @@
+.bookItem-container {
+  grid-row: span 1;
+  grid-column: span 1;
+  align-items: center;
+}
