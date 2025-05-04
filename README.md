@@ -1,3 +1,15 @@
+TODO:
+- Study literate programming (ex: Knuth)
+- Develop gallery function:
+  - Separate into three categories: Examples, Exercises (Skeletons), Solutions
+- Table of contents with subchapters (hidden by default)
+- Button to hide table of contents
+- Develop subchapter page:
+  - Centre title with chapter
+  - Subtitle on the left (name of algorithm)
+  - Button on the left to see proof
+
+<!---
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -44,3 +56,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+-->
