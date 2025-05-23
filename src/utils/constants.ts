@@ -34,4 +34,6 @@ export const INTRO_MSG_CAMELEER: IntroMessage = {
 
 export const CHAPTERS: Chapter[] = require('../assets/chapters.json');
 
-export const BOOKS: Book[] = require('../assets/books.json')
+export const BOOKS: Book[] = require('../assets/books.json');
+
+export const COVER = require("../assets/cover.png")

@@ -1,15 +1,16 @@
+import { COVER } from "../../utils/constants";
 import { onClickUrl } from "../../utils/utils";
 import "./index.css"
 
-function CoverItem() {
+function CoverItem(props: { width: number, height: number }) {
 
   const link = "/main.pdf"
 
   return (
     <div className="coverItem-container">
       <div className="coverItem-image-container">
-        <img src={require("../../assets/cover.png")} className="coverItem-image"
-          alt={""} width={330} height={510} />
+        <img src={COVER} className="coverItem-image"
+          alt={""} width={props.width} height={props.height} />
       </div>
       <div className="coverItem-bottom">
         <div className="coverItem-button-container">

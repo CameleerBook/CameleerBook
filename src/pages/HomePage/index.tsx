@@ -14,7 +14,7 @@ function HomeBody() {
         </div>
       </div>
       <div className="homePage-element">
-        <CoverItem />
+        <CoverItem width={330} height={510} />
       </div>
       <div className="homePage-element">
         <div className="homePage-intro">
