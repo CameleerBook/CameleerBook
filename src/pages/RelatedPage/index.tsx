@@ -1,18 +1,24 @@
 import BookItem from "../../components/BookItem";
+import PageBodyLayout from "../../components/PageBodyLayout";
 import PageLayout from "../../components/PageLayout";
 import { BOOKS } from "../../utils/constants";
 import "./index.css"
 
+function RelatedListing() {
+  return (
+    <div className="relatedPage-listing">
+      <>{
+        BOOKS.map(e => <BookItem book={e} />)
+      }</>
+    </div>
+  )
+}
+
 function RelatedBody() {
   return (
-    <div className="relatedPage-container">
-      <h1 className="relatedPage-title">Related Work</h1>
-      <div className="relatedPage-listing">
-        <>{
-          BOOKS.map(e => <BookItem book={e} />)
-        }</>
-      </div>
-    </div>
+    <>
+      <PageBodyLayout title="Related Work" body={<RelatedListing />} />
+    </>
   )
 }
 

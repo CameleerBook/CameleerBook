@@ -1,8 +1,8 @@
-.galleryPage-container {
+.pageBodyLayout-container {
   height: 81.25vh;
   overflow-y: auto;
 }
 
-.galleryPage-title {
+.pageBodyLayout-title {
   text-align: center;
 }
