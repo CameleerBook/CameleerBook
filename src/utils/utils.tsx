@@ -13,7 +13,7 @@ export const openInNewTab = (url: string): void => {
 
 export function onClickUrl(url: string) {
   if (url === null) {
-    alert("No url available")
+    alert("Currently not available!")
   } else {
     openInNewTab(url)
   }
