@@ -1,21 +1,13 @@
 .homePage-container {
   grid-row: span 13;
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 4fr 3fr 4fr;
   align-items: center;
   height: 100%;
 }
 
-.homePage-intro {
+.homePage-element {
   grid-column: span 1;
-  margin: 50px;
-  display: grid;
-  grid-template-rows: repeat(8, minmax(50px, 1fr));
   height: 100%;
-}
-
-.homePage-intro-empty {
-  grid-row: span 1;
-  height: 100%;
-  width: 100%;
+  border: 1px solid black;
 }

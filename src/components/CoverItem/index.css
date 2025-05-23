@@ -1,0 +1,25 @@
+.coverItem-container {
+  display: grid;
+  grid-template-rows: repeat(13, minmax(50px, 1fr));
+  height: 100%;
+}
+
+.coverItem-image-container {
+  grid-row: span 11;
+  align-content: center;
+  height: 100%;
+}
+
+.coverItem-image {
+  display: block;
+  margin: auto;
+  /*border: 1px solid black;*/
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.coverItem-buttons-container {
+  grid-row: span 2;
+  align-items: center;
+  height: 100%;
+  background-color: blue;
+}
