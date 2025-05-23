@@ -10,6 +10,11 @@ function TitleBar() {
     navigate(url)
   }
 
+  function navigateGallery() {
+    const url = "/gallery"
+    navigate(url)
+  }
+
   function navigateRelated() {
     const url = "/relatedwork"
     navigate(url)
@@ -32,7 +37,11 @@ function TitleBar() {
           <div className="titleBar-item-container" onClick={navigateHome}>Home</div>
       }</>
       <div className="titleBar-item-container">Table of Contents</div>
-      <div className="titleBar-item-container">Proof Gallery</div>
+      <>{
+        pathname === "/gallery" ?
+          <></> :
+          <div className="titleBar-item-container" onClick={navigateGallery}>Proof Gallery</div>
+      }</>
       <>{
         pathname === "/relatedwork" ?
           <></> :

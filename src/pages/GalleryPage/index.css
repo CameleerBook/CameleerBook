@@ -1,0 +1,8 @@
+.galleryPage-container {
+  height: 81.25vh;
+  overflow-y: auto;
+}
+
+.galleryPage-title {
+  text-align: center;
+}
