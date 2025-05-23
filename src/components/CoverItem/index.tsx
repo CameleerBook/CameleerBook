@@ -6,9 +6,16 @@ function CoverItem() {
     <div className="coverItem-container">
       <div className="coverItem-image-container">
         <img src={require("../../assets/cover.png")} className="coverItem-image"
-          width={330} height={510}></img>
+          width={330} height={510} />
       </div>
-      <div className="coverItem-buttons-container">Buttons</div>
+      <div className="coverItem-bottom">
+        <div className="coverItem-button-container">
+          <div className="coverItem-button-style">Download PDF</div>
+        </div>
+        <div className="coverItem-button-container">
+          <div className="coverItem-button-style">Read Online</div>
+        </div>
+      </div>
     </div>
   );
 }
