@@ -16,8 +16,10 @@ function TitleBar() {
   }
 
   const title = "Learn Verification with Cameleer"
-  const titleStyle = pathname === "/" ? "titleBar-title-container" :
-    "titleBar-smallTitle-container"
+  const titleStyle = "titleBar-title-container"
+
+  /*pathname === "/" ? "titleBar-title-container" :
+    "titleBar-smallTitle-container"*/
 
   return (
     <div className="titleBar-container">
@@ -31,7 +33,11 @@ function TitleBar() {
       }</>
       <div className="titleBar-item-container">Table of Contents</div>
       <div className="titleBar-item-container">Proof Gallery</div>
-      <div className="titleBar-item-container" onClick={navigateRelated}>Related Work</div>
+      <>{
+        pathname === "/relatedwork" ?
+          <></> :
+          <div className="titleBar-item-container" onClick={navigateRelated}>Related Work</div>
+      }</>
       <div className="titleBar-item-container">About Us</div>
     </div>
   );
