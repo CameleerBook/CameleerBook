@@ -6,9 +6,12 @@ import "./index.css"
 function RelatedBody() {
   return (
     <div className="relatedPage-container">
-      <>{
-        BOOKS.map(e => <BookItem book={e} />)
-      }</>
+      <h1 className="relatedPage-title">Related Work</h1>
+      <div className="relatedPage-listing">
+        <>{
+          BOOKS.map(e => <BookItem book={e} />)
+        }</>
+      </div>
     </div>
   )
 }

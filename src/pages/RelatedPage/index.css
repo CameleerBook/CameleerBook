@@ -1,6 +1,13 @@
 .relatedPage-container {
   height: 81.25vh;
   overflow-y: auto;
+}
+
+.relatedPage-title {
+  text-align: center;
+}
+
+.relatedPage-listing {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
