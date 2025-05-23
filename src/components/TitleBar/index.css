@@ -11,10 +11,6 @@
   grid-column: 1 / 5;
 }
 
-.titleBar-smallTitle-container {
-  grid-column: 1 / 4;
-}
-
 .titleBar-title {
   font-size: xx-large;
   font-weight: bold;

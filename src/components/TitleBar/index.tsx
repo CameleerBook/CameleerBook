@@ -1,30 +1,13 @@
 import { useLocation, useNavigate } from "react-router";
 import "./index.css"
+import { GALLERY, HOME, RELATED_WORK } from "../../utils/navigation";
 
 function TitleBar() {
   const { pathname } = useLocation()
   const navigate = useNavigate();
 
-  function navigateHome() {
-    const url = "/"
-    navigate(url)
-  }
-
-  function navigateGallery() {
-    const url = "/gallery"
-    navigate(url)
-  }
-
-  function navigateRelated() {
-    const url = "/relatedwork"
-    navigate(url)
-  }
-
   const title = "Learn Verification with Cameleer"
   const titleStyle = "titleBar-title-container"
-
-  /*pathname === "/" ? "titleBar-title-container" :
-    "titleBar-smallTitle-container"*/
 
   return (
     <div className="titleBar-container">
@@ -32,20 +15,20 @@ function TitleBar() {
         <p className="titleBar-title">{title}</p>
       </div>
       <>{
-        pathname === "/" ?
+        pathname === HOME ?
           <></> :
-          <div className="titleBar-item-container" onClick={navigateHome}>Home</div>
+          <div className="titleBar-item-container" onClick={() => navigate(HOME)}>Home</div>
       }</>
       <div className="titleBar-item-container">Table of Contents</div>
       <>{
-        pathname === "/gallery" ?
+        pathname === GALLERY ?
           <></> :
-          <div className="titleBar-item-container" onClick={navigateGallery}>Proof Gallery</div>
+          <div className="titleBar-item-container" onClick={() => navigate(GALLERY)}>Proof Gallery</div>
       }</>
       <>{
-        pathname === "/relatedwork" ?
+        pathname === RELATED_WORK ?
           <></> :
-          <div className="titleBar-item-container" onClick={navigateRelated}>Related Work</div>
+          <div className="titleBar-item-container" onClick={() => navigate(RELATED_WORK)}>Related Work</div>
       }</>
       <div className="titleBar-item-container">About Us</div>
     </div>

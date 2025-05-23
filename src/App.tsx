@@ -3,14 +3,15 @@ import HomePage from './pages/HomePage';
 import ChapterPage from './pages/ChapterPage';
 import RelatedPage from './pages/RelatedPage';
 import GalleryPage from './pages/GalleryPage';
+import { GALLERY, HOME, RELATED_WORK } from './utils/navigation';
 
 function App() {
   return (
     <Routes>
-      <Route path='/' element={<HomePage />} />
+      <Route path={HOME} element={<HomePage />} />
       <Route path='/chapter/:id' element={<ChapterPage />} />
-      <Route path='/gallery' element={<GalleryPage />} />
-      <Route path='/relatedwork' element={<RelatedPage />} />
+      <Route path={GALLERY} element={<GalleryPage />} />
+      <Route path={RELATED_WORK} element={<RelatedPage />} />
     </Routes>
   );
 }
