@@ -10,3 +10,9 @@
   grid-column: span 1;
   height: 100%;
 }
+
+.homePage-intro {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
+}

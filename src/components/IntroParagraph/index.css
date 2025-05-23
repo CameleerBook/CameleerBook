@@ -1,14 +1,17 @@
 .introParagraph-container {
   grid-row: span 1;
+  align-content: center;
 }
 
 .introParagraph-title {
   font-size: 24px;
   font-weight: bold;
+  text-align: center;
 }
 
 .introParagraph-text {
   font-size: 18px;
-  text-align: justify;
-  text-justify: distribute;
+  text-align: center;
+  /*text-align: justify;
+  text-justify: distribute;*/
 }

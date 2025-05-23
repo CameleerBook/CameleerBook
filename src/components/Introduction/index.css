@@ -1,5 +1,0 @@
-.introduction-container {
-  grid-row: span 7;
-  display: grid;
-  grid-template-rows: repeat(3, minmax(50px, 1fr));
-}
