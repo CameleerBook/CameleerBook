@@ -9,11 +9,11 @@
 }
 
 .titleBar-title-container {
-  grid-column: 1 / 7;
+  grid-column: 1 / 5;
 }
 
 .titleBar-smallTitle-container {
-  grid-column: 1 / 6;
+  grid-column: 1 / 4;
 }
 
 .titleBar-title {
