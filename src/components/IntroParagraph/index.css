@@ -1,6 +1,8 @@
 .introParagraph-container {
   grid-row: span 1;
-  align-content: center;
+  align-items: center;
+  width: 75%;
+  margin: auto auto;
 }
 
 .introParagraph-title {
