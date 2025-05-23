@@ -1,6 +1,9 @@
+import { onClickUrl } from "../../utils/utils";
 import "./index.css"
 
 function CoverItem() {
+
+  const link = "/main.pdf"
 
   return (
     <div className="coverItem-container">
@@ -10,7 +13,7 @@ function CoverItem() {
       </div>
       <div className="coverItem-bottom">
         <div className="coverItem-button-container">
-          <div className="coverItem-button-style">Download PDF</div>
+          <div className="coverItem-button-style" onClick={() => onClickUrl(link)}>Read PDF</div>
         </div>
         <div className="coverItem-button-container">
           <div className="coverItem-button-style">Read Online</div>
