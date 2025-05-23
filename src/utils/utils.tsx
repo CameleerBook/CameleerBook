@@ -1,5 +1,5 @@
 import { NavigateFunction } from "react-router"
-import { Chapter, Link } from "./types"
+import { Chapter } from "./types"
 
 export function navigateToChapter(c: Chapter, navigate: NavigateFunction) {
   const url = "/chapter/" + c.number
@@ -12,25 +12,9 @@ export const openInNewTab = (url: string): void => {
 }
 
 export function onClickUrl(url: string) {
-  openInNewTab(url)
-}
-
-export function getAboutLinks(links: Link[]) {
-  let i = 0
-  const len = links.length
-  return (
-    <div>
-      <p>See more at: {
-        len === 0 ? <>Currently unavailable</> :
-          links.map(e => {
-            i += 1
-            return (
-              <>
-                <a href={e.link}>{e.name}</a>{i === links.length ? "" : ", "}
-              </>
-            )
-          })
-      }</p>
-    </div>
-  )
+  if (url === null) {
+    alert("No url available")
+  } else {
+    openInNewTab(url)
+  }
 }

@@ -26,14 +26,6 @@ function HomeBody() {
   )
 }
 
-/*
-      <div className="homePage-intro">
-        <div className="homePage-intro-empty" />
-        <Introduction msglist={INTRO_MSG_LIST} />
-      </div>
-      <GraphicalTableOfContents />
-*/
-
 function HomePage() {
   return (
     <>

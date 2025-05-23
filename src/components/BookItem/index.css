@@ -1,11 +1,37 @@
 .bookItem-container {
-  grid-row: span 1;
-  grid-column: span 1;
-  align-content: center;
-  text-align: center;
+  border: 2px solid black;
+  border-radius: 15px;
+  height: 175px;
+  width: 50%;
+  margin: 25px auto;
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: 3fr 7fr;
+}
+
+.bookItem-container:hover {
+  box-shadow: 0px 5px 15px 2px #cccccc;
 }
 
 .bookItem-title {
+  height: 100%;
+  align-content: center;
+  text-align: center;
+  grid-column: span 1;
+  padding: 10px;
+  background-image: linear-gradient(to Right, #F18B02, #EC6A0E)
+}
+
+.bookItem-title p {
   font-size: large;
   font-weight: bold;
+  color: white;
+}
+
+.bookItem-body {
+  height: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  grid-column: span 1;
+  border-left: 2px solid black;
 }

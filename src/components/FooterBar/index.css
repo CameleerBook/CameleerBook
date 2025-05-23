@@ -1,6 +1,5 @@
 .footerBar-container {
-  height: 100%;
-  grid-row: span 1;
+  height: 6.25vh;
   align-self: center;
   border-top: 1px solid #cccccc;
 }

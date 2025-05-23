@@ -2,99 +2,55 @@
   {
     "title": "Master Dissertation",
     "description": "My dissertation",
-    "authors": "Pedro Gasparinho, Mário Pereira",
-    "links": []
+    "authors": "Pedro Gasparinho, Mário Pereira (Advisor)",
+    "link": null
   },
   {
     "title": "Learn Programming with OCaml",
     "description": "Introductory book about OCaml",
     "authors": "Sylvain Conchon, Jean-Christophe Filliâtre",
-    "links": [
-      {
-        "name": "English Version",
-        "link": "https://usr.lmf.cnrs.fr/lpo/"
-      },
-      {
-        "name": "French Version",
-        "link": "https://usr.lmf.cnrs.fr/programmer-avec-ocaml/"
-      }
-    ]
+    "link": "https://usr.lmf.cnrs.fr/lpo/"
   },
   {
     "title": "Introduction to Algorithms",
     "description": "One of the great works",
     "authors": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein",
-    "links": [
-      {
-        "name": "Fourth Edition",
-        "link": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
-      }
-    ]
+    "link": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
   },
   {
     "title": "The Art Of Computer Programming",
     "description": "One of the great works",
     "authors": "Donald E. Knuth",
-    "links": [
-      {
-        "name": "Website",
-        "link": "https://www-cs-faculty.stanford.edu/~knuth/taocp.html"
-      }
-    ]
+    "link": "https://www-cs-faculty.stanford.edu/~knuth/taocp.html"
   },
   {
     "title": "The Algorithm Design Manual",
     "description": "One of the great works",
     "authors": "Steven S. Skiena",
-    "links": [
-      {
-        "name": "Algorithm Course",
-        "link": "https://www3.cs.stonybrook.edu/~skiena/373/videos/"
-      }
-    ]
+    "link": "https://www3.cs.stonybrook.edu/~skiena/373/videos/"
   },
   {
     "title": "Algorithms",
     "description": "One of the great works",
     "authors": "Robert Sedgewick, Kevin Wayne",
-    "links": [
-      {
-        "name": "Website",
-        "link": "https://algs4.cs.princeton.edu/home/"
-      }
-    ]
+    "link": "https://algs4.cs.princeton.edu/home/"
   },
   {
     "title": "Purely Functional Data Structures",
     "description": "One of the great works",
     "authors": "Chris Okasaki",
-    "links": [
-      {
-        "name": "Website",
-        "link": "https://www.cambridge.org/pt/universitypress/subjects/computer-science/programming-languages-and-applied-logic/purely-functional-data-structures?format=HB&isbn=9780521631242"
-      }
-    ]
+    "link": "https://www.cambridge.org/pt/universitypress/subjects/computer-science/programming-languages-and-applied-logic/purely-functional-data-structures?format=HB&isbn=9780521631242"
   },
   {
     "title": "Software Foundations",
     "description": "One of the great works",
     "authors": "Various Distinguished Authors",
-    "links": [
-      {
-        "name": "Website",
-        "link": "https://softwarefoundations.cis.upenn.edu/"
-      }
-    ]
+    "link": "https://softwarefoundations.cis.upenn.edu/"
   },
   {
     "title": "Functional Data Structures and Algorithms",
     "description": "One of the great works",
     "authors": "Tobias Nipkow et. al.",
-    "links": [
-      {
-        "name": "Website",
-        "link": "https://functional-algorithms-verified.org/"
-      }
-    ]
+    "link": "https://functional-algorithms-verified.org/"
   }
 ]

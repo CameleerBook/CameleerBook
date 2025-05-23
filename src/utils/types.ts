@@ -19,14 +19,9 @@ export interface Chapter {
   proofs: Proof[]
 }
 
-export interface Link {
-  name: string;
-  link: string;
-}
-
 export interface Book {
   title: string;
   description: string;
   authors: string;
-  links: Link[]
+  link: string
 }
