@@ -1,14 +1,15 @@
 import { Chapter } from "../../utils/types";
 import ProofItem from "../ProofItem";
+import "./index.css"
 
 function GalleryItem(props: { chapter: Chapter }) {
   const chapter = props.chapter
   return (
-    <div>
-      <div>
-        <h3>{chapter.name}</h3>
+    <div className="galleryItem-container">
+      <div className="galleryItem-title">
+        <h2>{chapter.name}</h2>
       </div>
-      <div>
+      <div className="galleryItem-listing">
         <>{chapter.proofs.map(e => <ProofItem proof={e} />)}</>
       </div>
     </div>
