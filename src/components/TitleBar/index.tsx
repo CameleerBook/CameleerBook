@@ -33,7 +33,7 @@ function TitleBar() {
       <>{
         pathname === ABOUT ?
           <></> :
-          <div className="titleBar-item-container" onClick={() => navigate(ABOUT)}>About Us</div>
+          <div className="titleBar-item-container" onClick={() => navigate(ABOUT)}>About</div>
       }</>
     </div>
   );
