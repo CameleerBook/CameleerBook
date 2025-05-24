@@ -3,7 +3,8 @@ import HomePage from './pages/HomePage';
 import ChapterPage from './pages/ChapterPage';
 import RelatedPage from './pages/RelatedPage';
 import GalleryPage from './pages/GalleryPage';
-import { GALLERY, HOME, RELATED_WORK } from './utils/navigation';
+import { ABOUT, GALLERY, HOME, RELATED_WORK } from './utils/navigation';
+import AboutPage from './pages/AboutPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path='/chapter/:id' element={<ChapterPage />} />
       <Route path={GALLERY} element={<GalleryPage />} />
       <Route path={RELATED_WORK} element={<RelatedPage />} />
+      <Route path={ABOUT} element={<AboutPage />} />
     </Routes>
   );
 }

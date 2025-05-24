@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router";
 import "./index.css"
-import { GALLERY, HOME, RELATED_WORK } from "../../utils/navigation";
+import { ABOUT, GALLERY, HOME, RELATED_WORK } from "../../utils/navigation";
 
 function TitleBar() {
   const { pathname } = useLocation()
@@ -30,7 +30,11 @@ function TitleBar() {
           <></> :
           <div className="titleBar-item-container" onClick={() => navigate(RELATED_WORK)}>Related Work</div>
       }</>
-      <div className="titleBar-item-container">About Us</div>
+      <>{
+        pathname === ABOUT ?
+          <></> :
+          <div className="titleBar-item-container" onClick={() => navigate(ABOUT)}>About Us</div>
+      }</>
     </div>
   );
 }
