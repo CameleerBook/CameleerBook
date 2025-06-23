@@ -27,7 +27,7 @@ function AboutContent() {
         <p>
           A special thanks to the Cameleer team for important feedback during
           the development of this book and website, in particular, Ion Chirica,
-          Tiago Soares, João Nini, Gonçalo Duarte, Keiko, Rui Xavier, Tiago
+          Tiago Soares, João Nini, Gonçalo Duarte, Keiko Tiago, Rui Xavier, Tiago
           Meirim.
         </p>
       </div>
