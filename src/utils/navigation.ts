@@ -1,5 +1,5 @@
 const BASE_URL: string = "/CameleerBook"
-export const HOME: string = BASE_URL+"/"
+export const HOME: string = BASE_URL
 export const CHAPTER: string = BASE_URL+"/chapter"
 export const GALLERY: string = BASE_URL+"/gallery"
 export const RELATED_WORK: string = BASE_URL+"/relatedwork"
