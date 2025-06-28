@@ -1,5 +1,5 @@
 {
-  "homepage": "https://cameleerbook.github.io/CameleerBook/",
+  "homepage": "https://cameleerbook.github.io/CameleerBook",
   "name": "cameleer-book",
   "version": "0.1.0",
   "private": true,
@@ -10,12 +10,12 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.126",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router": "^7.5.1",
-    "react-scripts": "^0.0.0",
+    "react-router": "^7.6.3",
+    "react-scripts": "^5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
