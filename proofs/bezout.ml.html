@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematics/Bezout/bezout.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<span class="comment">(* Implementation adapted from MPRI Course 2-36-1: Proof of Program *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="keyword">let</span> gcd (x:<span class="keyword">int</span>) (y:<span class="keyword">int</span>) = 
+	<span class="keyword">let</span> xs = ref x <span class="keyword">in</span> 
+	<span class="keyword">let</span> ys = ref y <span class="keyword">in</span>
+  	<span class="keyword">let</span>[@ghost] a = ref 1 <span class="keyword">in</span>
+  	<span class="keyword">let</span>[@ghost] b = ref 0 <span class="keyword">in</span>
+  	<span class="keyword">let</span>[@ghost] c = ref 0 <span class="keyword">in</span>
+  	<span class="keyword">let</span>[@ghost] d = ref 1 <span class="keyword">in</span>
+  	<span class="keyword">while</span> !ys > 0 <span class="keyword">do</span>
+    	<span class="contract">(*@ <span class="logical">invariant</span> !xs >= 0
+    		<span class="logical">invariant</span> !ys >= 0
+    		<span class="logical">invariant</span> !xs = !a * x + !b * y
+    		<span class="logical">invariant</span> !ys = !c * x + !d * y
+    		<span class="logical">variant</span> !ys *)</span>
+    	<span class="keyword">let</span> r = !xs <span class="keyword">mod</span> !ys <span class="keyword">in</span> 
+    	<span class="keyword">let</span>[@ghost] q = !xs / !ys <span class="keyword">in</span>
+    	xs := !ys; 
+    	ys := r;
+    	<span class="keyword">let</span> e = !a <span class="keyword">in</span>
+    	<span class="keyword">let</span> f = !b <span class="keyword">in</span>
+    	a := !c;
+    	b := !d;
+    	c := e - q * !c;
+    	d := f - q * !d;
+  	<span class="keyword">done</span>;
+  	!xs
+<span class="contract">(*@ r = gcd x y
+   	<span class="logical">requires</span> x >= 0
+  	<span class="logical">requires</span> y >= 0
+  	<span class="logical">ensures</span> <span class="logical">exists</span> a,b. r = a*x+b*y
+*)</span>
+</pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

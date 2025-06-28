@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Sorting/SelectionSort/sel_sort_tail.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<span class="comment">(* Implementation and specification by Pedro Gasparinho, advised by Mário 
+   Pereira *)</span>
+
+<span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> occ (v: <span class="logical">int</span>) (l: <span class="logical">int</span> <span class="logical">list</span>) : <span class="logical">int</span> =
+	<span class="logical">match</span> l <span class="logical">with</span>
+	| [] -> 0
+	| x::ls -> (<span class="logical">if</span> x = v <span class="logical">then</span> 1 <span class="logical">else</span> 0) + (occ v ls) *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> occ_nonneg: <span class="logical">forall</span> x l.
+	occ x l >= 0 *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> occ_mem: <span class="logical">forall</span> x l.
+	occ x l > 0 &lt;-> <span class="logical">List</span>.mem x l *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> occ_append: <span class="logical">forall</span> x l1 l2.
+      occ x (l1 @ l2) = occ x l1 + occ x l2 *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> permut (l1 l2: <span class="logical">int</span> <span class="logical">list</span>) =
+	<span class="logical">forall</span> x. occ x l1 = occ x l2 *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> permut_len:
+	<span class="logical">forall</span> l1, l2: <span class="logical">int</span> <span class="logical">list</span>.
+	permut l1 l2 -> (<span class="logical">List</span>.length l1 = <span class="logical">List</span>.length l2) *)</span>
+
+<span class="comment">(* lemma permut_mem:
+	forall x: int, l1 l2: int list.
+	permut l1 l2 -> List.mem x l1 -> List.mem x l2 *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> <span class="logical">rec</span> sorted (l: <span class="logical">int</span> <span class="logical">list</span>) =
+	<span class="logical">match</span> l <span class="logical">with</span>
+	| [] -> <span class="logical">true</span>
+	| _::[] -> <span class="logical">true</span>
+	| x::(y::ls) -> x &lt;= y &amp;&amp; sorted (y::ls) *)</span>
+<span class="contract">(*@ <span class="logical">variant</span> l *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> sorted_append :
+	<span class="logical">forall</span> l1, l2: <span class="logical">int</span> <span class="logical">list</span>.
+	(sorted l1 /\ sorted l2 /\
+	(<span class="logical">forall</span> x y. <span class="logical">List</span>.mem x l1 -> <span class="logical">List</span>.mem y l2 -> x &lt;= y)) &lt;->
+	sorted (l1 @ l2) *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> sorted_cons :
+	<span class="logical">forall</span> x:<span class="logical">int</span>, l: <span class="logical">int</span> <span class="logical">list</span>.
+	(sorted l /\
+	(<span class="logical">forall</span> e. <span class="logical">List</span>.mem e l -> x &lt;= e)) &lt;->
+	sorted (x::l) *)</span>
+
+<span class="keyword">let</span> <span class="keyword">rec</span> selection_aux min acc = <span class="keyword">function</span>
+  | [] -> (min, acc)
+  | x :: r ->
+    <span class="keyword">if</span> min &lt;= x <span class="keyword">then</span>
+    	selection_aux min (x::acc) r
+    <span class="keyword">else</span>
+    	selection_aux x (min::acc) r
+<span class="contract">(*@ m, r = selection_aux min acc l
+  <span class="logical">requires</span> <span class="logical">forall</span> x. <span class="logical">List</span>.mem x acc -> min &lt;= x
+  <span class="logical">variant</span> l
+  <span class="logical">ensures</span> m &lt;= min
+  <span class="logical">ensures</span> <span class="logical">forall</span> x. <span class="logical">List</span>.mem x r -> m &lt;= x
+  <span class="logical">ensures</span> <span class="logical">List</span>.length r = <span class="logical">List</span>.length (l ++ acc)
+  <span class="logical">ensures</span> permut (m :: r) (min :: (l ++ acc)) *)</span>
+
+<span class="comment">(** ensures List.mem m (min::l) **)</span>
+<span class="comment">(** in the aux function instead of the assert **)</span>
+
+<span class="keyword">let</span> <span class="keyword">rec</span> selection_sort acc = <span class="keyword">function</span>
+	| [] -> acc
+	| [x] -> acc @ [x]
+	| x :: ls -> 
+		<span class="keyword">let</span> m, r = selection_aux x [] ls <span class="keyword">in</span>
+		<span class="keyword">assert</span> (<span class="keyword">List</span>.mem m (x::ls));
+		selection_sort (acc @ [m]) r
+<span class="contract">(*@ r = selection_sort acc l
+	<span class="logical">requires</span> <span class="logical">forall</span> x y. <span class="logical">List</span>.mem x acc -> <span class="logical">List</span>.mem y l -> x &lt;= y
+	<span class="logical">requires</span> sorted acc
+  <span class="logical">ensures</span> sorted r
+  <span class="logical">ensures</span> permut r (l ++ acc)
+  <span class="logical">variant</span> <span class="logical">List</span>.length l *)</span>
+</pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

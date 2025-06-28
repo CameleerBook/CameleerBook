@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Searching/BinarySearch/bsearch.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<span class="comment">(* Implementation adapted from MPRI Course 2-36-1: Proof of Program *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> sorted (a: <span class="logical">int</span> <span class="logical">array</span>) =
+  		<span class="logical">forall</span> i j:<span class="logical">int</span>. 0 &lt;= i &lt;= j &lt; <span class="logical">Array</span>.length a -> a.(i) &lt;= a.(j)*)</span>
+
+<span class="keyword">let</span> binary_search (a : <span class="keyword">int</span> <span class="keyword">array</span>) (v: <span class="keyword">int</span>) =
+    <span class="keyword">let</span> l = ref 0 <span class="keyword">in</span>
+    <span class="keyword">let</span> u = ref (<span class="keyword">Array</span>.length a - 1) <span class="keyword">in</span>
+    <span class="keyword">let</span> res = ref (-1) <span class="keyword">in</span>
+    <span class="keyword">while</span> !res &lt; 0 &amp;&amp; !l &lt;= !u <span class="keyword">do</span>
+    	<span class="contract">(*@ <span class="logical">invariant</span> 0 &lt;= !l
+        	<span class="logical">invariant</span> !u &lt; <span class="logical">Array</span>.length a
+        	<span class="logical">invariant</span> -1 &lt;= !res &lt; <span class="logical">Array</span>.length a
+        	<span class="logical">invariant</span> !res >= 0 -> a.(!res) = v
+        	<span class="logical">invariant</span> !res = -1 -> <span class="logical">forall</span> k. 0 &lt;= k &lt; !l \/ !u &lt; k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v
+        	<span class="logical">variant</span> !u - !l - !res - 1 *)</span>
+        <span class="keyword">let</span> m = (!u + !l)/ 2 <span class="keyword">in</span>
+        <span class="keyword">if</span> a.(m) &lt; v <span class="keyword">then</span> l := m+1
+        <span class="keyword">else</span> <span class="keyword">if</span> a.(m) > v <span class="keyword">then</span> u := m-1
+        <span class="keyword">else</span> res := m
+      <span class="keyword">done</span>;
+    !res
+<span class="contract">(*@ r = binary_search a v
+		<span class="logical">requires</span> sorted a
+  	<span class="logical">ensures</span> -1 &lt;= r &lt; <span class="logical">Array</span>.length a
+  	<span class="logical">ensures</span> r >= 0 -> a.(r) = v
+  	<span class="logical">ensures</span> r = -1 -> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v *)</span>
+</pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

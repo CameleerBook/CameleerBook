@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematics/SieveOfEratosthenes/sieve.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<span class="comment">(* Implementation adapted from Learn Programming with OCaml *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> prime (n: <span class="logical">int</span>) =
+    n > 1 &amp;&amp; <span class="logical">forall</span> x. 1 &lt; x &lt; n -> <span class="logical">mod</span> n x &lt;> 0 *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> not_prime:
+    <span class="logical">forall</span> n. (<span class="logical">exists</span> x. 1 &lt; x &lt; n &amp;&amp; <span class="logical">mod</span> n x = 0) &lt;-> not prime n *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> mod_squared:
+    <span class="logical">forall</span> n. n &lt;> 0 &lt;-> <span class="logical">mod</span> (n*n) n = 0 *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> sum_of_mult:
+    <span class="logical">forall</span> m n. n &lt;> 0 &amp;&amp; <span class="logical">mod</span> m n = 0 &lt;-> <span class="logical">mod</span> (m+n) n = 0 *)</span>
+
+<span class="keyword">let</span> sieve max =
+  <span class="keyword">let</span> isPrime = <span class="keyword">Array</span>.make (max + 1) <span class="keyword">true</span> <span class="keyword">in</span>
+  isPrime.(0) &lt;- <span class="keyword">false</span>;
+  isPrime.(1) &lt;- <span class="keyword">false</span>;
+  <span class="keyword">let</span> limit = max / 2 <span class="keyword">in</span>
+  <span class="keyword">for</span> n = 2 <span class="keyword">to</span> limit <span class="keyword">do</span>
+  <span class="contract">(*@ <span class="logical">invariant</span> <span class="logical">forall</span> k. 0 &lt;= k &lt;= n -> (isPrime.(k) = prime k) *)</span>
+    <span class="keyword">if</span> isPrime.(n) <span class="keyword">then</span> <span class="keyword">begin</span>
+      <span class="keyword">let</span> m = ref (n*n) <span class="keyword">in</span>
+      <span class="keyword">while</span> !m &lt;= max <span class="keyword">do</span>
+      <span class="contract">(*@ <span class="logical">variant</span> max - !m *)</span>
+        isPrime.(!m) &lt;- <span class="keyword">false</span>;
+        m := !m + n
+      <span class="keyword">done</span>
+    <span class="keyword">end</span>
+  <span class="keyword">done</span>;
+  isPrime
+<span class="contract">(*@ isPrime = sieve max
+    <span class="logical">requires</span> max > 1
+    <span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt;= max -> (isPrime.(k) = prime k) *)</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>
