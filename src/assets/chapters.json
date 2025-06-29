@@ -1,31 +1,7 @@
 [
   {
-    "name": "I. Installation Procedures",
+    "name": "I. Arithmetic",
     "number": 1,
-    "icon": {
-      "name": "download"
-    },
-    "proofs": []
-  },
-  {
-    "name": "II. Programming with OCaml",
-    "number": 2,
-    "icon": {
-      "name": "terminal"
-    },
-    "proofs": []
-  },
-  {
-    "name": "III. Introduction to Cameleer",
-    "number": 3,
-    "icon": {
-      "name": "verified_user"
-    },
-    "proofs": []
-  },
-  {
-    "name": "IV. Mathematical Problems",
-    "number": 4,
     "icon": {
       "name": "functions"
     },
@@ -73,8 +49,37 @@
     ]
   },
   {
-    "name": "V. Sorting Algorithms",
-    "number": 5,
+    "name": "II. Searching Algorithms",
+    "number": 2,
+    "icon": {
+      "name": "search"
+    },
+    "proofs": [
+      {
+        "name": "Linear Search (While)",
+        "link": "lsearch"
+      },
+      {
+        "name": "Linear Search (For)",
+        "link": "lsearch_for"
+      },
+      {
+        "name": "Binary Search",
+        "link": "bsearch"
+      },
+      {
+        "name": "Binary Search (Exceptions)",
+        "link": "bsearch_excp"
+      },
+      {
+        "name": "Ternary Search",
+        "link": "ternary_search"
+      }
+    ]
+  },
+  {
+    "name": "III. Sorting Algorithms",
+    "number": 3,
     "icon": {
       "name": "sort"
     },
@@ -126,37 +131,8 @@
     ]
   },
   {
-    "name": "VI. Searching Algorithms",
-    "number": 6,
-    "icon": {
-      "name": "search"
-    },
-    "proofs": [
-      {
-        "name": "Linear Search (While)",
-        "link": "lsearch"
-      },
-      {
-        "name": "Linear Search (For)",
-        "link": "lsearch_for"
-      },
-      {
-        "name": "Binary Search",
-        "link": "bsearch"
-      },
-      {
-        "name": "Binary Search (Exceptions)",
-        "link": "bsearch_excp"
-      },
-      {
-        "name": "Ternary Search",
-        "link": "ternary_search"
-      }
-    ]
-  },
-  {
-    "name": "VII. Data Structures",
-    "number": 7,
+    "name": "IV. Data Structures",
+    "number": 4,
     "icon": {
       "name": "data_array"
     },
@@ -174,21 +150,5 @@
         "link": "treeZipper"
       }
     ]
-  },
-  {
-    "name": "VIII. Graph Algorithms",
-    "number": 8,
-    "icon": {
-      "name": "hub"
-    },
-    "proofs": []
-  },
-  {
-    "name": "IX. Selected Topics",
-    "number": 9,
-    "icon": {
-      "name": "extension"
-    },
-    "proofs": []
   }
 ]
