@@ -10,7 +10,7 @@ function App() {
   return (
     <Routes>
       <Route path={HOME} element={<HomePage />} />
-      <Route path={CHAPTER+':id'} element={<ChapterPage />} />
+      <Route path={CHAPTER+'/:id'} element={<ChapterPage />} />
       <Route path={GALLERY} element={<GalleryPage />} />
       <Route path={RELATED_WORK} element={<RelatedPage />} />
       <Route path={ABOUT} element={<AboutPage />} />

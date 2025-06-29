@@ -3,7 +3,12 @@ import "./index.css"
 function FooterBar() {
   return (
     <div className="footerBar-container">
-      <p>Footer, possibly licence or other info</p>
+      <div className="footerBar-leftItem">
+        <p>Pedro Gasparinho, Mário Pereira</p>
+      </div>
+      <div className="footerBar-rightItem">
+        <p>Draft Version: 29/06/2025</p>
+      </div>
     </div>
   );
 }

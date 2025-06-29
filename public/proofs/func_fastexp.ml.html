@@ -1,24 +1,36 @@
-<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Mathematics/FastExponentiation/func_fastexp.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<!DOCTYPE html><html><head><title>func_fastexp</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Fast Exponentiation (Functional)<h2></div><pre>
 <span class="comment">(* Implementation from Learn Programming with OCaml *)</span>
 <span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
 
 <span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> power (x n: <span class="logical">int</span>) : <span class="logical">int</span> =
-		<span class="logical">if</span> n > 0 <span class="logical">then</span> x * power x (n-1)
-		<span class="logical">else</span> 1 *)</span>	
+		<span class="logical">if</span> n = 0 <span class="logical">then</span> 1 
+		<span class="logical">else</span> x * power x (n-1) *)</span>
 <span class="contract">(*@ <span class="logical">requires</span> n >= 0
     <span class="logical">variant</span> n *)</span>
 
-<span class="contract">(*@ <span class="logical">lemma</span> power_mult :
-      <span class="logical">forall</span> x y n:<span class="logical">int</span>.
-      n >= 0 -> power (x*y) n = power x n * power y n *)</span>
+<span class="keyword">let</span>[@<span class="keyword">lemma</span>] <span class="keyword">rec</span> power_mult (x: <span class="keyword">int</span>) (y: <span class="keyword">int</span>) (n: <span class="keyword">int</span>) =
+	<span class="keyword">if</span> n > 0 <span class="keyword">then</span> power_mult x y (n-1)
+<span class="contract">(*@ <span class="logical">requires</span> n >= 0
+  	<span class="logical">variant</span> n
+		<span class="logical">ensures</span> power (x*y) n = power x n * power y n *)</span>
+	
+<span class="keyword">let</span>[@<span class="keyword">lemma</span>] <span class="keyword">rec</span> power_even (x: <span class="keyword">int</span>) (n: <span class="keyword">int</span>) = 
+	<span class="keyword">if</span> n > 1 <span class="keyword">then</span>
+	<span class="keyword">begin</span>
+	  power_even x (n-2);
+	  <span class="keyword">assert</span> (power x n = x * x * power x (n-2));
+	  <span class="keyword">assert</span> (div (n-2) 2 = div n 2 - 1);
+	<span class="keyword">end</span>
+<span class="contract">(*@ <span class="logical">requires</span> n >= 0
+  	<span class="logical">requires</span> <span class="logical">mod</span> n 2 = 0
+  	<span class="logical">variant</span> n
+  	<span class="logical">ensures</span> power x n = (power (x * x) (div n 2)) *)</span>
 
-<span class="contract">(*@ <span class="logical">lemma</span> power_even:
-      <span class="logical">forall</span> x:<span class="logical">int</span>, n:<span class="logical">int</span>. n >= 0 /\ <span class="logical">mod</span> n 2 = 0 ->
-      power x n = (power (x * x) (div n 2)) *)</span>
-
-<span class="contract">(*@ <span class="logical">lemma</span> power_odd:
-      <span class="logical">forall</span> x:<span class="logical">int</span>, n:<span class="logical">int</span>. n >= 0 /\ <span class="logical">mod</span> n 2 = 1 ->
-      power x n = x * (power (x * x) (div n 2)) *)</span>
+<span class="keyword">let</span>[@<span class="keyword">lemma</span>] power_odd (x: <span class="keyword">int</span>) (n: <span class="keyword">int</span>) =
+	power_even x (n-1)
+<span class="contract">(*@ <span class="logical">requires</span> n >= 0
+  	<span class="logical">requires</span> <span class="logical">mod</span> n 2 = 1
+		<span class="logical">ensures</span> power x n = x * (power (x * x) (div n 2)) *)</span>
 
 <span class="keyword">let</span> <span class="keyword">rec</span> exp x n =
 	<span class="keyword">if</span> n = 0 <span class="keyword">then</span> 1

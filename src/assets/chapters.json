@@ -63,16 +63,12 @@
         "link": "eudiv"
       },
       {
-        "name": "Modular Division",
+        "name": "Modular Arithmetic",
         "link": "modArith"
       },
       {
         "name": "Tribonacci",
         "link": "tribonacci"
-      },
-      {
-        "name": "Sieve of Erastosthenes",
-        "link": "sieve"
       }
     ]
   },
@@ -85,31 +81,47 @@
     "proofs": [
       {
         "name": "Insertion Sort (Functional)",
-        "link": "in_sort_poly"
+        "link": "in_sort"
       },
       {
-        "name": "Insertion Sort (Tail Recursive)",
+        "name": "Insertion Sort (Functional & Tail Recursive)",
         "link": "in_sort_tail"
       },
       {
+        "name": "Insertion Sort (Functional & Polymorphic)",
+        "link": "in_sort_poly"
+      },
+      {
         "name": "Merge Sort (Functional)",
+        "link": "merge_sort"
+      },
+      {
+        "name": "Merge Sort (Functional & Tail Recursive)",
+        "link": "merge_sort_tail"
+      },
+      {
+        "name": "Merge Sort (Functional & Polymorphic)",
         "link": "merge_sort_poly"
       },
       {
         "name": "Quick Sort (Functional)",
+        "link": "quick_sort"
+      },
+      {
+        "name": "Quick Sort (Functional & Polymorphic)",
         "link": "quick_sort_poly"
       },
       {
-        "name": "Quick Sort (Tail Recursive)",
-        "link": "quick_sort_tail"
-      },
-      {
         "name": "Selection Sort (Functional)",
-        "link": "sel_sort_poly"
+        "link": "sel_sort"
       },
       {
         "name": "Selection Sort (Tail Recursive)",
         "link": "sel_sort_tail"
+      },
+      {
+        "name": "Selection Sort (Functional & Polymorphic)",
+        "link": "sel_sort_poly"
       }
     ]
   },
@@ -148,7 +160,20 @@
     "icon": {
       "name": "data_array"
     },
-    "proofs": []
+    "proofs": [
+      {
+        "name": "Persistant Queue",
+        "link": "persistQueue"
+      },
+      {
+        "name": "List Zipper",
+        "link": "listZipper"
+      },
+      {
+        "name": "Same Fringe with Zippers",
+        "link": "treeZipper"
+      }
+    ]
   },
   {
     "name": "VIII. Graph Algorithms",
