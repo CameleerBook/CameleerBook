@@ -1,4 +1,5 @@
-//const BASE_URL: string = "/CameleerBook/"
+export const PROOF_LINK: string = "/CameleerBook/proofs/"
+
 export const HOME: string = "/"
 export const CHAPTER: string = "/chapter"
 export const GALLERY: string = "/gallery"
