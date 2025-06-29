@@ -5,9 +5,10 @@
 }
 
 .coverItem-image-container {
-  grid-row: span 11;
+  /*grid-row: span 11;*/ /* COM BUTOES */
   align-content: center;
   height: 100%;
+  grid-row: span 13; /* SEM BUTOES */
 }
 
 .coverItem-image {

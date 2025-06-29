@@ -14,7 +14,7 @@ function HomeBody() {
         </div>
       </div>
       <div className="homePage-element">
-        <CoverItem width={330} height={510} />
+        <CoverItem width={412.5} height={637.5} />
       </div>
       <div className="homePage-element">
         <div className="homePage-intro">
@@ -25,6 +25,12 @@ function HomeBody() {
     </div>
   )
 }
+
+/*
+  Dimensooes com butoes
+  <CoverItem width={330} height={510} />
+
+*/
 
 function HomePage() {
   return (
