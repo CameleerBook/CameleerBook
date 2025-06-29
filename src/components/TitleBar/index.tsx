@@ -14,6 +14,16 @@ function TitleBar() {
       <div className={titleStyle}>
         <p className="titleBar-title">{title}</p>
       </div>
+      <div className="titleBar-item-container" onClick={() => navigate(HOME)}>Home</div>
+      <div className="titleBar-item-container" onClick={() => navigate(GALLERY)}>Proof Gallery</div>
+      <div className="titleBar-item-container" onClick={() => navigate(RELATED_WORK)}>Related Work</div>
+      <div className="titleBar-item-container" onClick={() => navigate(ABOUT)}>About</div>
+    </div>
+  );
+}
+
+/*
+
       <>{
         pathname === HOME ?
           <></> :
@@ -35,8 +45,7 @@ function TitleBar() {
           <></> :
           <div className="titleBar-item-container" onClick={() => navigate(ABOUT)}>About</div>
       }</>
-    </div>
-  );
-}
+
+*/
 
 export default TitleBar;
