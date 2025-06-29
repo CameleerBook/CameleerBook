@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>../MasterThesis/Cameleer/Searching/BinarySearch/bsearch.ml</title><style>span {tab-size: 2;} .logical { color:rgb(226, 124, 106); } .keyword { color: red; } .contract { color: #2177bf; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }</style></head><body><pre>
+<!DOCTYPE html><html><head><title>bsearch</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Binary Search<h2></div><pre>
 <span class="comment">(* Implementation adapted from MPRI Course 2-36-1: Proof of Program *)</span>
 <span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
 
@@ -14,7 +14,8 @@
         	<span class="logical">invariant</span> !u &lt; <span class="logical">Array</span>.length a
         	<span class="logical">invariant</span> -1 &lt;= !res &lt; <span class="logical">Array</span>.length a
         	<span class="logical">invariant</span> !res >= 0 -> a.(!res) = v
-        	<span class="logical">invariant</span> !res = -1 -> <span class="logical">forall</span> k. 0 &lt;= k &lt; !l \/ !u &lt; k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v
+        	<span class="logical">invariant</span> !res = -1 -> <span class="logical">forall</span> k. 0 &lt;= k &lt; !l \/ 
+						!u &lt; k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v
         	<span class="logical">variant</span> !u - !l - !res - 1 *)</span>
         <span class="keyword">let</span> m = (!u + !l)/ 2 <span class="keyword">in</span>
         <span class="keyword">if</span> a.(m) &lt; v <span class="keyword">then</span> l := m+1

@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head><title>treeZipper</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Same Frange with Zippers<h2></div><pre>
+<span class="comment">(* Implementation adapted from Learn Programming with OCaml and 
+   https://github.com/ocaml-gospel/cameleer/blob/master/examples/same_fringe.ml
+*)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> EqualSig = <span class="keyword">sig</span>
+  
+  <span class="keyword">type</span> t
+
+  <span class="keyword">val</span> eq : t -> t -> <span class="keyword">bool</span>
+  <span class="contract">(*@ res = eq x y
+        <span class="logical">ensures</span> res &lt;-> x = y *)</span>
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> ZipperSig = <span class="keyword">sig</span>
+
+  <span class="keyword">type</span> elt
+  <span class="keyword">type</span> tree
+  <span class="keyword">type</span> zipper
+
+  <span class="contract">(*@ <span class="logical">function</span> inorder (t: tree) : elt <span class="logical">list</span> *)</span>
+
+  <span class="contract">(*@ <span class="logical">function</span> zip_inorder (z: zipper) : elt <span class="logical">list</span> *)</span>
+
+  <span class="keyword">val</span> empty : unit -> zipper
+  <span class="contract">(*@ z = empty () 
+      <span class="logical">ensures</span> zip_inorder z = [] *)</span>
+
+  <span class="keyword">val</span> mk_zipper : zipper -> tree -> zipper
+  <span class="contract">(*@ res = mk_zipper z t
+      <span class="logical">ensures</span> zip_inorder res = inorder t @ zip_inorder z *)</span>
+  
+  <span class="keyword">val</span> eq_zipper : zipper -> zipper -> <span class="keyword">bool</span>
+  <span class="contract">(*@ res = equal z1 z2
+    <span class="logical">ensures</span> res &lt;-> zip_inorder z1 = zip_inorder z2 *)</span>
+
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> Zipper (Eq: EqualSig) : ZipperSig = <span class="keyword">struct</span>
+
+  <span class="keyword">type</span> elt = Eq.t
+  <span class="keyword">type</span> tree = E | N <span class="keyword">of</span> tree * elt * tree
+  <span class="keyword">type</span> zipper = (elt * tree) <span class="keyword">list</span>
+
+  <span class="keyword">let</span> empty () = []
+
+  <span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> inorder (t: tree) : elt <span class="logical">list</span> =
+        <span class="logical">match</span> t <span class="logical">with</span>
+        | E -> []
+        | N l x r -> inorder l @ (x::inorder r) *)</span>
+
+  <span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> zip_inorder (z: zipper) : elt <span class="logical">list</span> = 
+        <span class="logical">match</span> z <span class="logical">with</span>
+        | [] -> []
+        | (x, r)::e -> x::(inorder r @ zip_inorder e) *)</span>
+
+  <span class="keyword">let</span> <span class="keyword">rec</span> mk_zipper (z: zipper) = <span class="keyword">function</span>
+    | E -> z
+    | N (l, x, r) -> mk_zipper ((x, r)::z) l
+  <span class="contract">(*@ res = mk_zipper z t
+      <span class="logical">variant</span> t 
+      <span class="logical">ensures</span> zip_inorder res = inorder t @ zip_inorder z *)</span>
+
+  <span class="keyword">let</span> <span class="keyword">rec</span> eq_zipper z1 z2 =
+    <span class="keyword">match</span> z1, z2 <span class="keyword">with</span>
+    | [], [] -> <span class="keyword">true</span>
+    | (x1, r1)::e1, (x2, r2)::e2 -> 
+      Eq.eq x1 x2 &amp;&amp; eq_zipper (mk_zipper e1 r1) (mk_zipper e2 r2)
+    | _ -> <span class="keyword">false</span>
+  <span class="contract">(*@ res = eq_zipper z1 z2
+      <span class="logical">variant</span> <span class="logical">List</span>.length (zip_inorder z1)
+      <span class="logical">ensures</span> res &lt;-> zip_inorder z1 = zip_inorder z2 *)</span>
+
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> SameFringe (Z: ZipperSig) = <span class="keyword">struct</span>
+
+  <span class="keyword">let</span> same_fringe t1 t2 =
+    <span class="keyword">let</span> e = Z.empty () <span class="keyword">in</span>
+    Z.eq_zipper (Z.mk_zipper e t1) (Z.mk_zipper e t2)
+  <span class="contract">(*@ res = same_fringe t1 t2 
+      <span class="logical">ensures</span> res &lt;-> Z.inorder t1 = Z.inorder t2 *)</span>
+<span class="keyword">end</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

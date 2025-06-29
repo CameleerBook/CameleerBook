@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>sel_sort_tail</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Selection Sort (Functional & Tail Recursive)<h2></div><pre>
+<!DOCTYPE html><html><head><title>quick_sort</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Quick Sort (Functional)<h2></div><pre>
 <span class="comment">(* Implementation and specification by Pedro Gasparinho, advised by Mário 
    Pereira *)</span>
 
@@ -56,38 +56,31 @@
 		<span class="logical">requires</span> sorted l1
 		<span class="logical">requires</span> sorted l2
 		<span class="logical">requires</span> <span class="logical">forall</span> x y. <span class="logical">List</span>.mem x l1 -> <span class="logical">List</span>.mem y l2 -> x &lt;= y
-		<span class="logical">variant</span> l1, l2
 		<span class="logical">ensures</span> sorted (l1 @ l2) *)</span>
 
-<span class="keyword">let</span> <span class="keyword">rec</span> selection_aux min acc = <span class="keyword">function</span>
-  | [] -> (min, acc)
-  | x::r ->
-    <span class="keyword">if</span> min &lt;= x <span class="keyword">then</span>
-    	selection_aux min (x::acc) r
-    <span class="keyword">else</span>
-    	selection_aux x (min::acc) r
-<span class="contract">(*@ m, r = selection_aux min acc l
-  <span class="logical">requires</span> <span class="logical">forall</span> x. <span class="logical">List</span>.mem x acc -> min &lt;= x
-  <span class="logical">variant</span> l
-  <span class="logical">ensures</span> m &lt;= min
-  <span class="logical">ensures</span> <span class="logical">forall</span> x. <span class="logical">List</span>.mem x r -> m &lt;= x
-  <span class="logical">ensures</span> <span class="logical">List</span>.length r = <span class="logical">List</span>.length (l @ acc)
-  <span class="logical">ensures</span> permut (m::r) (min::(l @ acc)) *)</span>
+<span class="keyword">let</span> <span class="keyword">rec</span> quick_aux p = <span class="keyword">function</span>
+  | [] -> ([], [])
+  | x :: r ->
+    <span class="keyword">let</span> ll, lr = quick_aux p r <span class="keyword">in</span>
+    <span class="keyword">if</span> x &lt;= p <span class="keyword">then</span> x :: ll, lr
+    <span class="keyword">else</span> ll, x :: lr
+<span class="contract">(*@ ll, lr = quick_aux p l
+    <span class="logical">variant</span> l
+    <span class="logical">ensures</span> <span class="logical">forall</span> x. <span class="logical">List</span>.mem x ll -> x &lt;= p
+    <span class="logical">ensures</span> <span class="logical">forall</span> x. <span class="logical">List</span>.mem x lr -> x > p
+    <span class="logical">ensures</span> permut l (ll @ lr) *)</span>
 
-<span class="keyword">let</span> <span class="keyword">rec</span> selection_sort acc = <span class="keyword">function</span>
-	| [] -> acc
-	| [x] -> acc @ [x]
-	| x::ls -> 
-		<span class="keyword">let</span> m, r = selection_aux x [] ls <span class="keyword">in</span>
-		<span class="keyword">assert</span> (<span class="keyword">List</span>.mem m (x::ls));
-		selection_sort (acc @ [m]) r
-<span class="contract">(*@ r = selection_sort acc l
-	<span class="logical">requires</span> <span class="logical">forall</span> x y. <span class="logical">List</span>.mem x acc -> <span class="logical">List</span>.mem y l -> x &lt;= y
-	<span class="logical">requires</span> sorted acc
-  <span class="logical">ensures</span> sorted r
-  <span class="logical">ensures</span> permut r (l @ acc)
-  <span class="logical">variant</span> <span class="logical">List</span>.length l *)</span>
-</pre>
+<span class="keyword">let</span> <span class="keyword">rec</span> quick_sort l =
+  <span class="keyword">match</span> l <span class="keyword">with</span>
+  | [] -> []
+  | [x] -> [x]
+  | p :: ls ->
+    <span class="keyword">let</span> (left, right) = (quick_aux p ls) <span class="keyword">in</span>
+      (quick_sort left) @  p :: quick_sort right
+<span class="contract">(*@ r = quick_sort l
+		<span class="logical">ensures</span> sorted r
+		<span class="logical">ensures</span> permut r l
+		<span class="logical">variant</span> <span class="logical">List</span>.length l *)</span></pre>
 <div class="info">
 <p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
 </div>
