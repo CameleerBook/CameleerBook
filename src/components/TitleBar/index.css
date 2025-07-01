@@ -1,18 +1,12 @@
 .titleBar-container {
   background-image: linear-gradient(to Right, #F18B02, #EC6A0E);
-  display: grid;
-  grid-template-columns: repeat(8, minmax(50px, 1fr));
   color: white;
-  align-items: center;
   height: 12.5vh;
-}
-
-.titleBar-title-container {
-  grid-column: 1 / 5;
+  align-items: center;
+  display: grid;
 }
 
 .titleBar-title {
-  font-size: xx-large;
   font-weight: bold;
   margin-left: 15px
 }
@@ -28,4 +22,38 @@
 .titleBar-item-container:hover {
   text-decoration: none;
   background-color: #ed853b;
+}
+
+@media (width <= 1024px) {
+  .titleBar-container {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(4, minmax(50px, 1fr));
+  }
+
+  .titleBar-title-container {
+    grid-row: span 1;
+    grid-column: span 4;
+    align-content: center;
+    height: 100%;
+  }
+
+  .titleBar-title {
+    font-size: large;
+  }
+
+}
+
+@media (width > 1024px) {
+  .titleBar-container {
+    grid-template-columns: repeat(8, minmax(50px, 1fr));
+  }
+
+  .titleBar-title-container {
+    grid-column: span 4;
+  }
+
+  .titleBar-title {
+    font-size: xx-large;
+  }
+
 }

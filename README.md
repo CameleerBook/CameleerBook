@@ -9,6 +9,8 @@ TODO:
   - Subtitle on the left (name of algorithm)
   - Button on the left to see proof
 
+Image: https://pixabay.com/photos/camel-mammal-animal-sand-desert-8832869/
+
 <!---
 # Getting Started with Create React App
 
