@@ -1,15 +1,14 @@
 .bookItem-container {
-  background:
+  /*background:
     linear-gradient(#f6f6f6, #f6f6f6) padding-box,
-    linear-gradient(to Right, #F18B02, #EC6A0E) border-box;
-  border: 2px solid transparent;
+    linear-gradient(to Right, #F18B02, #EC6A0E) border-box;*/
+  border: 2px solid #CCA48C;
   border-radius: 15px;
-  height: 175px;
   width: 90%;
   margin: 25px auto;
   display: grid;
   overflow: hidden;
-  grid-template-columns: 3fr 7fr;
+  /*grid-template-columns: 3fr 7fr;*/
 }
 
 .bookItem-container:hover {
@@ -20,15 +19,17 @@
   height: 100%;
   align-content: center;
   text-align: center;
-  grid-column: span 1;
+  /*grid-column: span 1;*/
   padding: 10px;
-  background-image: linear-gradient(to Right, #F18B02, #EC6A0E)
+  background-color: #9e5b34;
+  /*background-image: linear-gradient(to Right, #F18B02, #EC6A0E)*/
 }
 
 .bookItem-title p {
   font-size: large;
   font-weight: bold;
-  color: white;
+  /*color: white;*/
+  color: whitesmoke;
 }
 
 .bookItem-body {
@@ -36,4 +37,47 @@
   padding-left: 15px;
   padding-right: 15px;
   grid-column: span 1;
+  background-color: #faece3;
 }
+
+@media (width <= 475px) {
+  .bookItem-container {
+    grid-template-rows: 1fr 4fr;
+    height: 200px;
+  }
+
+  .bookItem-title {
+    grid-row: span 1;
+  }
+
+  .bookItem-body {
+    grid-row: span 1;
+  }
+}
+
+@media (width > 475px) {
+  .bookItem-container {
+    grid-template-columns: 3fr 7fr;
+    height: 175px;
+  }
+
+  .bookItem-title {
+    grid-column: span 1;
+  }
+
+  .bookItem-body {
+    grid-column: span 1;
+  }
+
+}
+
+
+/*@media (width <= 1024px) {
+  .bookItem-container {
+  }
+}
+
+@media (width > 1024px) {
+  .bookItem-container {
+  }
+}*/

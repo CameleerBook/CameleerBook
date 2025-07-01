@@ -9,5 +9,16 @@
 
 .relatedPage-listing {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+}
+
+@media (width <= 1024px) {
+  .relatedPage-listing {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width > 1024px) {
+  .relatedPage-listing {
+    grid-template-columns: 1fr 1fr;
+  }
 }
