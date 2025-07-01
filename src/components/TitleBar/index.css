@@ -1,7 +1,7 @@
 .titleBar-container {
   background-image: linear-gradient(to Right, #F18B02, #EC6A0E);
   color: white;
-  height: 12.5vh;
+  min-height: 12.5vh;
   align-items: center;
   display: grid;
 }
