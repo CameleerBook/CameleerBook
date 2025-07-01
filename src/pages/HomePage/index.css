@@ -1,17 +1,50 @@
 .homePage-container {
   display: grid;
-  grid-template-columns: 4fr 3fr 4fr;
-  align-items: center;
-  height: 81.25vh;
-}
-
-.homePage-element {
-  grid-column: span 1;
-  height: 100%;
+  /*align-items: center;*/
+  min-height: 81.25vh;
 }
 
 .homePage-intro {
   display: grid;
   grid-template-rows: 1fr 1fr;
   height: 100%;
+}
+
+@media (width <= 1024px) {
+  .homePage-container {
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  .homePage-left {
+    grid-row: 2 / 3;
+  }
+
+  .homePage-image {
+    grid-row: 1 / 2;
+  }
+
+  .homePage-right {
+    grid-row: 3 / 4;
+  }
+
+}
+
+@media (width > 1024px) {
+  .homePage-container {
+      grid-template-columns: 4fr 3fr 4fr;
+  }
+
+  .homePage-left {
+    grid-column: 1 / 2;
+  }
+
+  .homePage-image {
+    grid-column: 2 / 3;
+  }
+
+  .homePage-right {
+    grid-column: 3 / 4;
+  }
+
+
 }
