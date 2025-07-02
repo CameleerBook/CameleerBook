@@ -9,12 +9,20 @@ function CoverItem(props: { width: number, height: number }) {
   return (
     <div className="coverItem-container">
       <div className="coverItem-image-container">
+        <img src={COVER} className="coverItem-image" alt={""} />
+      </div>
+    </div>
+  );
+
+  /*return (
+    <div className="coverItem-container">
+      <div className="coverItem-image-container">
         <img src={COVER} className="coverItem-image"
           alt={""} width={props.width} height={props.height} />
       </div>
 
     </div>
-  );
+  );*/
 }
 
 /*
