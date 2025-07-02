@@ -1,55 +1,49 @@
 [
   {
-    "title": "Master Dissertation",
-    "description": "My dissertation",
-    "authors": "Pedro Gasparinho, Mário Pereira (Advisor)",
-    "link": null
-  },
-  {
     "title": "Learn Programming with OCaml",
-    "description": "Introductory book about OCaml",
+    "description": "An introductory OCaml textbook focused on algorithms and data structures.",
     "authors": "Sylvain Conchon, Jean-Christophe Filliâtre",
     "link": "https://usr.lmf.cnrs.fr/lpo/"
   },
   {
     "title": "Introduction to Algorithms",
-    "description": "One of the great works",
+    "description": "A rigorous yet comprehensive book on algorithms, widely used in academia.",
     "authors": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein",
     "link": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
   },
   {
     "title": "The Art Of Computer Programming",
-    "description": "One of the great works",
+    "description": "A deep and very influential multi-volume series on classical algorithms.",
     "authors": "Donald E. Knuth",
     "link": "https://www-cs-faculty.stanford.edu/~knuth/taocp.html"
   },
   {
     "title": "The Algorithm Design Manual",
-    "description": "One of the great works",
+    "description": "A practical textbook that bridges algorithm design and real-world problem solving.",
     "authors": "Steven S. Skiena",
     "link": "https://www3.cs.stonybrook.edu/~skiena/373/videos/"
   },
   {
     "title": "Algorithms",
-    "description": "One of the great works",
+    "description": "A programming-oriented guide to algorithms, featuring detailed and clear Java implementations.",
     "authors": "Robert Sedgewick, Kevin Wayne",
     "link": "https://algs4.cs.princeton.edu/home/"
   },
   {
     "title": "Purely Functional Data Structures",
-    "description": "One of the great works",
+    "description": "An essential reading for the Functional Programming enthusiasts.",
     "authors": "Chris Okasaki",
     "link": "https://www.cambridge.org/pt/universitypress/subjects/computer-science/programming-languages-and-applied-logic/purely-functional-data-structures?format=HB&isbn=9780521631242"
   },
   {
     "title": "Software Foundations",
-    "description": "One of the great works",
+    "description": "A foundational series on formal methods, program semantics, and verified software engineering.",
     "authors": "Various Distinguished Authors",
     "link": "https://softwarefoundations.cis.upenn.edu/"
   },
   {
     "title": "Functional Data Structures and Algorithms",
-    "description": "One of the great works",
+    "description": "A formally verified functional algorithms textbook, using the Isabelle proof assistant.",
     "authors": "Tobias Nipkow et. al.",
     "link": "https://functional-algorithms-verified.org/"
   }
