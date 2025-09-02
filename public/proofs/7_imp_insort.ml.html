@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><title>imp_insort.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Insertion Sort (Imperative)<h2></div><pre>
+<span class="comment">(* Implementation adapted from Sedgewick and Wayne's Algorithms *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="keyword">let</span>[@logic][@ghost] occ v a =
+	<span class="keyword">let</span> r = ref 0 <span class="keyword">in</span>
+	<span class="keyword">for</span> i = 0 <span class="keyword">to</span> <span class="keyword">Array</span>.length a - 1 <span class="keyword">do</span>
+	<span class="contract">(*@ <span class="logical">invariant</span> 0 &lt;= !r &lt;= i 
+			<span class="logical">invariant</span> !r > 0 -> <span class="logical">Array</span>.mem v a
+			<span class="logical">invariant</span> !r = 0 -> (<span class="logical">forall</span> k. 0 &lt;= k &lt; i -> a[k] &lt;> v) *)</span>
+		<span class="keyword">if</span> a.(i) = v <span class="keyword">then</span> r := !r + 1
+	<span class="keyword">done</span>;
+	!r
+<span class="contract">(*@ res = occ v a
+		<span class="logical">ensures</span> 0 &lt;= res &lt;= <span class="logical">Array</span>.length a
+		<span class="logical">ensures</span> res > 0 &lt;-> <span class="logical">Array</span>.mem v a *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> permut (a1 a2: <span class="logical">int</span> <span class="logical">array</span>) =
+		<span class="logical">forall</span> x. occ x a1 = occ x a2 *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> sorted_sub (a: <span class="logical">int</span> <span class="logical">array</span>) (l u: <span class="logical">int</span>) = 
+		<span class="logical">forall</span> i j: <span class="logical">int</span>. l &lt;= i &lt;= j &lt; u -> a.(i) &lt;= a.(j) *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> sorted (a: <span class="logical">int</span> <span class="logical">array</span>) = 
+		sorted_sub a 0 (<span class="logical">Array</span>.length a) *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> exchange (a1 a2: <span class="logical">int</span> <span class="logical">array</span>) (i j: <span class="logical">int</span>) =
+		<span class="logical">Array</span>.length a1 = <span class="logical">Array</span>.length a2 &amp;&amp; 
+		0 &lt;= i &lt; <span class="logical">Array</span>.length a1 &amp;&amp; 
+		0 &lt;= j &lt; <span class="logical">Array</span>.length a1 &amp;&amp;
+		a1[i] = a2[j] &amp;&amp; 
+		a1[j] = a2[i] &amp;&amp;
+		(<span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a1 &amp;&amp; k &lt;> i -> k &lt;> j -> 
+		a1[k] = a2[k]) *)</span>
+
+<span class="contract">(*@ <span class="logical">axiom</span> exchange_occ : <span class="logical">forall</span> a1 a2: <span class="logical">int</span> <span class="logical">array</span>, i j: <span class="logical">int</span>.
+		exchange a1 a2 i j -> permut a1 a2 *)</span>
+
+<span class="keyword">let</span> swap (arr: <span class="keyword">int</span> <span class="keyword">array</span>) i j =
+	<span class="keyword">let</span> v = arr.(i) <span class="keyword">in</span>
+	arr.(i) &lt;- arr.(j);
+	arr.(j) &lt;- v
+<span class="contract">(*@ <span class="logical">requires</span> 0 &lt;= i &lt; <span class="logical">Array</span>.length arr
+		<span class="logical">requires</span> 0 &lt;= j &lt; <span class="logical">Array</span>.length arr
+		<span class="logical">ensures</span> exchange arr (old arr) i j
+		<span class="logical">ensures</span> permut arr (old arr) *)</span>
+
+<span class="keyword">let</span> in_sort arr = 
+	<span class="keyword">for</span> i = 1 <span class="keyword">to</span> (<span class="keyword">Array</span>.length arr) - 1 <span class="keyword">do</span>
+	<span class="contract">(*@ <span class="logical">invariant</span> sorted_sub arr 0 i
+			<span class="logical">invariant</span> permut arr (old arr) *)</span>
+		<span class="keyword">let</span> j = ref i <span class="keyword">in</span>
+		<span class="keyword">while</span> !j > 0 &amp;&amp; arr.(!j - 1) > arr.(!j) <span class="keyword">do</span>
+		<span class="contract">(*@ <span class="logical">variant</span> !j 
+				<span class="logical">invariant</span> 0 &lt;= !j &lt;= i
+				<span class="logical">invariant</span> <span class="logical">forall</span> p q. 0 &lt;= p &lt;= q &lt;= i -> q &lt;> !j -> arr[p] &lt;= arr[q]
+				<span class="logical">invariant</span> permut arr (old arr) *)</span>
+			swap arr !j (!j - 1);
+			j := !j - 1
+		<span class="keyword">done</span>
+	<span class="keyword">done</span>
+<span class="contract">(*@ <span class="logical">ensures</span> sorted arr
+		<span class="logical">ensures</span> permut arr (old arr) *)</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

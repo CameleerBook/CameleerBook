@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><head><title>bsearch.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Binary Search (With Option Values)<h2></div><pre>
+<span class="comment">(* Implementation adapted from MPRI Course 2-36-1: Proof of Program *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="contract">(*@ <span class="logical">predicate</span> sorted (a: <span class="logical">int</span> <span class="logical">array</span>) = <span class="logical">forall</span> i j:<span class="logical">int</span>. 
+    0 &lt;= i &lt;= j &lt; <span class="logical">Array</span>.length a -> a.(i) &lt;= a.(j) *)</span>
+
+<span class="keyword">let</span> binary_search a v =
+  <span class="keyword">let</span> l = ref 0 <span class="keyword">in</span>
+  <span class="keyword">let</span> h = ref (<span class="keyword">Array</span>.length a - 1) <span class="keyword">in</span>
+  <span class="keyword">let</span> res = ref <span class="keyword">None</span> <span class="keyword">in</span>
+  <span class="keyword">while</span> !l &lt;= !h <span class="keyword">do</span>
+  <span class="contract">(*@ <span class="logical">invariant</span> 0 &lt;= !l
+      <span class="logical">invariant</span> !h &lt; <span class="logical">Array</span>.length a
+      <span class="logical">invariant</span> <span class="logical">match</span> !res <span class="logical">with</span>
+        | <span class="logical">None</span> -> <span class="logical">forall</span> k. 0 &lt;= k &lt; !l \/ !h &lt; k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v
+        | <span class="logical">Some</span> i -> a.(i) = v
+      <span class="logical">variant</span> !h - !l *)</span>
+    <span class="keyword">let</span> m = (!h + !l)/ 2 <span class="keyword">in</span>
+    <span class="keyword">if</span> a.(m) &lt; v <span class="keyword">then</span> l := m+1
+    <span class="keyword">else</span> <span class="keyword">if</span> a.(m) > v <span class="keyword">then</span> h := m-1
+    <span class="keyword">else</span> <span class="keyword">begin</span> res := (<span class="keyword">Some</span> m); l := m+1; h := m <span class="keyword">end</span> 
+  <span class="keyword">done</span>;
+  !res
+<span class="contract">(*@ r = binary_search a v
+	<span class="logical">requires</span> sorted a
+    <span class="logical">ensures</span> <span class="logical">match</span> r <span class="logical">with</span>
+        | <span class="logical">None</span> -> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v
+        | <span class="logical">Some</span> i -> a.(i) = v *)</span>
+</pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

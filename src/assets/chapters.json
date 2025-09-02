@@ -5,7 +5,20 @@
     "icon": {
       "name": "functions"
     },
-    "proofs": []
+    "proofs": [
+      {
+        "name": "Time Conversion",
+        "link": "1_time"
+      },
+      {
+        "name": "Count (Lists)",
+        "link": "2_count_list"
+      },
+      {
+        "name": "Count (Arrays)",
+        "link": "3_count_array"
+      }
+    ]
   },
   {
     "name": "II. Arithmetic",
@@ -15,44 +28,48 @@
     },
     "proofs": [
       {
-        "name": "McCarthy's 91 function",
-        "link": "mccarthy"
+        "name": "Extended GCD (Functional)",
+        "link": "1_extended_gcd"
       },
       {
-        "name": "Bézout Coefficients (Functional)",
-        "link": "ext_gcd"
-      },
-      {
-        "name": "Bézout Coefficients (Imperative)",
-        "link": "bezout"
-      },
-      {
-        "name": "Fast Exponentiation (Functional)",
-        "link": "func_fastexp"
-      },
-      {
-        "name": "Fast Exponentiation (Imperative)",
-        "link": "fastexp"
-      },
-      {
-        "name": "Fermat's Little Theorem",
-        "link": "fermat"
-      },
-      {
-        "name": "Euclidean Division (Functional)",
-        "link": "eudiv_fun"
+        "name": "McCarthy's 91 Function",
+        "link": "2_mccarthy"
       },
       {
         "name": "Euclidean Division (Imperative)",
-        "link": "eudiv"
+        "link": "3_eudiv"
       },
       {
-        "name": "Modular Arithmetic",
-        "link": "modArith"
+        "name": "Iterative Fibonacci",
+        "link": "4_fib"
       },
       {
-        "name": "Tribonacci",
-        "link": "tribonacci"
+        "name": "Extended GCD (Imperative)",
+        "link": "5_extended_gcd2"
+      },
+      {
+        "name": "Fast Exponentiation (Imperative)",
+        "link": "6_imp_fastexp"
+      },
+      {
+        "name": "Exercise 1",
+        "link": "1_eudiv_neg"
+      },
+      {
+        "name": "Exercise 2",
+        "link": "2_fun_eudiv"
+      },
+      {
+        "name": "Exercise 3",
+        "link": "3_fact"
+      },
+      {
+        "name": "Exercise 4",
+        "link": "4_trib"
+      },
+      {
+        "name": "Exercise 5",
+        "link": "5_fun_fastexp"
       }
     ]
   },
@@ -64,24 +81,28 @@
     },
     "proofs": [
       {
-        "name": "Linear Search (While)",
-        "link": "lsearch"
+        "name": "Linear Search (For Loop)",
+        "link": "1_lsearch_for"
       },
       {
-        "name": "Linear Search (For)",
-        "link": "lsearch_for"
+        "name": "Binary Search (Option Values)",
+        "link": "2_bsearch"
       },
       {
-        "name": "Binary Search",
-        "link": "bsearch"
+        "name": "Ternary Search (Option Values)",
+        "link": "3_tsearch_opt"
       },
       {
-        "name": "Binary Search (Exceptions)",
-        "link": "bsearch_excp"
+        "name": "Ternary Search (Exceptions)",
+        "link": "4_tsearch_exp"
       },
       {
-        "name": "Ternary Search",
-        "link": "ternary_search"
+        "name": "Depth-First Search For Binary Trees",
+        "link": "5_btree_depth"
+      },
+      {
+        "name": "Exercise 1",
+        "link": "1_lsearch_back"
       }
     ]
   },
@@ -93,48 +114,64 @@
     },
     "proofs": [
       {
-        "name": "Insertion Sort (Functional)",
-        "link": "in_sort"
+        "name": "Selection Sort (Functional)",
+        "link": "1_func_selsort"
       },
       {
-        "name": "Insertion Sort (Functional & Tail Recursive)",
-        "link": "in_sort_tail"
-      },
-      {
-        "name": "Insertion Sort (Functional & Polymorphic)",
-        "link": "in_sort_poly"
+        "name": "Selection Sort (Tail Recursion)",
+        "link": "2_tail_selsort"
       },
       {
         "name": "Merge Sort (Functional)",
-        "link": "merge_sort"
-      },
-      {
-        "name": "Merge Sort (Functional & Tail Recursive)",
-        "link": "merge_sort_tail"
-      },
-      {
-        "name": "Merge Sort (Functional & Polymorphic)",
-        "link": "merge_sort_poly"
+        "link": "3_func_mergesort"
       },
       {
         "name": "Quick Sort (Functional)",
-        "link": "quick_sort"
+        "link": "4_func_quicksort"
       },
       {
-        "name": "Quick Sort (Functional & Polymorphic)",
-        "link": "quick_sort_poly"
+        "name": "Quick Sort (Optimized Tail Recursion)",
+        "link": "5_tail_opt_quicksort"
       },
       {
-        "name": "Selection Sort (Functional)",
-        "link": "sel_sort"
+        "name": "Selection Sort (Polymorphic & Functional)",
+        "link": "6_poly_selsort"
       },
       {
-        "name": "Selection Sort (Tail Recursive)",
-        "link": "sel_sort_tail"
+        "name": "Insertion Sort (Imperative)",
+        "link": "7_imp_insort"
       },
       {
-        "name": "Selection Sort (Functional & Polymorphic)",
-        "link": "sel_sort_poly"
+        "name": "Exercise 1",
+        "link": "1_func_insort"
+      },
+      {
+        "name": "Exercise 2",
+        "link": "2_tail_opt_insort"
+      },
+      {
+        "name": "Exercise 3",
+        "link": "3_poly_insort"
+      },
+      {
+        "name": "Exercise 4",
+        "link": "4_tail_opt_selsort"
+      },
+      {
+        "name": "Exercise 5",
+        "link": "5_imp_selsort"
+      },
+      {
+        "name": "Exercise 6",
+        "link": "6_poly_mergesort"
+      },
+      {
+        "name": "Exercise 7",
+        "link": "7_tail_quicksort"
+      },
+      {
+        "name": "Exercise 8",
+        "link": "8_poly_quicksort"
       }
     ]
   },
@@ -147,15 +184,19 @@
     "proofs": [
       {
         "name": "Persistant Queue",
-        "link": "persistQueue"
+        "link": "persist_queue"
+      },
+      {
+        "name": "Linked Listed",
+        "link": "linkedlist"
       },
       {
         "name": "List Zipper",
-        "link": "listZipper"
+        "link": "list_zipper"
       },
       {
         "name": "Same Fringe with Zippers",
-        "link": "treeZipper"
+        "link": "tree_zipper"
       }
     ]
   },
@@ -166,5 +207,38 @@
       "name": "functions"
     },
     "proofs": []
+  },
+    {
+    "name": "Archived Proofs",
+    "number": 7,
+    "icon": {
+      "name": "functions"
+    },
+    "proofs": [
+      {
+        "name": "Binary Search (Exceptions)",
+        "link": "bsearch_excp"
+      },
+      {
+        "name": "Fermat's Little Theorem",
+        "link": "fermat"
+      },
+      {
+        "name": "Modular Arithmetic",
+        "link": "modarith"
+      },
+      {
+        "name": "Tail Recursive Insertion Sort",
+        "link": "tail_insort"
+      },
+      {
+        "name": "Tail Recursive Merge Sort",
+        "link": "tail_mergesort"
+      },
+      {
+        "name": "Optmized Tail Recursive Merge Sort",
+        "link": "tail_opt_mergesort"
+      }
+    ]
   }
 ]

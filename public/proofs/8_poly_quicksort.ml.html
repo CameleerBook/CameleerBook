@@ -1,0 +1,116 @@
+<!DOCTYPE html><html><head><title>poly_quicksort.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Polymorphic Quick Sort (Functional)<h2></div><pre>
+<span class="comment">(* Implementation by Pedro Gasparinho, advised by Mário Pereira *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> Cmp = <span class="keyword">sig</span>
+	<span class="keyword">type</span> t
+
+	<span class="keyword">val</span> eq: t -> t -> <span class="keyword">bool</span> [@@logic]
+	<span class="contract">(*@ b = eq x y
+		<span class="logical">ensures</span> b &lt;-> x = y *)</span>
+
+	<span class="contract">(*@ <span class="logical">function</span> le: t -> t -> <span class="logical">bool</span> *)</span>
+
+	<span class="contract">(*@ <span class="logical">axiom</span> reflexive : <span class="logical">forall</span> x. le x x *)</span>
+	<span class="contract">(*@ <span class="logical">axiom</span> total 		: <span class="logical">forall</span> x y. le x y \/ le y x *)</span>
+	<span class="contract">(*@ <span class="logical">axiom</span> transitive: <span class="logical">forall</span> x y z. le x y -> le y z -> le x z *)</span>
+
+	<span class="keyword">val</span> leq: t -> t -> <span class="keyword">bool</span> [@@logic]
+	<span class="contract">(*@ b = leq x y
+			<span class="logical">ensures</span> b &lt;-> le x y *)</span>
+
+	<span class="contract">(*@ <span class="logical">function</span> g: t -> t -> <span class="logical">bool</span> *)</span>
+
+	<span class="contract">(*@ <span class="logical">axiom</span> inverse				: <span class="logical">forall</span> x y. g x y &lt;-> not le x y *)</span>
+	<span class="contract">(*@ <span class="logical">axiom</span> transitive_g	: <span class="logical">forall</span> x y z. g x y -> g y z -> g x z *)</span>
+	
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> QuickSort (E: Cmp) = <span class="keyword">struct</span>
+	<span class="keyword">type</span> elt = E.t
+
+	<span class="keyword">let</span>[@logic][@ghost] <span class="keyword">rec</span> occ v = <span class="keyword">function</span>
+		| [] -> 0
+		| h::t -> (<span class="keyword">if</span> E.eq h v <span class="keyword">then</span> 1 <span class="keyword">else</span> 0) + occ v t
+	<span class="contract">(*@ res = occ v l
+			<span class="logical">variant</span> l
+			<span class="logical">ensures</span> 0 &lt;= res &lt;= <span class="logical">List</span>.length l
+			<span class="logical">ensures</span> res > 0 &lt;-> <span class="logical">List</span>.mem v l *)</span>
+
+	<span class="keyword">let</span>[@<span class="keyword">lemma</span>] <span class="keyword">rec</span> occ_append (x: elt) (l1: elt <span class="keyword">list</span>) (l2: elt <span class="keyword">list</span>) =
+		<span class="keyword">let</span> p = occ x (l1 @ l2) = occ x l1 + occ x l2 <span class="keyword">in</span>
+		<span class="keyword">match</span> l1 <span class="keyword">with</span>
+		| [] -> <span class="keyword">assert</span> (p)
+		| _::t -> occ_append x t l2; <span class="keyword">assert</span> (p)
+	<span class="contract">(*@ occ_append x l1 l2
+			<span class="logical">variant</span> l1
+			<span class="logical">ensures</span> occ x (l1 @ l2) = occ x l1 + occ x l2 *)</span> 
+
+	<span class="contract">(*@ <span class="logical">predicate</span> permut (l1 l2: elt <span class="logical">list</span>) =
+		<span class="logical">forall</span> x. occ x l1 = occ x l2 *)</span>
+
+	<span class="contract">(*@ <span class="logical">axiom</span> permut_len : <span class="logical">forall</span> l1 l2: elt <span class="logical">list</span>. 
+			permut l1 l2 -> <span class="logical">List</span>.length l1 = <span class="logical">List</span>.length l2 *)</span>
+
+	<span class="contract">(*@ <span class="logical">predicate</span> <span class="logical">rec</span> sorted (l: elt <span class="logical">list</span>) =
+		<span class="logical">match</span> l <span class="logical">with</span>
+		| [] | _::[] -> <span class="logical">true</span>
+		| x::(y::ls) -> E.leq x y &amp;&amp; sorted (y::ls) *)</span>
+	<span class="contract">(*@ <span class="logical">variant</span> l *)</span>
+
+	<span class="keyword">let</span>[@<span class="keyword">lemma</span>] <span class="keyword">rec</span> sorted_head (h: elt) (t: elt <span class="keyword">list</span>) =
+		<span class="keyword">match</span> t <span class="keyword">with</span>
+		| [] -> ()
+		| x::tt -> <span class="keyword">assert</span> (E.leq h x); sorted_head h tt
+	<span class="contract">(*@ <span class="logical">requires</span> sorted (h::t)
+			<span class="logical">variant</span> t
+			<span class="logical">ensures</span> <span class="logical">forall</span> e. <span class="logical">List</span>.mem e t -> E.leq h e *)</span>
+
+	<span class="contract">(*@ <span class="logical">lemma</span> sorted_cons :
+		<span class="logical">forall</span> x: elt, l: elt <span class="logical">list</span>.
+		(sorted l /\
+		(<span class="logical">forall</span> e. <span class="logical">List</span>.mem e l -> E.leq x e)) &lt;->
+		sorted (x::l) *)</span>
+
+	<span class="keyword">let</span>[@<span class="keyword">lemma</span>] <span class="keyword">rec</span> sorted_append (l1: elt <span class="keyword">list</span>) (l2: elt <span class="keyword">list</span>) =
+		<span class="keyword">match</span> l1 <span class="keyword">with</span>
+		| [] -> ()
+		| h1::t1 -> 
+			<span class="keyword">match</span> l2 <span class="keyword">with</span>
+			| [] -> ()
+			| h2::t2 -> <span class="keyword">assert</span> (E.leq h1 h2); sorted_append l1 t2; sorted_append t1 l2
+	<span class="contract">(*@ sorted_append l1 l2
+			<span class="logical">requires</span> sorted l1
+			<span class="logical">requires</span> sorted l2
+			<span class="logical">requires</span> <span class="logical">forall</span> x y. <span class="logical">List</span>.mem x l1 -> <span class="logical">List</span>.mem y l2 -> E.leq x y
+			<span class="logical">ensures</span> sorted (l1 @ l2) *)</span>
+
+	<span class="keyword">let</span> <span class="keyword">rec</span> quick_aux p = <span class="keyword">function</span>
+		| [] -> ([], [])
+		| x :: r ->
+			<span class="keyword">let</span> ll, lr = quick_aux p r <span class="keyword">in</span>
+			<span class="keyword">if</span> E.leq x p <span class="keyword">then</span> x :: ll, lr
+			<span class="keyword">else</span> ll, x :: lr
+	<span class="contract">(*@ ll, lr = quick_aux p l
+			<span class="logical">variant</span> l
+			<span class="logical">ensures</span> <span class="logical">forall</span> x. <span class="logical">List</span>.mem x ll -> E.leq x p
+			<span class="logical">ensures</span> <span class="logical">forall</span> x. <span class="logical">List</span>.mem x lr -> E.g x p
+			<span class="logical">ensures</span> permut l (ll @ lr) *)</span>
+
+	<span class="keyword">let</span> <span class="keyword">rec</span> quick_sort l =
+		<span class="keyword">match</span> l <span class="keyword">with</span>
+		| [] -> []
+		| [x] -> [x]
+		| p :: ls ->
+			<span class="keyword">let</span> (left, right) = (quick_aux p ls) <span class="keyword">in</span>
+			(quick_sort left) @  p :: quick_sort right
+	<span class="contract">(*@ r = quick_sort l
+			<span class="logical">ensures</span> sorted r
+			<span class="logical">ensures</span> permut r l
+			<span class="logical">variant</span> <span class="logical">List</span>.length l *)</span>
+  
+<span class="keyword">end</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>
