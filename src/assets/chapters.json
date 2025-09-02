@@ -217,7 +217,7 @@
     "proofs": [
       {
         "name": "Binary Search (Exceptions)",
-        "link": "bsearch_excp"
+        "link": "bsearch_exp"
       },
       {
         "name": "Fermat's Little Theorem",
