@@ -5,7 +5,7 @@ import "./index.css"
 
 function CoverItem() {
 
-  const link = "CameleerBook/main.pdf"
+  const link = "main.pdf"
 
   return (
     <div className="coverItem-container">
