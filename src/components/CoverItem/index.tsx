@@ -1,15 +1,23 @@
 import { COVER } from "../../utils/constants";
+import { onClickUrl } from "../../utils/utils";
 /*import { onClickUrl } from "../../utils/utils";*/
 import "./index.css"
 
-function CoverItem(props: { width: number, height: number }) {
+function CoverItem() {
 
-  const link = "/main.pdf"
+  const link = "CameleerBook/main.pdf"
 
   return (
     <div className="coverItem-container">
       <div className="coverItem-image-container">
-        <img src={COVER} className="coverItem-image" alt={""} />
+        <img src={COVER} className="coverItem-image" alt={""}/>
+      </div>
+      <div className="coverItem-bottom">
+        <div className="coverItem-button-container">
+          <div className="coverItem-button-style" onClick={() => onClickUrl(link)}>
+            Read the PDF
+          </div>
+        </div>
       </div>
     </div>
   );

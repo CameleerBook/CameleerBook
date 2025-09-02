@@ -1,7 +1,15 @@
 [
   {
-    "name": "I. Arithmetic",
+    "name": "I. Introduction",
     "number": 1,
+    "icon": {
+      "name": "functions"
+    },
+    "proofs": []
+  },
+  {
+    "name": "II. Arithmetic",
+    "number": 2,
     "icon": {
       "name": "functions"
     },
@@ -12,11 +20,11 @@
       },
       {
         "name": "Bézout Coefficients (Functional)",
-        "link": "bezout"
+        "link": "ext_gcd"
       },
       {
         "name": "Bézout Coefficients (Imperative)",
-        "link": "ext_gcd"
+        "link": "bezout"
       },
       {
         "name": "Fast Exponentiation (Functional)",
@@ -49,8 +57,8 @@
     ]
   },
   {
-    "name": "II. Searching Algorithms",
-    "number": 2,
+    "name": "III. Searching Algorithms",
+    "number": 3,
     "icon": {
       "name": "search"
     },
@@ -78,8 +86,8 @@
     ]
   },
   {
-    "name": "III. Sorting Algorithms",
-    "number": 3,
+    "name": "IV. Sorting Algorithms",
+    "number": 4,
     "icon": {
       "name": "sort"
     },
@@ -131,8 +139,8 @@
     ]
   },
   {
-    "name": "IV. Data Structures",
-    "number": 4,
+    "name": "V. Data Structures",
+    "number": 5,
     "icon": {
       "name": "data_array"
     },
@@ -150,5 +158,13 @@
         "link": "treeZipper"
       }
     ]
+  },
+  {
+    "name": "VI. Selected Topics",
+    "number": 6,
+    "icon": {
+      "name": "functions"
+    },
+    "proofs": []
   }
 ]
