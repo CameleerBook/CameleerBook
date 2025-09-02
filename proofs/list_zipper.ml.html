@@ -1,0 +1,157 @@
+<!DOCTYPE html><html><head><title>list_zipper.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>List Zipper<h2></div><pre>
+<span class="comment">(* Implementation adapted from Learn Programming with OCaml *)</span>
+<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="contract">(*@ <span class="logical">lemma</span> to_list_elems:
+		<span class="logical">forall</span> l: 'a <span class="logical">list</span>.
+		Sequence.(==) l (of_list l) *)</span>
+
+<span class="keyword">let</span>[@<span class="keyword">lemma</span>] <span class="keyword">rec</span> comm_rev_of_list (l: 'a <span class="keyword">list</span>) =
+  <span class="keyword">match</span> l <span class="keyword">with</span>
+  | [] -> ()
+  | _ :: r -> comm_rev_of_list r
+<span class="contract">(*@ <span class="logical">ensures</span> Sequence.(==) (of_list (<span class="logical">List</span>.rev l)) (Sequence.rev (of_list l)) *)</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> Zipper = <span class="keyword">sig</span>
+	<span class="keyword">type</span> 'a zipper
+	<span class="contract">(*@ model cursor: <span class="logical">int</span>
+			model view: 'a <span class="logical">list</span> *)</span>
+
+	<span class="keyword">exception</span> Empty
+	<span class="keyword">exception</span> NotFound
+
+	<span class="keyword">val</span> empty: unit -> 'a zipper
+	<span class="contract">(*@ res = empty ()
+			<span class="logical">ensures</span> res.cursor = 0
+			<span class="logical">ensures</span> res.view = Sequence.empty *)</span>
+
+	<span class="keyword">val</span> zipper_of_list: 'a <span class="keyword">list</span> -> 'a zipper
+	<span class="contract">(*@ res = zipper_of_list l
+			<span class="logical">ensures</span> res.cursor = 0
+			<span class="logical">ensures</span> res.view = of_list l *)</span>
+
+	<span class="keyword">val</span> move_right: 'a zipper -> 'a zipper
+	<span class="contract">(*@ res = move_right z
+			raises Empty -> z.cursor = Sequence.length z.view
+			<span class="logical">ensures</span> res.cursor = z.cursor + 1
+			<span class="logical">ensures</span> res.view = z.view *)</span>
+
+	<span class="keyword">val</span> move_left: 'a zipper -> 'a zipper
+	<span class="contract">(*@ res = move_left z
+			raises Empty -> z.cursor = 0
+			<span class="logical">ensures</span> res.cursor = z.cursor - 1
+			<span class="logical">ensures</span> res.view = z.view *)</span>
+
+	<span class="keyword">val</span> zipper_to_list: 'a zipper -> 'a <span class="keyword">list</span>
+	<span class="contract">(*@ res = zipper_to_list z
+			<span class="logical">ensures</span> of_list res = z.view *)</span>
+
+	<span class="keyword">val</span> insert: 'a zipper -> 'a -> 'a zipper
+	<span class="contract">(*@ res = insert z x
+			<span class="logical">ensures</span> res.cursor = z.cursor + 1
+			<span class="logical">ensures</span> res.view[z.cursor] = x *)</span>
+
+	<span class="keyword">val</span> delete_left: 'a zipper -> 'a zipper
+	<span class="contract">(*@ res = delete_left z 
+			raises NotFound -> z.cursor = 0
+			<span class="logical">ensures</span> Sequence.length res.view = Sequence.length z.view - 1
+			<span class="logical">ensures</span> <span class="logical">forall</span> i. 0 &lt;= i &lt; z.cursor - 1 -> res.view[i] = z.view[i]
+			<span class="logical">ensures</span> <span class="logical">forall</span> i. z.cursor - 1 &lt;= i &lt; Sequence.length res.view ->
+							res.view[i] = z.view[i+1] *)</span>
+
+	<span class="keyword">val</span> delete_right: 'a zipper -> 'a zipper
+	<span class="contract">(*@ res = delete_right z
+			raises NotFound -> z.cursor = Sequence.length z.view
+			<span class="logical">ensures</span> Sequence.length res.view = Sequence.length z.view - 1
+			<span class="logical">ensures</span> <span class="logical">forall</span> i. 0 &lt;= i &lt; z.cursor -> res.view[i] = z.view[i]
+			<span class="logical">ensures</span> <span class="logical">forall</span> i. z.cursor &lt;= i &lt; Sequence.length res.view ->
+							res.view[i] = z.view[i+1] *)</span>
+
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> ListZipper : Zipper = <span class="keyword">struct</span>
+	
+	<span class="keyword">type</span> 'a zipper = { 
+		left: 'a <span class="keyword">list</span>; 
+		right: 'a <span class="keyword">list</span>;
+		cursor: <span class="keyword">int</span>; [@ghost]
+		view: 'a <span class="keyword">list</span>; [@ghost] 
+	}
+	<span class="contract">(*@ <span class="logical">invariant</span> Sequence.(==) view (Sequence.append (Sequence.rev left) right)
+			<span class="logical">invariant</span> 0 &lt;= cursor &lt;= Sequence.length view
+			<span class="logical">invariant</span> cursor = <span class="logical">List</span>.length left *)</span>
+
+	<span class="keyword">let</span> empty () = { left = []; right = []; cursor = 0; view = [] }
+	<span class="contract">(*@ res = empty ()
+			<span class="logical">ensures</span> res.cursor = 0
+			<span class="logical">ensures</span> res.view = Sequence.empty *)</span>
+
+	<span class="keyword">let</span> zipper_of_list l = { left = []; right = l; cursor = 0; view = l }
+	<span class="contract">(*@ res = zipper_of_list l
+			<span class="logical">ensures</span> res.cursor = 0
+			<span class="logical">ensures</span> res.view = of_list l *)</span>
+
+	<span class="keyword">exception</span> Empty
+
+	<span class="keyword">let</span> move_right z =
+		<span class="keyword">match</span> z.right <span class="keyword">with</span>
+		| [] -> raise Empty
+		| x::r -> 
+				{ left = x :: z.left; right = r; cursor = z.cursor + 1; view = z.view }
+	<span class="contract">(*@ res = move_right z
+			raises Empty -> z.cursor = Sequence.length z.view
+			<span class="logical">ensures</span> res.cursor = z.cursor + 1
+			<span class="logical">ensures</span> res.view = z.view *)</span>
+
+	<span class="keyword">let</span> move_left z =
+		<span class="keyword">match</span> z.left <span class="keyword">with</span>
+		| [] -> raise Empty
+		| x::l -> 
+				{ left = l; right = x :: z.right; cursor = z.cursor - 1; view = z.view }
+	<span class="contract">(*@ res = move_left z
+			raises Empty -> z.cursor = 0
+			<span class="logical">ensures</span> res.cursor = z.cursor - 1
+			<span class="logical">ensures</span> res.view = z.view *)</span>	
+
+	<span class="keyword">let</span> zipper_to_list z = <span class="keyword">List</span>.rev_append z.left z.right
+	<span class="contract">(*@ res = zipper_to_list z
+			<span class="logical">ensures</span> of_list res = z.view *)</span>
+
+	<span class="keyword">let</span> insert z x = { 
+		z <span class="keyword">with</span> left = x::z.left; cursor = z.cursor + 1; 
+			view = (<span class="keyword">List</span>.rev (x :: z.left)) @ z.right
+	}
+	<span class="contract">(*@ res = insert z x
+			<span class="logical">ensures</span> res.cursor = z.cursor + 1
+			<span class="logical">ensures</span> res.view[z.cursor] = x *)</span>
+
+	<span class="keyword">exception</span> NotFound
+
+	<span class="keyword">let</span> delete_left z = 
+		<span class="keyword">match</span> z.left <span class="keyword">with</span>
+		| [] -> raise NotFound
+		| _::l -> 
+			{ z <span class="keyword">with</span> left = l; cursor = z.cursor - 1; view = (<span class="keyword">List</span>.rev l) @ z.right }
+	<span class="contract">(*@ res = delete_left z 
+			raises NotFound -> z.cursor = 0
+			<span class="logical">ensures</span> Sequence.length res.view = Sequence.length z.view - 1
+			<span class="logical">ensures</span> <span class="logical">forall</span> i. 0 &lt;= i &lt; z.cursor - 1 -> res.view[i] = z.view[i]
+			<span class="logical">ensures</span> <span class="logical">forall</span> i. z.cursor - 1 &lt;= i &lt; Sequence.length res.view ->
+							res.view[i] = z.view[i+1] *)</span>
+
+	<span class="keyword">let</span> delete_right z =
+		<span class="keyword">match</span> z.right <span class="keyword">with</span>
+		| [] -> raise NotFound
+		| _::r -> { z <span class="keyword">with</span> right = r; view = (<span class="keyword">List</span>.rev z.left) @ r }
+	<span class="contract">(*@ res = delete_right z
+			raises NotFound -> z.cursor = Sequence.length z.view
+			<span class="logical">ensures</span> Sequence.length res.view = Sequence.length z.view - 1
+			<span class="logical">ensures</span> <span class="logical">forall</span> i. 0 &lt;= i &lt; z.cursor -> res.view[i] = z.view[i]
+			<span class="logical">ensures</span> <span class="logical">forall</span> i. z.cursor &lt;= i &lt; Sequence.length res.view ->
+							res.view[i] = z.view[i+1] *)</span>
+
+<span class="keyword">end</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/CameleerBook/static/css/main.c2217c92.css",
-    "main.js": "/CameleerBook/static/js/main.3170c0e9.js",
+    "main.css": "/CameleerBook/static/css/main.7441d8ab.css",
+    "main.js": "/CameleerBook/static/js/main.b332908b.js",
     "static/js/453.f0ffce7f.chunk.js": "/CameleerBook/static/js/453.f0ffce7f.chunk.js",
     "static/media/cover.png": "/CameleerBook/static/media/cover.55b4c3e0ad843f55f7a5.png",
     "index.html": "/CameleerBook/index.html",
-    "main.c2217c92.css.map": "/CameleerBook/static/css/main.c2217c92.css.map",
-    "main.3170c0e9.js.map": "/CameleerBook/static/js/main.3170c0e9.js.map",
+    "main.7441d8ab.css.map": "/CameleerBook/static/css/main.7441d8ab.css.map",
+    "main.b332908b.js.map": "/CameleerBook/static/js/main.b332908b.js.map",
     "453.f0ffce7f.chunk.js.map": "/CameleerBook/static/js/453.f0ffce7f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c2217c92.css",
-    "static/js/main.3170c0e9.js"
+    "static/css/main.7441d8ab.css",
+    "static/js/main.b332908b.js"
   ]
 }
