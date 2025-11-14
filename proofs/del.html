@@ -4,6 +4,16 @@
     <span class="logical">else</span> d (n-1) m + d (n-1) (m-1) + d n (m-1) *)</span>
 <span class="contract">(*@ <span class="logical">variant</span> n + m *)</span>
 
+<span class="comment">(*let[@lemma] rec d_is_positive (n: int) (m: int) =
+  if n &lt;= 0 || m &lt;= 0 then ()
+  else begin
+    d_is_positive (n-1) m;
+    d_is_positive (n-1) (m-1);
+    d_is_positive n (m-1)
+  end
+(*@ variant n, m
+    ensures d n m > 0 *)*)</span>
+
 <span class="keyword">let</span> delannoy_array n m = 
   <span class="keyword">let</span> a = <span class="keyword">Array</span>.make (m+1) 1 <span class="keyword">in</span>
   <span class="keyword">for</span> i = 1 <span class="keyword">to</span> n <span class="keyword">do</span>
