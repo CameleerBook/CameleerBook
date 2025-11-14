@@ -1,0 +1,130 @@
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
+<span class="comment">(* Implementation and specification adapted from 
+   https://toccata.gitlabpages.inria.fr/toccata/gallery/resizable_array.en.html
+   by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> PolymorphicType = <span class="keyword">sig</span>
+  <span class="keyword">type</span> t
+  <span class="keyword">val</span> default : t
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> RArray = <span class="keyword">sig</span>
+	
+	<span class="keyword">type</span> elt
+	<span class="keyword">type</span> rarray
+	<span class="contract">(*@ <span class="logical">mutable</span> model size: <span class="logical">int</span> 
+			<span class="logical">mutable</span> model data: elt <span class="logical">array</span>
+			<span class="logical">invariant</span> 0 &lt;= size &lt;= <span class="logical">Array</span>.length data *)</span>
+
+	<span class="keyword">exception</span> OutOfBounds
+
+	<span class="keyword">val</span> make : <span class="keyword">int</span> -> elt -> rarray
+	<span class="contract">(*@ res = make n d
+			<span class="logical">requires</span> n >= 0
+			<span class="logical">ensures</span> res.size = n *)</span>
+	
+	<span class="keyword">val</span> length : rarray -> <span class="keyword">int</span>
+	<span class="contract">(*@ res = length a
+			<span class="logical">ensures</span> res = a.size *)</span>
+
+	<span class="keyword">val</span> get : rarray -> <span class="keyword">int</span> -> elt
+	<span class="contract">(*@ res = get a i
+			raises OutOfBounds -> i &lt; 0 || i >= a.size
+			<span class="logical">ensures</span> res = a.data.(i) *)</span>
+	
+	<span class="keyword">val</span> set : rarray -> <span class="keyword">int</span> -> elt -> unit
+	<span class="contract">(*@ set a i v
+			modifies a
+			raises OutOfBounds -> i &lt; 0 || i >= a.size
+			<span class="logical">ensures</span> a.data.(i) = v
+			<span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a.data -> k &lt;> i -> 
+				a.data.(k) = old a.data.(k) *)</span>
+	
+	<span class="keyword">val</span> resize : rarray -> <span class="keyword">int</span> -> unit
+	<span class="contract">(*@ resize a s
+			modifies a
+			<span class="logical">requires</span> s >= 0
+			<span class="logical">ensures</span> a.size = s 
+			<span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; min s (old a.size) -> 
+				a.data.(k) = old a.data.(k) *)</span>
+
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> ResizeableArray (P: PolymorphicType) : RArray = <span class="keyword">struct</span>
+
+	<span class="keyword">type</span> elt = P.t
+
+  <span class="keyword">let</span>[@ghost][@logic] init (d: elt) = <span class="keyword">Array</span>.make 0 d
+
+  <span class="keyword">let</span>[@<span class="keyword">lemma</span>] witness () =
+    init P.default
+  <span class="contract">(*@ res = witness v
+      <span class="logical">ensures</span> <span class="logical">exists</span> d:elt, s:<span class="logical">int</span>. 
+        0 &lt;= s &lt;= <span class="logical">Array</span>.length res /\
+        (<span class="logical">forall</span> k: <span class="logical">int</span>. s &lt;= k &lt; <span class="logical">Array</span>.length res ->  res.(k) = d) *)</span>
+	
+	<span class="keyword">type</span> rarray = {
+		default : elt;
+		<span class="keyword">mutable</span> size: <span class="keyword">int</span>;
+		<span class="keyword">mutable</span> data: elt <span class="keyword">array</span>;
+	}
+	<span class="contract">(*@ <span class="logical">invariant</span> 0 &lt;= size &lt;= <span class="logical">Array</span>.length data
+			<span class="logical">invariant</span> <span class="logical">forall</span> k: <span class="logical">int</span>. size &lt;= k &lt; <span class="logical">Array</span>.length data -> 
+			data.(k) = default *)</span>
+
+	<span class="keyword">let</span> make n d = {
+		default = d;
+		size = n;
+		data = <span class="keyword">Array</span>.make n d;
+	}
+	<span class="contract">(*@ res = make n d
+			<span class="logical">requires</span> n >= 0
+			<span class="logical">ensures</span> res.default = d
+			<span class="logical">ensures</span> res.size = n
+			<span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length res.data -> res.data.(k) = d *)</span>
+
+	<span class="keyword">let</span> length a = a.size
+	<span class="contract">(*@ res = length a 
+			<span class="logical">ensures</span> res = a.size *)</span>
+
+	<span class="keyword">exception</span> OutOfBounds
+
+	<span class="keyword">let</span> get a i =
+		<span class="keyword">if</span> 0 &lt;= i &amp;&amp; i &lt; a.size <span class="keyword">then</span> a.data.(i)
+		<span class="keyword">else</span> raise OutOfBounds
+	<span class="contract">(*@ res = get a i
+			raises OutOfBounds -> i &lt; 0 || a.size &lt;= i
+			<span class="logical">ensures</span> res = a.data.(i) *)</span>
+
+	<span class="keyword">let</span> set a i v =
+		<span class="keyword">if</span> i &lt; 0 || a.size &lt;= i <span class="keyword">then</span> raise OutOfBounds
+		<span class="keyword">else</span> a.data.(i) &lt;- v
+	<span class="contract">(*@ raises OutOfBounds -> i &lt; 0 || a.size &lt;= i	
+			<span class="logical">ensures</span> a.data.(i) = v
+			<span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a.data &amp;&amp; k &lt;> i -> 
+				a.data.(k) = old a.data.(k) *)</span>
+
+	<span class="keyword">let</span> resize a s =
+		<span class="keyword">let</span> l = <span class="keyword">Array</span>.length a.data <span class="keyword">in</span>
+		<span class="keyword">if</span> s > l <span class="keyword">then</span> <span class="keyword">begin</span>
+			<span class="keyword">let</span> a' = <span class="keyword">Array</span>.make (max s (2*l)) a.default <span class="keyword">in</span>
+			<span class="keyword">Array</span>.blit a.data 0 a' 0 a.size;
+			a.data &lt;- a'
+		<span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">if</span> s &lt; a.size <span class="keyword">then</span> <span class="keyword">begin</span>
+			<span class="keyword">for</span> i = s <span class="keyword">to</span> l - 1 <span class="keyword">do</span>
+			<span class="contract">(*@ <span class="logical">invariant</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; s -> a.data.(k) = (old a.data).(k)
+					<span class="logical">invariant</span> <span class="logical">forall</span> k. s &lt;= k &lt; i -> a.data.(k) = a.default *)</span>
+				a.data.(i) &lt;- a.default
+			<span class="keyword">done</span>;
+		<span class="keyword">end</span>;
+		a.size &lt;- s	
+	<span class="contract">(*@ <span class="logical">requires</span> s >= 0
+			<span class="logical">ensures</span> a.size = s 
+			<span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; min s (old a.size) -> 
+				a.data.(k) = old a.data.(k) *)</span>
+
+<span class="keyword">end</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

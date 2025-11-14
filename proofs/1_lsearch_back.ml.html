@@ -1,5 +1,8 @@
-<!DOCTYPE html><html><head><title>lsearch_back.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Linear Search (While Loop & Backwards Iteration)<h2></div><pre>
-<span class="keyword">let</span> lsearch a v =
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
+<span class="comment">(* Implementation and specification by Pedro Gasparinho, advised by Mário 
+   Pereira *)</span>
+
+<span class="keyword">let</span> linear_search a v =
   <span class="keyword">let</span> <span class="keyword">exception</span> Break <span class="keyword">of</span> <span class="keyword">int</span> <span class="keyword">in</span>
   <span class="keyword">try</span>
     <span class="keyword">let</span> i = ref (<span class="keyword">Array</span>.length a - 1) <span class="keyword">in</span>
@@ -12,7 +15,7 @@
     <span class="keyword">done</span>;
     raise Not_found
   <span class="keyword">with</span> Break i -> i
-<span class="contract">(*@ r = lsearch a v
+<span class="contract">(*@ r = linear_search a v
     <span class="logical">ensures</span> a.(r) = v
     raises Not_found -> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v *)</span></pre>
 <div class="info">

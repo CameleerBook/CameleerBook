@@ -1,0 +1,197 @@
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
+<span class="comment">(* Implementation adapted from Learn Programming with OCaml *)</span>
+<span class="comment">(* Specification expanded upon from 
+   https://github.com/ocaml-gospel/cameleer/blob/master/examples/binary_search_tree.ml
+   by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> BST = <span class="keyword">sig</span>
+
+  <span class="keyword">type</span> elt
+  <span class="keyword">type</span> t
+
+  <span class="keyword">val</span> cmp : elt -> elt -> <span class="keyword">int</span> [@@logic]
+  <span class="contract">(*@ <span class="logical">axiom</span> is_pre_order: is_pre_order cmp *)</span>
+
+  <span class="contract">(*@ <span class="logical">function</span> occ (x: elt) (t: t) : <span class="logical">int</span> *)</span>
+
+  <span class="contract">(*@ <span class="logical">function</span> empty (t: t) : <span class="logical">bool</span> *)</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> belongs (x: elt) (t: t) *)</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> bst (t: t) *)</span>
+
+  <span class="keyword">val</span> empty : unit -> t
+  <span class="contract">(*@ r = empty ()
+      <span class="logical">ensures</span> <span class="logical">forall</span> x. occ x r = 0
+      <span class="logical">ensures</span> empty r
+      <span class="logical">ensures</span> bst r *)</span>
+      
+  <span class="keyword">val</span> insert : elt -> t -> t
+  <span class="contract">(*@ r = insert x t
+      <span class="logical">requires</span> bst t
+      <span class="logical">ensures</span> <span class="logical">forall</span> y. y &lt;> x -> occ y r = occ y t
+      <span class="logical">ensures</span> belongs x r
+      <span class="logical">ensures</span> bst r *)</span>
+
+  <span class="keyword">val</span> mem : elt -> t -> <span class="keyword">bool</span>
+  <span class="contract">(*@ r = mem x t
+      <span class="logical">requires</span> bst t
+      <span class="logical">ensures</span> r &lt;-> belongs x t *)</span>
+
+  <span class="keyword">val</span> min_elt : t -> elt <span class="keyword">option</span> [@@logic]
+  <span class="contract">(*@ r = min_elt t
+      <span class="logical">requires</span> bst t
+      <span class="logical">ensures</span> <span class="logical">match</span> r <span class="logical">with</span>
+        | <span class="logical">None</span> -> empty t
+        | <span class="logical">Some</span> v -> 
+          belongs v t /\ 
+          <span class="logical">forall</span> x: elt. belongs x t -> cmp v x &lt;= 0 *)</span>
+
+  <span class="keyword">val</span> remove_min : t -> elt <span class="keyword">option</span> * t
+  <span class="contract">(*@ o, res = remove_min t
+      <span class="logical">requires</span> bst t
+      <span class="logical">ensures</span> bst res
+      <span class="logical">ensures</span> o = min_elt t
+      <span class="logical">ensures</span> not empty t &lt;-> o &lt;> <span class="logical">None</span>
+      <span class="logical">ensures</span> <span class="logical">match</span> o <span class="logical">with</span>
+        | <span class="logical">None</span> -> empty t
+        | <span class="logical">Some</span> min -> 
+          not belongs min res /\
+          (<span class="logical">forall</span> x. x &lt;> min -> occ x res = occ x t) /\
+          (<span class="logical">forall</span> x. belongs x res -> cmp min x &lt; 0)*)</span>
+
+  <span class="keyword">val</span> remove : elt -> t -> t
+  <span class="contract">(*@ r = remove x t
+      <span class="logical">requires</span> bst t
+      <span class="logical">ensures</span> bst r
+      <span class="logical">ensures</span> occ x r = occ x t || occ x r = occ x t - 1
+      <span class="logical">ensures</span> <span class="logical">forall</span> y: elt. y &lt;> x -> occ y r = occ y t *)</span>
+
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> ComparableType = <span class="keyword">sig</span>
+  <span class="keyword">type</span> t
+
+  <span class="keyword">val</span> cmp : t -> t -> <span class="keyword">int</span> [@@logic]
+  <span class="contract">(*@ <span class="logical">axiom</span> is_pre_order: is_pre_order cmp *)</span>
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> BSTImpl (C : ComparableType) : BST = <span class="keyword">struct</span>
+  
+  <span class="keyword">type</span> elt = C.t
+  <span class="keyword">type</span> t = E | N <span class="keyword">of</span> t * elt * t
+
+  <span class="keyword">let</span>[@logic] cmp e1 e2 = C.cmp e1 e2 
+
+  <span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> occ (x: elt) (t: t) : <span class="logical">int</span> = 
+      <span class="logical">match</span> t <span class="logical">with</span>
+      | E -> 0
+      | N l v r -> occ x l + occ x r + (<span class="logical">if</span> cmp x v = 0 <span class="logical">then</span> 1 <span class="logical">else</span> 0) *)</span>
+  <span class="contract">(*@ <span class="logical">ensures</span> 0 &lt;= result *)</span>
+
+  <span class="contract">(*@ <span class="logical">function</span> empty (t: t) : <span class="logical">bool</span> =
+      t = E *)</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> belongs (x: elt) (t: t) = occ x t > 0 *)</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> unique (x: elt) (t: t) = occ x t = 1 *)</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> bst (t: t) = <span class="logical">match</span> t <span class="logical">with</span>
+      | E -> <span class="logical">true</span>
+      | N l v r ->
+          (<span class="logical">forall</span> lv. belongs lv l -> cmp lv v &lt; 0) &amp;&amp;
+          (<span class="logical">forall</span> rv. belongs rv r -> cmp rv v > 0) &amp;&amp;
+          bst l &amp;&amp; bst r *)</span>
+
+  <span class="keyword">let</span> empty () = E
+  <span class="contract">(*@ r = empty ()
+      <span class="logical">ensures</span> <span class="logical">forall</span> x. not belongs x r
+      <span class="logical">ensures</span> empty r
+      <span class="logical">ensures</span> bst r *)</span>
+
+  <span class="keyword">let</span> <span class="keyword">rec</span> insert x = <span class="keyword">function</span>
+    | E -> N (E, x, E)
+    | N (l, y, r) ->
+        <span class="keyword">if</span> cmp x y = 0 <span class="keyword">then</span> N (l, y, r)
+        <span class="keyword">else</span> <span class="keyword">if</span> cmp x y &lt; 0 <span class="keyword">then</span> N (insert x l, y, r)
+        <span class="keyword">else</span> N (l, y, insert x r)  
+  <span class="contract">(*@ r = insert x t
+      <span class="logical">requires</span> bst t
+      <span class="logical">variant</span> t
+      <span class="logical">ensures</span> <span class="logical">forall</span> y. y &lt;> x -> occ y r = occ y t
+      <span class="logical">ensures</span> unique x r
+      <span class="logical">ensures</span> bst r *)</span>
+
+  <span class="keyword">let</span> <span class="keyword">rec</span> mem x = <span class="keyword">function</span>
+    | E -> <span class="keyword">false</span>
+    | N (l, v, r) ->
+        <span class="keyword">let</span> c = cmp x v <span class="keyword">in</span>
+        c = 0 || mem x (<span class="keyword">if</span> c &lt; 0 <span class="keyword">then</span> l <span class="keyword">else</span> r)
+  <span class="contract">(*@ r = mem x t
+      <span class="logical">requires</span> bst t
+      <span class="logical">variant</span> t
+      <span class="logical">ensures</span> r &lt;-> belongs x t *)</span>
+
+  <span class="keyword">let</span> [@logic] <span class="keyword">rec</span> min_elt = <span class="keyword">function</span>
+    | E -> <span class="keyword">None</span>
+    | N (E, v, __) -> <span class="keyword">Some</span> v
+    | N (l, _, _) -> min_elt l
+  <span class="contract">(*@ r = min_elt t
+      <span class="logical">variant</span> t
+      <span class="logical">requires</span> bst t
+      <span class="logical">ensures</span> <span class="logical">match</span> r <span class="logical">with</span>
+        | <span class="logical">None</span> -> empty t
+        | <span class="logical">Some</span> v -> 
+          unique v t /\ 
+          <span class="logical">forall</span> x: elt. belongs x t -> cmp v x &lt;= 0 *)</span>
+
+  <span class="keyword">let</span> <span class="keyword">rec</span> remove_min = <span class="keyword">function</span>
+    | E -> <span class="keyword">None</span>, E
+    | N (E, v, r) -> <span class="keyword">Some</span> v, r
+    | N (l, v, r) -> 
+      <span class="keyword">let</span> m, l' = remove_min l <span class="keyword">in</span> 
+      m, N (l', v, r)
+  <span class="contract">(*@ (o, res) = remove_min t
+      <span class="logical">variant</span> t
+      <span class="logical">requires</span> bst t
+      <span class="logical">ensures</span> bst res
+      <span class="logical">ensures</span> o = min_elt t
+      <span class="logical">ensures</span> not empty t &lt;-> o &lt;> <span class="logical">None</span>
+      <span class="logical">ensures</span> <span class="logical">match</span> o <span class="logical">with</span>
+        | <span class="logical">None</span> -> empty t
+        | <span class="logical">Some</span> min -> 
+          not belongs min res /\
+          (<span class="logical">forall</span> x. x &lt;> min -> occ x res = occ x t) /\
+          (<span class="logical">forall</span> x. belongs x res -> cmp min x &lt; 0) *)</span>
+
+  <span class="keyword">let</span> certified_merge t1 t2 =
+    <span class="keyword">match</span> t1, t2 <span class="keyword">with</span>
+    | E, t | t, E -> t
+    | _ -> 
+      <span class="keyword">let</span> (<span class="keyword">Some</span> m2, t2') = remove_min t2 <span class="keyword">in</span> N (t1, m2, t2')
+  <span class="contract">(*@ r = certified_merge t1 t2
+      <span class="logical">requires</span> bst t1 /\ bst t2
+      <span class="logical">requires</span> <span class="logical">forall</span> x y: elt. belongs x t1 /\ belongs y t2 -> cmp x y &lt; 0
+      <span class="logical">ensures</span> bst r
+      <span class="logical">ensures</span> <span class="logical">forall</span> x: elt. belongs x t1 || belongs x t2 &lt;-> belongs x r
+      <span class="logical">ensures</span> <span class="logical">forall</span> x: elt. occ x r = occ x t1 + occ x t2 *)</span>
+
+  <span class="keyword">let</span> <span class="keyword">rec</span> remove x = <span class="keyword">function</span>
+    | E -> E
+    | N (l, v, r) ->
+      <span class="keyword">let</span> c = cmp x v <span class="keyword">in</span>
+      <span class="keyword">if</span> c = 0 <span class="keyword">then</span> certified_merge l r
+      <span class="keyword">else</span> <span class="keyword">if</span> c &lt; 0 <span class="keyword">then</span> N (remove x l, v, r)
+      <span class="keyword">else</span> N (l, v, remove x r)
+  <span class="contract">(*@ r = remove x t
+      <span class="logical">variant</span> t
+      <span class="logical">requires</span> bst t
+      <span class="logical">ensures</span> bst r
+      <span class="logical">ensures</span> occ x r = occ x t || occ x r = occ x t - 1
+      <span class="logical">ensures</span> <span class="logical">forall</span> y: elt. y &lt;> x -> occ y r = occ y t *)</span>
+
+<span class="keyword">end</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>

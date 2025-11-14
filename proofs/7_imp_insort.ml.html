@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>imp_insort.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Insertion Sort (Imperative)<h2></div><pre>
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
 <span class="comment">(* Implementation adapted from Sedgewick and Wayne's Algorithms *)</span>
 <span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
 
@@ -45,7 +45,7 @@
 		<span class="logical">ensures</span> exchange arr (old arr) i j
 		<span class="logical">ensures</span> permut arr (old arr) *)</span>
 
-<span class="keyword">let</span> in_sort arr = 
+<span class="keyword">let</span> insertionSort arr = 
 	<span class="keyword">for</span> i = 1 <span class="keyword">to</span> (<span class="keyword">Array</span>.length arr) - 1 <span class="keyword">do</span>
 	<span class="contract">(*@ <span class="logical">invariant</span> sorted_sub arr 0 i
 			<span class="logical">invariant</span> permut arr (old arr) *)</span>

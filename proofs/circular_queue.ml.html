@@ -1,0 +1,215 @@
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
+<span class="comment">(* Implementation and specification adapted from 
+   https://toccata.gitlabpages.inria.fr/toccata/gallery/vstte12_ring_buffer.en.html
+   by Pedro Gasparinho, advised by Mário Pereira *)</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> PolymorphicType = <span class="keyword">sig</span>
+  <span class="keyword">type</span> t
+  <span class="keyword">val</span> default : t
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> Queue = <span class="keyword">sig</span>
+
+  <span class="keyword">type</span> elt
+
+  <span class="keyword">type</span> queue
+  <span class="contract">(*@ <span class="logical">mutable</span> model view: elt <span class="logical">list</span> *)</span>
+
+  <span class="contract">(*@ <span class="logical">function</span> length (q: queue) : <span class="logical">int</span> *)</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> full (q: queue) *)</span>
+
+  <span class="keyword">exception</span> Empty
+
+  <span class="keyword">val</span> create : <span class="keyword">int</span> -> elt -> queue
+  <span class="contract">(*@ res = create n d
+      <span class="logical">requires</span> n > 0
+      <span class="logical">ensures</span> length res = 0 *)</span>
+
+  <span class="keyword">val</span> length : queue -> <span class="keyword">int</span>
+  <span class="contract">(*@ res = length q 
+      <span class="logical">ensures</span> res = length q *)</span>
+
+  <span class="keyword">val</span> is_empty : queue -> <span class="keyword">bool</span>
+  <span class="contract">(*@ res = is_empty q
+      <span class="logical">ensures</span> res &lt;-> length q = 0 *)</span>
+
+  <span class="keyword">val</span> is_full : queue -> <span class="keyword">bool</span>
+  <span class="contract">(*@ res = is_full q
+      <span class="logical">ensures</span> res &lt;-> full q *)</span>
+
+  <span class="keyword">val</span> clear : queue -> unit
+  <span class="contract">(*@ clear q
+      modifies q
+      <span class="logical">ensures</span> length q = 0 *)</span>
+
+  <span class="keyword">val</span> enqueue : elt -> queue -> unit
+  <span class="contract">(*@ enqueue x q
+      <span class="logical">requires</span> not full q
+      modifies q
+      <span class="logical">ensures</span> length q = 1 + old (length q)
+      <span class="logical">ensures</span> q.view = Sequence.append (old q.view) (Sequence.singleton x) *)</span>
+
+  <span class="keyword">val</span> head : queue -> elt
+  <span class="contract">(*@ res = head q
+      raises Empty -> length q = 0
+      <span class="logical">ensures</span> res = q.view[0] *)</span>
+
+  <span class="keyword">val</span> dequeue : queue -> elt
+  <span class="contract">(*@ v = dequeue q
+      raises Empty -> length q = 0
+      modifies q
+      <span class="logical">ensures</span> v = old q.view[0]
+      <span class="logical">ensures</span> q.view = old q.view[1 ..] *)</span>
+      
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> CircularQueue (P: PolymorphicType) : Queue = <span class="keyword">struct</span>
+
+  <span class="keyword">type</span> elt = P.t
+
+  <span class="keyword">let</span>[@ghost][@logic] init (d: elt) = <span class="keyword">Array</span>.make 1 d
+
+  <span class="keyword">let</span>[@ghost][@logic] to_view (data: elt <span class="keyword">array</span>) (first: <span class="keyword">int</span>) (len: <span class="keyword">int</span>) =
+    <span class="keyword">let</span> remaining = ref len <span class="keyword">in</span>
+    <span class="keyword">let</span> view = ref [] <span class="keyword">in</span>
+    <span class="keyword">while</span> !remaining > 0 <span class="keyword">do</span>
+    <span class="contract">(*@ <span class="logical">variant</span> !remaining
+        <span class="logical">invariant</span> <span class="logical">List</span>.length !view = len - !remaining
+        <span class="logical">invariant</span> !remaining >= 0 
+        <span class="logical">invariant</span> <span class="logical">let</span> size = <span class="logical">Array</span>.length data <span class="logical">in</span> 
+          <span class="logical">forall</span> i. 0 &lt;= i &lt; <span class="logical">List</span>.length !view -> 
+            (first + i &lt; size -> !view[i] = data[first + i]) /\
+            (0 &lt;= first + i - size -> !view[i] = data[first + i - size]) *)</span>
+      <span class="keyword">let</span> i = len - !remaining <span class="keyword">and</span> size = <span class="keyword">Array</span>.length data <span class="keyword">in</span>
+      <span class="keyword">if</span> first + i &lt; size <span class="keyword">then</span>
+        view := !view @ [data.(first + i)]
+      <span class="keyword">else</span>
+        view := !view @ [data.(first + i - size)];  
+      remaining := !remaining - 1
+    <span class="keyword">done</span>;
+    !view
+  <span class="contract">(*@ view = to_view data first len
+      <span class="logical">requires</span> 0 &lt;= first &lt; <span class="logical">Array</span>.length data
+      <span class="logical">requires</span> 0 &lt;= len &lt;= <span class="logical">Array</span>.length data
+      <span class="logical">ensures</span> <span class="logical">List</span>.length view = len
+      <span class="logical">ensures</span> <span class="logical">let</span> size = <span class="logical">Array</span>.length data <span class="logical">in</span> 
+        <span class="logical">forall</span> i. 0 &lt;= i &lt; len ->
+          (first + i &lt; size -> view[i] = data[first + i]) /\
+          (0 &lt;= first + i - size -> view[i] = data[first + i - size]) *)</span>
+
+  <span class="keyword">let</span>[@<span class="keyword">lemma</span>] witness () =
+    <span class="keyword">let</span> a = init P.default <span class="keyword">in</span>
+    <span class="keyword">let</span>[@ghost] v = to_view a 0 0 <span class="keyword">in</span>
+    a
+  <span class="contract">(*@ data = witness v
+      <span class="logical">ensures</span> <span class="logical">exists</span> first, len:<span class="logical">int</span>, view:elt <span class="logical">list</span>. 
+        <span class="logical">let</span> size = <span class="logical">Array</span>.length data <span class="logical">in</span>
+        0 &lt;= first &lt; size /\
+        0 &lt;= len &lt;= size /\
+        len = <span class="logical">List</span>.length view /\
+        <span class="logical">forall</span> i. 0 &lt;= i &lt; len ->
+          (first + i &lt; size -> view[i] = data[first + i]) /\
+          (0 &lt;= first + i - size -> view[i] = data[first + i - size]) *)</span>
+
+  <span class="keyword">type</span> queue = {
+    data: elt <span class="keyword">array</span>;
+    <span class="keyword">mutable</span> first: <span class="keyword">int</span>;
+    <span class="keyword">mutable</span> len: <span class="keyword">int</span>;
+    <span class="keyword">mutable</span> view: elt <span class="keyword">list</span>; [@ghost]
+  }
+  <span class="contract">(*@ <span class="logical">invariant</span> 0 &lt;= first &lt; <span class="logical">Array</span>.length data
+      <span class="logical">invariant</span> 0 &lt;= len &lt;= <span class="logical">Array</span>.length data
+      <span class="logical">invariant</span> len = <span class="logical">List</span>.length view
+      <span class="logical">invariant</span> <span class="logical">let</span> size = <span class="logical">Array</span>.length data <span class="logical">in</span>
+        <span class="logical">forall</span> i. 0 &lt;= i &lt; len ->
+          (first + i &lt; size -> view[i] = data[first + i]) /\
+          (0 &lt;= first + i - size -> view[i] = data[first + i - size]) *)</span>
+
+  <span class="contract">(*@ <span class="logical">function</span> length (q: queue) : <span class="logical">int</span> =
+      q.len *)</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> full (q: queue) =
+      length q = <span class="logical">Array</span>.length q.data *)</span>
+
+  <span class="keyword">exception</span> Empty
+
+  <span class="keyword">let</span> create n d = { 
+    data = <span class="keyword">Array</span>.make n d;
+    first = 0;
+    len = 0; 
+    view = []
+  }
+  <span class="contract">(*@ res = create n d
+      <span class="logical">requires</span> n > 0
+      <span class="logical">ensures</span> <span class="logical">Array</span>.length res.data = n
+      <span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length res.data -> res.data[k] = d
+      <span class="logical">ensures</span> res.view = [] *)</span>
+
+  <span class="keyword">let</span> length q = q.len
+  <span class="contract">(*@ res = length q
+      <span class="logical">ensures</span> res = length q *)</span>
+
+  <span class="keyword">let</span> is_empty q = length q = 0
+  <span class="contract">(*@ res = is_empty q
+      <span class="logical">ensures</span> res &lt;-> length q = 0 *)</span>
+
+  <span class="keyword">let</span> is_full q = length q = <span class="keyword">Array</span>.length q.data
+  <span class="contract">(*@ res = is_full q
+      <span class="logical">ensures</span> res &lt;-> full q *)</span>
+    
+  <span class="keyword">let</span> clear q = 
+    q.len &lt;- 0;
+    q.view &lt;- []
+  <span class="contract">(*@ clear q
+      modifies q.len, q.view
+      <span class="logical">ensures</span> length q = 0 *)</span>
+
+  <span class="keyword">let</span> enqueue x q = 
+    q.view &lt;- q.view @ [x];
+    <span class="keyword">let</span> i = q.first + q.len <span class="keyword">in</span>
+    <span class="keyword">let</span> n = <span class="keyword">Array</span>.length q.data <span class="keyword">in</span>
+    q.data.(<span class="keyword">if</span> i >= n <span class="keyword">then</span> i - n <span class="keyword">else</span> i) &lt;- x;
+    q.len &lt;- q.len + 1
+  <span class="contract">(*@ enqueue x q
+      <span class="logical">requires</span> not full q
+      modifies q.data, q.len, q.view
+      <span class="logical">ensures</span> length q = 1 + old (length q)
+      <span class="logical">ensures</span> q.view = (old q.view) @ (Cons x []) *)</span>
+
+  <span class="keyword">let</span> head q = 
+    <span class="keyword">if</span> is_empty q <span class="keyword">then</span> raise Empty
+    <span class="keyword">else</span> q.data.(q.first)
+  <span class="contract">(*@ res = head q
+      raises Empty -> length q = 0
+      <span class="logical">ensures</span> res = q.view[0] *)</span>
+
+  <span class="keyword">let</span> tail = <span class="keyword">function</span>
+    | [] -> <span class="keyword">assert</span> <span class="keyword">false</span>
+    | _ :: l -> l
+  <span class="contract">(*@ res = tail param
+      <span class="logical">requires</span> param &lt;> Sequence.empty
+      <span class="logical">ensures</span> Sequence.(==) res param[1 ..]
+      <span class="logical">ensures</span> Sequence.length res = Sequence.length param - 1 *)</span>
+
+  <span class="keyword">let</span> dequeue q = 
+    <span class="keyword">begin</span> <span class="keyword">if</span> length q = 0 <span class="keyword">then</span> raise Empty <span class="keyword">end</span>;
+    q.view &lt;- tail q.view;
+    <span class="keyword">let</span> h = q.data.(q.first) <span class="keyword">and</span> n = <span class="keyword">Array</span>.length q.data <span class="keyword">in</span>
+    q.len &lt;- q.len - 1;
+    q.first &lt;- q.first + 1;
+    <span class="keyword">if</span> q.first = n <span class="keyword">then</span> q.first &lt;- 0;
+    h
+  <span class="contract">(*@ res = dequeue q
+      raises Empty -> length q = 0
+      modifies q.first, q.len, q.view
+      <span class="logical">ensures</span> length q = (old (length q)) - 1
+      <span class="logical">ensures</span> <span class="logical">match</span> old q.view <span class="logical">with</span>
+        | [] -> <span class="logical">false</span>
+        | Cons h t -> res = h /\ q.view = t *)</span>
+
+<span class="keyword">end</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>
