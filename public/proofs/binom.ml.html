@@ -4,7 +4,7 @@
     <span class="logical">else</span> <span class="logical">if</span> k = 0 || k = n <span class="logical">then</span> 1
     <span class="logical">else</span> bcoeff (n-1) (k-1) + bcoeff (n-1) k *)</span>
 <span class="contract">(*@ <span class="logical">requires</span> 0 &lt;= k /\ 0 &lt;= n
-    <span class="logical">variant</span> n + k *)</span>
+    <span class="logical">variant</span> n *)</span>
 
 <span class="keyword">let</span> binom n k =
   <span class="keyword">let</span> a = <span class="keyword">Array</span>.make (k+1) 0 <span class="keyword">in</span>

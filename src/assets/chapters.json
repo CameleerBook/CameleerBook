@@ -187,7 +187,7 @@
     },
     "proofs": [
       {
-        "name": "Persistant Queue",
+        "name": "Persistent Queue",
         "link": "persist_queue"
       },
       {
