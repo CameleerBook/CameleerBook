@@ -191,10 +191,6 @@
         "link": "persist_queue"
       },
       {
-        "name": "Linked Listed",
-        "link": "linkedlist"
-      },
-      {
         "name": "List Zipper",
         "link": "list_zipper"
       },
@@ -209,6 +205,10 @@
       {
         "name": "Circular Queue",
         "link": "circular_queue"
+      },
+      {
+        "name": "Resizeable Array",
+        "link": "resizeable_array"
       },
       {
         "name": "Linked List",
