@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Delannoy Numbers (Dynamic Programming)<h2></div><pre>
 <span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> d (n: <span class="logical">int</span>) (m: <span class="logical">int</span>) : <span class="logical">int</span> =
     <span class="logical">if</span> n &lt;= 0 || m &lt;= 0 <span class="logical">then</span> 1
     <span class="logical">else</span> d (n-1) m + d (n-1) (m-1) + d n (m-1) *)</span>
