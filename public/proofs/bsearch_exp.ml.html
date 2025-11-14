@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>bsearch_exp.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Binary Search (Exceptions)<h2></div><pre>
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
 <span class="comment">(* Implementation adapted from MPRI Course 2-36-1: Proof of Program *)</span>
 <span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
 
@@ -26,7 +26,8 @@
 <span class="contract">(*@ r = binary_search a v
 	<span class="logical">requires</span> sorted a
 	<span class="logical">ensures</span> 0 &lt;= r &lt; <span class="logical">Array</span>.length a /\ a.(r) = v
-	raises Not_found -> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v *)</span></pre>
+	raises Not_found -> <span class="logical">forall</span> k. 0 &lt;= k &lt; <span class="logical">Array</span>.length a -> a.(k) &lt;> v *)</span>
+</pre>
 <div class="info">
 <p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
 </div>

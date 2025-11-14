@@ -103,6 +103,10 @@
       {
         "name": "Exercise 1",
         "link": "1_lsearch_back"
+      },
+      {
+        "name": "Exercise 2",
+        "link": "2_rec_bsearch"
       }
     ]
   },
@@ -197,6 +201,30 @@
       {
         "name": "Same Fringe with Zippers",
         "link": "tree_zipper"
+      },
+      {
+        "name": "Binary Search Tree",
+        "link": "bst"
+      },
+      {
+        "name": "Circular Queue",
+        "link": "circular_queue"
+      },
+      {
+        "name": "Linked List",
+        "link": "linked_list"
+      },
+      {
+        "name": "Exercise 1",
+        "link": "list_queue"
+      },
+          {
+        "name": "Exercise 2",
+        "link": "list_stack"
+      },
+      {
+        "name": "Exercise 3",
+        "link": "list_set"
       }
     ]
   },
@@ -206,7 +234,20 @@
     "icon": {
       "name": "functions"
     },
-    "proofs": []
+    "proofs": [
+      {
+        "name": "Delannoy Numbers",
+        "link": "delannoy"
+      },
+      {
+        "name": "Binomial Coefficients",
+        "link": "binom"
+      },
+      {
+        "name": "Time Complexity: Linear Search",
+        "link": "time_comp"
+      }
+    ]
   },
     {
     "name": "Archived Proofs",
@@ -222,10 +263,6 @@
       {
         "name": "Fermat's Little Theorem",
         "link": "fermat"
-      },
-      {
-        "name": "Modular Arithmetic",
-        "link": "modarith"
       },
       {
         "name": "Tail Recursive Insertion Sort",

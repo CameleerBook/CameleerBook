@@ -1,8 +1,8 @@
-<!DOCTYPE html><html><head><title>linkedlist.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Linked List<h2></div><pre>
-<span class="comment">(* Implementation by Pedro Gasparinho, advised by Mário Pereira *)</span>
-<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
+<span class="comment">(* Implementation and specification by Pedro Gasparinho, advised by 
+   Mário Pereira *)</span>
 
-<span class="keyword">module</span> <span class="keyword">type</span> Cmp = <span class="keyword">sig</span>
+<span class="keyword">module</span> <span class="keyword">type</span> ComparableType = <span class="keyword">sig</span>
 	<span class="keyword">type</span> t
 
 	<span class="keyword">val</span> eq: t -> t -> <span class="keyword">bool</span> [@@logic]
@@ -11,7 +11,7 @@
 	
 <span class="keyword">end</span>
 
-<span class="keyword">module</span> LinkedList (E: Cmp) = <span class="keyword">struct</span>
+<span class="keyword">module</span> LinkedList (E: ComparableType) = <span class="keyword">struct</span>
 
   <span class="keyword">type</span> elt = E.t
   <span class="keyword">type</span> llist = Nil | Cons <span class="keyword">of</span> elt * llist
@@ -75,7 +75,8 @@
     <span class="keyword">in</span> aux Nil l
   <span class="contract">(*@ r = rev l
       <span class="logical">ensures</span> logic_len r = logic_len l
-      <span class="logical">ensures</span> reverse r l *)</span>
+      <span class="logical">ensures</span> reverse r l
+      <span class="logical">ensures</span> l = Nil -> r = Nil *)</span>
 
   <span class="contract">(*@ <span class="logical">predicate</span> appended (r l1 l2: llist) =
       logic_len r = logic_len l1 + logic_len l2 &amp;&amp;
@@ -94,10 +95,12 @@
         <span class="logical">ensures</span> <span class="logical">forall</span> i. 0 &lt;= i &lt; logic_len s1 -> 
           get r i = get s1 (logic_len s1 - 1 - i)
         <span class="logical">ensures</span> <span class="logical">forall</span> i. logic_len s1 &lt;= i &lt; logic_len s1 + logic_len s2 ->
-          get r i = get s2 (i - logic_len s1) *)</span>
+          get r i = get s2 (i - logic_len s1)
+         <span class="logical">ensures</span> s1 = Nil -> r = s2 *)</span>
     <span class="keyword">in</span> <span class="keyword">let</span> r1 = rev l1 <span class="keyword">in</span> aux r1 l2
   <span class="contract">(*@ r = append l1 l2
-      <span class="logical">ensures</span> appended r l1 l2 *)</span>
+      <span class="logical">ensures</span> appended r l1 l2
+      <span class="logical">ensures</span> l1 = Nil -> r = l2 *)</span>
 
 	<span class="keyword">let</span> map f l =
 		<span class="keyword">let</span> <span class="keyword">rec</span> aux acc f = <span class="keyword">function</span>
@@ -143,7 +146,82 @@
 				<span class="logical">exists</span> i' j'. i &lt;= i' &lt;= j' &lt; logic_len l ->
 				E.eq (get r i) (get l i') &amp;&amp; E.eq (get r j) (get l j') *)</span>
 
-  <span class="comment">(*let find x l =
+  <span class="comment">(* lemma rev_append_cons: forall l1 l2 l3: llist. 
+        l1 = append (rev l2) l3 /\ logic_len l3 > 0 -> forall x: elt, t3: llist. 
+        l3 = Cons x t3 -> l1 = append (rev (Cons x l2)) t3 *)</span>
+
+  <span class="comment">(* lemma abc: forall l1 l2 l3: llist. 
+        l1 = append l2 l3 /\ logic_len l3 > 0 -> 
+        forall x: elt, t3: llist. l3 = Cons x t3 ->          
+        E.eq x (get l1 (logic_len l2)) *)</span>
+
+  <span class="comment">(* lemma rev_cons: forall l, res: llist, x: elt.
+        res = rev (Cons x l) -> E.eq x (get res (logic_len l)) *)</span>
+
+  <span class="comment">(*(*@ axiom llist_eq: forall l1 l2: llist. 
+        l1 = l2 &lt;-> (logic_len l1 = logic_len l2 /\ 
+          forall k. 0 &lt;= k &lt; logic_len l1 -> E.eq (get l1 k) (get l2 k)) *)
+
+  (*@ lemma xyz: forall l, t: llist, h:elt. append l (Cons h t) = 
+        append (append l (Cons h Nil)) t *)
+
+  let[@lemma] rev_append_cons (l1: llist) (l2: llist) (l3: llist) =
+    match l3 with
+    | Cons (x, t3) ->
+      (*let len2 = len l2 and l2' = rev (Cons (x, l2)) in
+      assert (E.eq x (get l2' len2));
+      let rl2 = rev l2 in
+      for i = 0 to len2 - 1 do
+      (*@ invariant forall k. 0 &lt;= k &lt; i -> E.eq (get l1 i) (get l2' i) *)
+        assert (E.eq (get rl2 i) (get l1 i));
+        assert (E.eq (get rl2 i) (get l2' i))
+      done;
+      for i = 1 to len2 - 1 do
+      (*@ invariant forall k. 1 &lt;= k &lt; i -> E.eq (get l1 (i + len2)) (get t3 i) *)
+        assert (E.eq (get l1 (i + len2)) (get l3 i));
+        assert (E.eq (get l3 i) (get t3 i))
+      done;
+      
+      let l1' = append l2' t3 in
+      let len1 = len l1 and len1' = len l1' in
+      assert (len1 = len1');
+      for i = 0 to len l1' - 1 do
+      (*@ invariant forall k. 0 &lt;= k &lt; i -> E.eq (get l1 k) (get l1' k) *)
+        assert (E.eq (get l1 i) (get l1' i))
+      done*)
+
+      let l1' = append (rev (Cons (x, l2))) t3 in
+      let len1 = len l1 and len1' = len l1' in
+      assert (len1 = len1');
+      let len2 = len l2 in
+      for i = 0 to len1 - 1 do
+      (*@ invariant forall k. 0 &lt;= k &lt; i -> E.eq (get l1 i) (get l1' i) *)
+        if i &lt; len2 then begin
+          (*assert (E.eq (get l1 i) (get l2 i));*)
+          assert (E.eq (get l2 i) (get l1' i))
+        end else if i = len l2 then begin
+          assert (E.eq (get l1 i) x);
+          assert (E.eq x (get l1' i));
+        end else begin
+          (*assert (E.eq (get l1 i) (get l3 (i-len2)));*)
+          assert (E.eq (get l3 (i-len2)) (get l1' i))
+        end
+
+
+        (*assert (E.eq (get l1 i) (get l1' i))*)
+      done
+
+
+      (*let len2 = len l2 in
+      let r = append (rev (Cons (x, l2))) l3 in
+      assert (E.eq x (get l1 len2));
+      assert (E.eq x (get l3 len2))*)
+    | _ -> ()
+  (*@ requires l1 = append (rev l2) l3
+      requires logic_len l3 > 0 
+      ensures forall x: elt, t3: llist. l3 = Cons x t3 -> l1 = append (rev (Cons x l2)) t3 *)
+
+  let find x l =
     let rec aux acc x = function
       | Nil -> -1
       | Cons (h, t) -> 
@@ -154,24 +232,60 @@
         requires 0 &lt;= logic_len acc &lt;= logic_len l
         requires logic_len l = logic_len acc + logic_len s
         requires append (rev acc) s = l
+        requires forall i. 0 &lt;= i &lt; logic_len acc -> not (E.eq (get (rev acc) i) x)
         ensures -1 &lt;= r &lt; logic_len l
-        ensures r = -1 -> forall i. 0 &lt;= i &lt; logic_len acc -> not (E.eq (get s i) x)
-        ensures r >= 0 -> E.eq (get s r) x *)
+        ensures r = -1 -> forall i. 0 &lt;= i &lt; logic_len l -> not (E.eq (get (append (rev acc) s) i) x)
+        ensures r >= 0 -> E.eq (get (append (rev acc) s) r) x *)
     in aux Nil x l
   (*@ r = find x l
       ensures -1 &lt;= r &lt; logic_len l
       ensures r = -1 -> forall i. 0 &lt;= i &lt; logic_len l -> not (E.eq (get l i) x)
       ensures r >= 0 -> E.eq (get l r) x *)*)</span>
 
-	<span class="comment">(* 
-				ensures forall i. 0 &lt;= i &lt; logic_len r -> 
-				exists i'. i &lt;= i' &lt; logic_len s -> 
-				E.eq (get r i) (get s i')
-			ensures forall i j. 0 &lt;= i &lt;= j &lt; logic_len r -> 
-				exists. i' j'. i &lt;= i' &lt;= j' &lt; logic_len s ->
-				E.eq (get r i) (get s i') &amp;&amp; E.eq (get r j) (get s j')
-	
-	*)</span>	
+  <span class="keyword">let</span> init s f =
+    <span class="keyword">let</span> <span class="keyword">rec</span> aux acc n f =
+      <span class="keyword">if</span> n = 0 <span class="keyword">then</span> acc
+      <span class="keyword">else</span> aux (Cons (f (n-1), acc)) (n-1) f
+    <span class="contract">(*@ r = aux acc n f
+        <span class="logical">variant</span> n
+        <span class="logical">requires</span> 0 &lt;= n &lt;= s
+        <span class="logical">requires</span> s = logic_len acc + n 
+        <span class="logical">requires</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; logic_len acc -> E.eq (get acc k) (f (k+n))
+        <span class="logical">ensures</span> logic_len r = logic_len acc + n
+        <span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; logic_len r -> E.eq (get r k) (f k) *)</span>
+    <span class="keyword">in</span> aux Nil s f
+  <span class="contract">(*@ r = init s f
+      <span class="logical">requires</span> s >= 0
+      <span class="logical">ensures</span> logic_len r = s
+      <span class="logical">ensures</span> <span class="logical">forall</span> k. 0 &lt;= k &lt; s -> E.eq (get r k) (f k) *)</span>
+
+	<span class="comment">(*let insert_at x i l =
+    let rec aux acc x i s =
+        if i = 0 then append (rev acc) (Cons (x, s))
+        else match s with   
+          | Nil -> assert false
+          | Cons (h, t)-> aux (Cons (h, acc)) x (i-1) t
+		(*@ r = aux acc x i s
+				variant s
+        requires l = append (rev acc) s
+        requires 0 &lt;= i &lt;= logic_len s
+				ensures logic_len r = logic_len acc + logic_len s + 1
+        ensures E.eq (get r (i + logic_len acc)) x
+        ensures forall k. 0 &lt;= k &lt; logic_len acc -> 
+          E.eq (get r k) (get (rev acc) k)
+        ensures forall k. logic_len acc &lt;= k &lt; i + logic_len acc -> 
+          E.eq (get r k) (get s (k - logic_len acc))
+        ensures forall k. (i + logic_len acc) &lt; k &lt; logic_len l -> 
+          E.eq (get r k) (get s (k - 1 - logic_len acc)) 
+        ensures forall k. (i + logic_len acc) &lt;= k &lt; logic_len l -> 
+          E.eq (get l k) (get r (k+1)) *)
+    in aux Nil x i l
+  (*@ r = insert_at x i l
+      requires 0 &lt;= i &lt;= logic_len l
+      ensures E.eq (get r i) x
+      ensures logic_len r = 1 + logic_len l
+      ensures forall k. 0 &lt;= k &lt; i -> E.eq (get l k) (get r k)
+      ensures forall k. i &lt;= k &lt; logic_len l -> E.eq (get l k) (get r (k+1)) *)*)</span>
 
 <span class="keyword">end</span></pre>
 <div class="info">

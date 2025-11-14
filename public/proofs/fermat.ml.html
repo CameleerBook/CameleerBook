@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>fermat.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Fermat's Little Theorem (p=3)<h2></div><pre>
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
 <span class="comment">(* Implementation adapted from MPRI Course 2-36-1: Proof of Program *)</span>
 <span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
 
@@ -21,7 +21,7 @@
   	<span class="logical">variant</span> x
   	<span class="logical">ensures</span> power x 3 - x = 3 * result *)</span>
 
-<span class="keyword">let</span>[@<span class="keyword">lemma</span>] lem_little_fermat (x : <span class="keyword">int</span>) = 
+<span class="keyword">let</span>[@<span class="keyword">lemma</span>] little_fermat_lemma (x : <span class="keyword">int</span>) = 
 		little_fermat x
 <span class="contract">(*@ <span class="logical">requires</span> x >= 0
 		<span class="logical">ensures</span> <span class="logical">exists</span> y. power x 3 - x = 3 * y *)</span></pre>

@@ -1,8 +1,8 @@
-<!DOCTYPE html><html><head><title>poly_mergesort.ml</title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2>Polymorphic Merge Sort (Functional)<h2></div><pre>
-<span class="comment">(* Implementation by Pedro Gasparinho, advised by Mário Pereira *)</span>
-<span class="comment">(* Specification by Pedro Gasparinho, advised by Mário Pereira *)</span>
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
+<span class="comment">(* Implementation and pecification by Pedro Gasparinho, advised by Mário 
+   Pereira *)</span>
 
-<span class="keyword">module</span> <span class="keyword">type</span> Cmp = <span class="keyword">sig</span>
+<span class="keyword">module</span> <span class="keyword">type</span> OrderedType = <span class="keyword">sig</span>
 	<span class="keyword">type</span> t
 
 	<span class="keyword">val</span> eq: t -> t -> <span class="keyword">bool</span> [@@logic]
@@ -20,12 +20,12 @@
 			<span class="logical">ensures</span> b &lt;-> le x y *)</span>
 <span class="keyword">end</span>
 
-<span class="keyword">module</span> MergeSort (E: Cmp) = <span class="keyword">struct</span>
-	<span class="keyword">type</span> elt = E.t
+<span class="keyword">module</span> MergeSort (Ord: OrderedType) = <span class="keyword">struct</span>
+	<span class="keyword">type</span> elt = Ord.t
 
 	<span class="keyword">let</span>[@logic][@ghost] <span class="keyword">rec</span> occ v = <span class="keyword">function</span>
 		| [] -> 0
-		| h::t -> (<span class="keyword">if</span> E.eq h v <span class="keyword">then</span> 1 <span class="keyword">else</span> 0) + occ v t
+		| h::t -> (<span class="keyword">if</span> Ord.eq h v <span class="keyword">then</span> 1 <span class="keyword">else</span> 0) + occ v t
 	<span class="contract">(*@ res = occ v l
 			<span class="logical">variant</span> l
 			<span class="logical">ensures</span> 0 &lt;= res &lt;= <span class="logical">List</span>.length l
@@ -46,21 +46,21 @@
 	<span class="contract">(*@ <span class="logical">predicate</span> <span class="logical">rec</span> sorted (l: elt <span class="logical">list</span>) =
 		<span class="logical">match</span> l <span class="logical">with</span>
 		| [] | _::[] -> <span class="logical">true</span>
-		| x::(y::ls) -> E.leq x y &amp;&amp; sorted (y::ls) *)</span>
+		| x::(y::ls) -> Ord.leq x y &amp;&amp; sorted (y::ls) *)</span>
 	<span class="contract">(*@ <span class="logical">variant</span> l *)</span>
 
 	<span class="keyword">let</span>[@<span class="keyword">lemma</span>] <span class="keyword">rec</span> sorted_head (h: elt) (t: elt <span class="keyword">list</span>) =
 		<span class="keyword">match</span> t <span class="keyword">with</span>
 		| [] -> ()
-		| x::tt -> <span class="keyword">assert</span> (E.leq h x); sorted_head h tt
+		| x::tt -> <span class="keyword">assert</span> (Ord.leq h x); sorted_head h tt
 	<span class="contract">(*@ <span class="logical">requires</span> sorted (h::t)
 			<span class="logical">variant</span> t
-			<span class="logical">ensures</span> <span class="logical">forall</span> e. <span class="logical">List</span>.mem e t -> E.leq h e *)</span>
+			<span class="logical">ensures</span> <span class="logical">forall</span> e. <span class="logical">List</span>.mem e t -> Ord.leq h e *)</span>
 
 	<span class="contract">(*@ <span class="logical">lemma</span> sorted_cons :
 		<span class="logical">forall</span> x: elt, l: elt <span class="logical">list</span>.
 		(sorted l /\
-		(<span class="logical">forall</span> e. <span class="logical">List</span>.mem e l -> E.leq x e)) &lt;->
+		(<span class="logical">forall</span> e. <span class="logical">List</span>.mem e l -> Ord.leq x e)) &lt;->
 		sorted (x::l) *)</span>
 
 	<span class="keyword">let</span>[@<span class="keyword">lemma</span>] <span class="keyword">rec</span> sorted_append (l1: elt <span class="keyword">list</span>) (l2: elt <span class="keyword">list</span>) =
@@ -69,11 +69,11 @@
 		| h1::t1 -> 
 			<span class="keyword">match</span> l2 <span class="keyword">with</span>
 			| [] -> ()
-			| h2::t2 -> <span class="keyword">assert</span> (E.leq h1 h2); sorted_append l1 t2; sorted_append t1 l2
+			| h2::t2 -> <span class="keyword">assert</span> (Ord.leq h1 h2); sorted_append l1 t2; sorted_append t1 l2
 	<span class="contract">(*@ sorted_append l1 l2
 			<span class="logical">requires</span> sorted l1
 			<span class="logical">requires</span> sorted l2
-			<span class="logical">requires</span> <span class="logical">forall</span> x y. <span class="logical">List</span>.mem x l1 -> <span class="logical">List</span>.mem y l2 -> E.leq x y
+			<span class="logical">requires</span> <span class="logical">forall</span> x y. <span class="logical">List</span>.mem x l1 -> <span class="logical">List</span>.mem y l2 -> Ord.leq x y
 			<span class="logical">ensures</span> sorted (l1 @ l2) *)</span>
 
 	<span class="keyword">let</span> <span class="keyword">rec</span> split (l: elt <span class="keyword">list</span>) =
@@ -91,7 +91,7 @@
 		<span class="keyword">match</span> l1, l2 <span class="keyword">with</span>
 		| z, [] | [], z -> z
 		| x::ls, y::rs -> 
-		  <span class="keyword">if</span> E.leq x y <span class="keyword">then</span> x::(merge ls (y::rs))
+		  <span class="keyword">if</span> Ord.leq x y <span class="keyword">then</span> x::(merge ls (y::rs))
 		  <span class="keyword">else</span> y::(merge (x::ls) rs)
 	<span class="contract">(*@ r = merge l1 l2
 		<span class="logical">requires</span> sorted l1

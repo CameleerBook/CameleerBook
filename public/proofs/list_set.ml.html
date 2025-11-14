@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title></title><style>span {tab-size: 2;} .logical { color:rgb(244, 157, 55); } .keyword { color: red; } .contract { color: #1069B3; } .comment { color: #666666; } .number { color: black; }.info { border-top: 1px solid black; }.title { border-bottom: 1px solid black; }</style></head><body><div class="title"><h2><h2></div><pre>
+<span class="comment">(* Implementation and specification by Pedro Gasparinho, advised by 
+   Mário Pereira *)</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> EqualSig = <span class="keyword">sig</span>
+  <span class="keyword">type</span> t
+
+  <span class="keyword">val</span> eq : t -> t -> <span class="keyword">bool</span>
+  <span class="contract">(*@ res = eq x y
+        <span class="logical">ensures</span> res &lt;-> x = y *)</span>
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> <span class="keyword">type</span> Set = <span class="keyword">sig</span>
+  <span class="keyword">type</span> elt
+  <span class="keyword">type</span> set
+
+  <span class="contract">(*@ <span class="logical">predicate</span> belongs (x: elt) (s: set) *)</span>
+  <span class="contract">(*@ <span class="logical">predicate</span> is_set (s: set)*)</span>
+
+  <span class="keyword">val</span> empty: unit -> set
+  <span class="contract">(*@ res = empty ()
+      <span class="logical">ensures</span> is_set res
+      <span class="logical">ensures</span> <span class="logical">forall</span> x:elt. not belongs x res *)</span>
+
+  <span class="keyword">val</span> mem: elt -> set -> <span class="keyword">bool</span>
+  <span class="contract">(*@ res = mem v s
+      <span class="logical">requires</span> is_set s
+      <span class="logical">ensures</span> res &lt;-> belongs v s *)</span>
+  
+  <span class="keyword">val</span> add: elt -> set -> set
+  <span class="contract">(*@ res = add v s
+      <span class="logical">requires</span> is_set s
+      <span class="logical">ensures</span> belongs v res
+      <span class="logical">ensures</span> is_set res *)</span>
+
+  <span class="keyword">val</span> is_subset: set -> set -> <span class="keyword">bool</span>
+  <span class="contract">(*@ res = is_subset s1 s2
+      <span class="logical">requires</span> is_set s1
+      <span class="logical">requires</span> is_set s2
+      <span class="logical">ensures</span> res &lt;-> <span class="logical">forall</span> x:elt. belongs x s1 -> belongs x s2 *)</span>
+
+<span class="keyword">end</span>
+
+<span class="keyword">module</span> ListSet (E: EqualSig) : Set = <span class="keyword">struct</span>
+
+  <span class="keyword">type</span> elt = E.t
+  <span class="keyword">type</span> set = elt <span class="keyword">list</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> belongs (x: elt) (s: set) = <span class="logical">List</span>.mem x s *)</span>
+
+  <span class="contract">(*@ <span class="logical">function</span> <span class="logical">rec</span> occ (v: elt) (s: set) : <span class="logical">int</span> = 
+      <span class="logical">match</span> s <span class="logical">with</span>
+      | Nil -> 0
+      | Cons h t -> occ v t + <span class="logical">if</span> E.eq v h <span class="logical">then</span> 1 <span class="logical">else</span> 0 *)</span>
+  <span class="contract">(*@ <span class="logical">ensures</span> result >= 0
+      <span class="logical">ensures</span> result = 0 -> not belongs v s
+      <span class="logical">ensures</span> result > 0 -> belongs v s *)</span>
+
+  <span class="contract">(*@ <span class="logical">predicate</span> is_set (s: set) = <span class="logical">forall</span> x: elt. occ x s &lt;= 1 *)</span>
+
+  <span class="keyword">let</span> empty () = <span class="keyword">let</span> s: set = [] <span class="keyword">in</span> s
+  <span class="contract">(*@ res = empty ()
+      <span class="logical">ensures</span> is_set res
+      <span class="logical">ensures</span> <span class="logical">forall</span> x:elt. not belongs x res *)</span>
+
+  <span class="keyword">let</span> mem (v: elt) s = <span class="keyword">List</span>.mem v s
+  <span class="contract">(*@ res = mem v s
+      <span class="logical">requires</span> is_set s
+      <span class="logical">ensures</span> res &lt;-> belongs v s *)</span>
+
+  <span class="keyword">let</span> add (v: elt) s = 
+    <span class="keyword">if</span> mem v s <span class="keyword">then</span> s
+    <span class="keyword">else</span> v::s
+  <span class="contract">(*@ res = add v s
+      <span class="logical">requires</span> is_set s
+      <span class="logical">ensures</span> belongs v res
+      <span class="logical">ensures</span> is_set res *)</span>
+
+  <span class="contract">(*@ <span class="logical">lemma</span> subset: <span class="logical">forall</span> h:elt, t:set. is_set (h::t) -> is_set t *)</span>
+  
+  <span class="keyword">let</span> <span class="keyword">rec</span> is_subset (s1: set) (s2: set) =
+    <span class="keyword">match</span> s1 <span class="keyword">with</span>
+    | [] -> <span class="keyword">true</span>
+    | h::t -> <span class="keyword">List</span>.mem h s2 &amp;&amp; is_subset t s2
+  <span class="contract">(*@ res = is_subset s1 s2
+      <span class="logical">requires</span> is_set s1
+      <span class="logical">requires</span> is_set s2
+      <span class="logical">variant</span> s1
+      <span class="logical">ensures</span> res &lt;-> <span class="logical">forall</span> x:elt. belongs x s1 -> belongs x s2 *)</span>
+
+<span class="keyword">end</span></pre>
+<div class="info">
+<p>This page was generated with <a href="https://github.com/PedroGasparinho/Cameleer2Html">Cameleer2Html</a><p>
+</div>
+</body></html>
