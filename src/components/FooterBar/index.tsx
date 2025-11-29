@@ -7,7 +7,7 @@ function FooterBar() {
         <p>Pedro Gasparinho, Mário Pereira</p>
       </div>
       <div className="footerBar-rightItem">
-        <p>Draft Version: 24 Nov. 2025</p>
+        <p>Draft Version: 29 Nov. 2025</p>
       </div>
     </div>
   );
